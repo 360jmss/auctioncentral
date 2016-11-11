@@ -1,4 +1,6 @@
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -6,13 +8,10 @@ import java.util.List;
  * @author Simon DeMartini
  * @version Nov 7 2016
  */
-public class Auction {
+public class Auction implements Serializable {
 
     /** The start time of the auction.*/
-    private Date myStartTime;
-
-    /** The ending time of the auction. */
-    private Date myEndTime;
+    private LocalDateTime myStartTime;
 
     /** The estimated number of items for the auction. */
     private int myEstItems;
@@ -25,12 +24,15 @@ public class Auction {
 
 
     /**
-     * The constructor for the auction. All fields are required.
-     * @param theStartTime
-     * @param theEndTime
+     * The constructor for the auction. All fields are required. Set any optional fields with setters.
+     * @param theStartTime the starting time
      */
-    Auction(Date theStartTime, Date theEndTime) {
-        //TODO make Auction constructor
+    Auction(LocalDateTime theStartTime) {
+        myStartTime = theStartTime;
+
+        myEstItems = 0;
+        myComment = "";
+        myItems = new ArrayList<AuctionItem>();
     }
 
     /**
@@ -38,7 +40,7 @@ public class Auction {
      * @param item a valid and complete AuctionItem
      */
     public void addItem(AuctionItem item) {
-        //TODO add items
+        myItems.add(item);
     }
 
     /**
@@ -54,7 +56,7 @@ public class Auction {
      * Get the start date and time of the auction.
      * @return the start date and time of the auction.
      */
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return myStartTime;
     }
 
@@ -62,24 +64,8 @@ public class Auction {
      * Set the starting time and date of the auction.
      * @param theStartTime the starting time and date.
      */
-    public void setStartTime(Date theStartTime) {
+    public void setStartTime(LocalDateTime theStartTime) {
         this.myStartTime = theStartTime;
-    }
-
-    /**
-     * Get the end date and time of the auction.
-     * @return the end date and time of the auction.
-     */
-    public Date getEndTime() {
-        return myEndTime;
-    }
-
-    /**
-     * Set the ending time and date of the auction.
-     * @param theEndTime the ending time and date.
-     */
-    public void setEndTime(Date theEndTime) {
-        this.myEndTime = theEndTime;
     }
 
     /**
