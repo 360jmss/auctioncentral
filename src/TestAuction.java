@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 /**
  * Created by simon on 11/10/16.
  */
-public class AuctionTest {
+public class TestAuction {
 
     private Auction aJan5;
 
