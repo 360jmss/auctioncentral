@@ -46,7 +46,7 @@ public class Contact extends User {
         myBusinessEmail = theBusinessEmail;
         myBusinessAddress = theBusinessAddress;
         myOrganization = theOrganization;
-        myAuction = new Auction();
+        //myAuction = new Auction();
     }
 
     /**
