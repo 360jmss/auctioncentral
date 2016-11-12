@@ -22,7 +22,7 @@ public class Bidder extends User {
     /**
      * A registered bidder's list of bids.
      */
-    private List<Bid> myBids;
+    //private List<Bid> myBids;
 
     /**
      * Constructs a bidder object. The bidder must have a name, username, phone number, address, and email address
@@ -42,7 +42,7 @@ public class Bidder extends User {
         myEmail = theEmail;
         myAddress = theAddress;
         myPaymentInfo = "default";
-        myBids = new List<Bid>();
+        //myBids = new List<Bid>();
     }
 
     /**
