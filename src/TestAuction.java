@@ -19,7 +19,7 @@ public class TestAuction {
 
     @org.junit.Test
     public void addItem() throws Exception {
-        AuctionItem ai = new AuctionItem();
+        AuctionItem ai = new AuctionItem("Apple", 1, 1, 50.00);
         aJan5.addItem(ai);
         assertEquals(1, aJan5.getItems().size());
     }
