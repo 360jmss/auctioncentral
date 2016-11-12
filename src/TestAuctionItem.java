@@ -19,7 +19,6 @@ public class TestAuctionItem {
         apple.addBid("Sam", 1.0);
         Double one = 1.0;
         assertEquals(one, apple.getHighestBid());
-
     }
 
 
