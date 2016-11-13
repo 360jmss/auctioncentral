@@ -1,5 +1,8 @@
 /**
- * Created by Jessica on 11/10/2016.
+ * Staff holds information necessary for a staff member of Auction Central. They need a name and username.
+ *
+ * @author Jessica Sills
+ * @version Nov 12 2016
  */
 public class Staff extends User {
 
@@ -30,5 +33,21 @@ public class Staff extends User {
      */
     public String getUsername() {
         return myUsername;
+    }
+
+    /**
+     * Sets the name of a user.
+     *
+     * @param theName The name of a user
+     */
+    public void setName(String theName) { myName = theName; }
+
+    /**
+     * Sets the username of a user.
+     *
+     * @param theUsername The username of a user.
+     */
+    public void setUsername(String theUsername) {
+        myUsername = theUsername;
     }
 }
