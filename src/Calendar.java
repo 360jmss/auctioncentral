@@ -58,8 +58,37 @@ public class Calendar implements Serializable {
      *  @return true if the Auction meets the above requirements, false otherwise
      */
     public boolean validateAuction(Auction theAuction) {
-        return checkAuctionsByContact(theAuction)
-                && (getFutureAuctionTotal() < 25);
+        return checkAuctionsByContact(theAuction) &&
+                checkBetweenWeekAndMonth(theAuction) &&
+                checkAuctionTotalPerDate(theAuction) &&
+                (getFutureAuctionTotal() < 25);
+    }
+
+    /**
+     *  Helper method to check if the auction to be scheduled is between one week and month.
+     *  @param theAuction the auction to test
+     */
+    private boolean checkBetweenWeekAndMonth(Auction theAuction) {
+        LocalDate weekOut = LocalDate.now().plusWeeks(1).minusDays(1);
+        LocalDate monthOut = LocalDate.now().plusMonths(1).plusDays(1);
+        return theAuction.getStartTime().toLocalDate().isAfter(weekOut) &&
+                theAuction.getStartTime().toLocalDate().isBefore(monthOut);
+    }
+
+    /**
+     *  Helper method to check if there is an auction already schedule for that day.
+     *  @param theAuction the auction to test
+     */
+    private boolean checkAuctionTotalPerDate(Auction theAuction) {
+        int num = 0;
+        for(Auction a : myAuctions) {
+            if(a.getStartTime().toLocalDate().equals(theAuction.getStartTime().toLocalDate())) {
+                num++;
+            }
+
+            if (num >= 2) return false;
+        }
+        return true;
     }
 
     /**

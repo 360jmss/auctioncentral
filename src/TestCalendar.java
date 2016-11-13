@@ -1,3 +1,4 @@
+import java.awt.event.ActionEvent;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
@@ -30,6 +31,11 @@ public class TestCalendar {
         //more than one auction within past year?
     }
 
+    /**
+     * Generate a quick new and unique contact for testing
+     * @param id some number to make the username unique
+     * @return a new contact
+     */
     public Contact genContact(int id) {
         return new Contact("John Doe",
                 "johndoe" + id,
@@ -121,6 +127,93 @@ public class TestCalendar {
             calendar.addAuction(new Auction(LocalDateTime.now().plusDays(i + 1), genContact(i)));
         }
         assertFalse(calendar.validateAuction(futureJD1));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionWeekAheadWith1Week() throws Exception {
+        Auction future1w = new Auction(LocalDateTime.now().plusWeeks(1), jd);
+        assertTrue(calendar.validateAuction(future1w));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionWeekAheadWith1Week1day() throws Exception {
+        Auction future1w = new Auction(LocalDateTime.now().plusWeeks(1).plusDays(1), jd);
+        assertTrue(calendar.validateAuction(future1w));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionWeekAheadWith6days() throws Exception {
+        Auction future1w = new Auction(LocalDateTime.now().plusDays(6), jd);
+        assertFalse(calendar.validateAuction(future1w));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionWeekAheadWith2days() throws Exception {
+        Auction future1w = new Auction(LocalDateTime.now().plusDays(2), jd);
+        assertFalse(calendar.validateAuction(future1w));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionWeekAheadWithToday() throws Exception {
+        Auction future1w = new Auction(LocalDateTime.now(), jd);
+        assertFalse(calendar.validateAuction(future1w));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionWeekAheadWithYesterday() throws Exception {
+        Auction future1w = new Auction(LocalDateTime.now().minusDays(1), jd);
+        assertFalse(calendar.validateAuction(future1w));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionMonthMaxExactly() throws Exception {
+        Auction future1m = new Auction(LocalDateTime.now().plusMonths(1), jd);
+        assertTrue(calendar.validateAuction(future1m));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionMonthMaxMinus1Day() throws Exception {
+        Auction future1m = new Auction(LocalDateTime.now().plusMonths(1).minusDays(1), jd);
+        assertTrue(calendar.validateAuction(future1m));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionMonthMaxPlus1Day() throws Exception {
+        Auction future1m = new Auction(LocalDateTime.now().plusMonths(1).plusDays(1), jd);
+        assertFalse(calendar.validateAuction(future1m));
+    }
+
+    @org.junit.Test
+    public void testValidateAuctionMonthMaxPlus1Week() throws Exception {
+        Auction future1m = new Auction(LocalDateTime.now().plusMonths(1).plusWeeks(1), jd);
+        assertFalse(calendar.validateAuction(future1m));
+    }
+
+    @org.junit.Test
+    public void testValidateAuction2PerDayWith1() throws Exception {
+        Auction future2 = new Auction(LocalDateTime.now().plusWeeks(2), genContact(1));
+        calendar.addAuction(futureJD1);
+        assertTrue(calendar.validateAuction(future2));
+    }
+
+    @org.junit.Test
+    public void testValidateAuction2PerDayWith2() throws Exception {
+        Auction future2 = new Auction(LocalDateTime.now().plusWeeks(2), genContact(1));
+        Auction future3 = new Auction(LocalDateTime.now().plusWeeks(2), genContact(2));
+        calendar.addAuction(futureJD1);
+        calendar.addAuction(future2);
+        assertFalse(calendar.validateAuction(future3));
+    }
+
+    @org.junit.Test
+    public void testValidateAuction2PerDayWith3() throws Exception {
+        Auction future2 = new Auction(LocalDateTime.now().plusWeeks(2), genContact(1));
+        Auction future3 = new Auction(LocalDateTime.now().plusWeeks(2), genContact(2));
+        Auction future4 = new Auction(LocalDateTime.now().plusWeeks(2), genContact(3));
+        calendar.addAuction(futureJD1);
+        calendar.addAuction(future2);
+        calendar.addAuction(future3);
+        assertFalse(calendar.validateAuction(future4));
     }
 
     @org.junit.Test
