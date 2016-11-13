@@ -4,7 +4,9 @@ import java.time.Month;
 import static org.junit.Assert.*;
 
 /**
- * Created by simon on 11/10/16.
+ * This is a JUnit test class for the Auction
+ * @author Simon DeMartini
+ * @version Nov 13 2016
  */
 public class TestAuction {
 
