@@ -1,28 +1,28 @@
 /**
- * Created by Jessica on 11/10/2016.
+ * Contact holds information necessary for a contact of a non-profit organization who wishes to use AuctionCentral.
+ * This information includes a business phone number, a business email, a business address, the name of their
+ * organization, and an auction, if they currently have one scheduled. These are in addition to their name and
+ * username.
+ *
+ * @author Jessica Sills
+ * @version Nov 12 2016
  */
 
 public class Contact extends User {
 
-    /**
-     * The contact person's business phone number as a string.
-     */
+    /** The contact person's business phone number as a string.*/
     private String myBusinessPhoneNumber;
-    /**
-     * The contact person's business email as a string.
-     */
+
+    /** The contact person's business email as a string.*/
     private String myBusinessEmail;
-    /**
-     * The contact person's business address as a string.
-     */
+
+    /** The contact person's business address as a string.*/
     private String myBusinessAddress;
-    /**
-     * The contact person's organization name as a string.
-     */
+
+    /** The contact person's organization name as a string.*/
     private String myOrganization;
-    /**
-     * The contact person's Auction.
-     */
+
+    /** The contact person's Auction.*/
     private Auction myAuction;
 
     /**
@@ -112,4 +112,64 @@ public class Contact extends User {
         return myAuction;
     }
 
+    /**
+     * Sets the name of a user.
+     *
+     * @param theName The name of a user
+     */
+    public void setName(String theName) { myName = theName; }
+
+    /**
+     * Sets the username of a user.
+     *
+     * @param theUsername The username of a user.
+     */
+    public void setUsername(String theUsername) {
+        myUsername = theUsername;
+    }
+
+    /**
+     * Sets the business phone number of a contact.
+     *
+     * @param theBusinessPhoneNumber The business phone number of a contact.
+     */
+    public void setBusinessPhoneNumber(String theBusinessPhoneNumber) {
+        myBusinessPhoneNumber = theBusinessPhoneNumber;
+    }
+
+    /**
+     * Sets the business address of a contact.
+     *
+     * @param theBusinessAddress The business address of a contact.
+     */
+    public void setBusinessAddress(String theBusinessAddress) {
+        myBusinessAddress = theBusinessAddress;
+    }
+
+    /**
+     * Sets the business email of a contact.
+     *
+     * @param theBusinessEmail The business email of a contact.
+     */
+    public void setBusinessEmail(String theBusinessEmail) {
+        myBusinessEmail = theBusinessEmail;
+    }
+
+    /**
+     * Sets the name of the organization of the contact.
+     *
+     * @param theOrganization The name of the organization of the contact.
+     */
+    public void setOrganization(String theOrganization) {
+        myOrganization = theOrganization;
+    }
+
+    /**
+     * Sets the Auction that the contact has scheduled.
+     *
+     * @param theAuction The Auction that a contact has scheduled.
+     */
+    public void setAuction(Auction theAuction) {
+        myAuction = theAuction;
+    }
 }

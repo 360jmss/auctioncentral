@@ -1,27 +1,26 @@
 /**
- * Created by Jessica on 11/10/2016.
+ * Bidder holds information necessary for a bidder who wishes to use AuctionCentral.
+ * This information includes a phone number, an email, an address, their payment information, and a list of bids if
+ * they currently have any. These are in addition to their name and username.
+ *
+ * @author Jessica Sills
+ * @version Nov 12 2016
  */
 public class Bidder extends User {
 
-    /**
-     * A registered bidder's phone number as a string.
-     */
+    /** A registered bidder's phone number as a string.*/
     private String myPhoneNumber;
-    /**
-     * A registered bidder's address as a string.
-     */
+
+    /** A registered bidder's address as a string.*/
     private String myAddress;
-    /**
-     * A registered bidder's email address as a string.
-     */
+
+    /** A registered bidder's email address as a string.*/
     private String myEmail;
-    /**
-     * A registered bidder's payment information as a string. Set to "default in the constructor.
-     */
+
+    /** A registered bidder's payment information as a string. Set to "default in the constructor.*/
     private String myPaymentInfo;
-    /**
-     * A registered bidder's list of bids.
-     */
+
+    /** A registered bidder's list of bids.*/
     //private List<Bid> myBids;
 
     /**
@@ -98,4 +97,50 @@ public class Bidder extends User {
     public String getPaymentInfo() {
         return myPaymentInfo;
     }
+
+    /**
+     * Sets the name of a user.
+     *
+     * @param theName The name of a user
+     */
+    public void setName(String theName) { myName = theName; }
+
+    /**
+     * Sets the username of a user.
+     *
+     * @param theUsername The username of a user.
+     */
+    public void setUsername(String theUsername) {
+        myUsername = theUsername;
+    }
+
+    /**
+     * Sets the phone number of a bidder.
+     *
+     * @param thePhoneNumber The phone number of a bidder.
+     */
+    public void setPhoneNumber(String thePhoneNumber) { myPhoneNumber = thePhoneNumber; }
+
+    /**
+     * Sets the address of a bidder.
+     *
+     * @param theAddress The address of a bidder.
+     */
+    public void setAddress(String theAddress) { myAddress = theAddress; }
+
+    /**
+     * Sets the email address of a bidder.
+     *
+     * @param theEmail The email address of a bidder.
+     */
+    public void setEmail(String theEmail) {
+        myEmail = theEmail;
+    }
+
+    /**
+     * Sets the payment information of a bidder.
+     *
+     * @param thePaymentInfo The payment information of a bidder.
+     */
+    public void setPaymentInfo(String thePaymentInfo) { myPaymentInfo = thePaymentInfo; }
 }
