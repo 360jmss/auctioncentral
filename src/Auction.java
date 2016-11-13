@@ -22,13 +22,17 @@ public class Auction implements Serializable {
     /** A list of all AuctionItems for this auction. */
     private List<AuctionItem> myItems;
 
+    /** The contact person for the Auction. */
+    private Contact myContact;
+
 
     /**
      * The constructor for the auction. All fields are required. Set any optional fields with setters.
      * @param theStartTime the starting time
      */
-    Auction(LocalDateTime theStartTime) {
+    Auction(LocalDateTime theStartTime, Contact theContact) {
         myStartTime = theStartTime;
+        myContact = theContact;
 
         myEstItems = 0;
         myComment = "";
@@ -82,6 +86,14 @@ public class Auction implements Serializable {
      */
     public void setEstItems(int theEstItems) {
         this.myEstItems = theEstItems;
+    }
+
+    /**
+     * Get the comments about this auction
+     * @return the comments
+     */
+    public Contact getContact() {
+        return myContact;
     }
 
     /**

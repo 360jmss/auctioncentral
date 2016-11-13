@@ -43,4 +43,32 @@ public class Calendar implements Serializable {
     public List<Auction> getAuctions(LocalDateTime theTime) {
         return myAuctions;
     }
+
+    /**
+     * Check to see if an auction can fit in the Calendar with the correct rules.
+     *  - Maximum of one future auction for a non-profit
+     *  - No auctions withing past year
+     *  - Max two auctions per day
+     *  - Max 25 auctions
+     *  - Cannot schedule more than one month into future
+     *  - Auction must be one week from the day it is scheduled
+     *  @author Simon DeMartini
+     *  @param auction a valid and complete Auction
+     *  @return true if the Auction meets the above requirements, false otherwise
+     */
+    public boolean validateAuction(Auction auction) {
+        return isOnlyAuctionForNPO(auction.getContact());
+    }
+
+    /**
+     * Helper method to determine if a contact already has an Auction scheduled
+     * @param contact the contact person
+     */
+    private boolean isOnlyAuctionForNPO(Contact contact) {
+        for(Auction a : myAuctions) {
+            if(a.getContact() == contact) return false;
+        }
+        return true;
+    }
+
 }
