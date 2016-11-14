@@ -7,13 +7,16 @@ import java.time.LocalDateTime;
  * @author Simon DeMartini
  * @version Nov 7 2016
  */
-public class AuctionCentral implements Serializable {
+public class AuctionCentral {
 
     /** The file location for the users repo when serialized."*/
     private static final File USERS_REPO_FILE = new File("./users.ser");
 
     /** The file location for the users repo when serialized."*/
     private static final File CALENDAR_FILE= new File("./cal.ser");
+
+    /** A debugging mode where files are not saved or serialized if true. False by default */
+    private static final boolean DEBUG_FILE_MODE = false;
 
     /** The Master UserRepo */
     private static UserRepo myUsers;
@@ -22,38 +25,23 @@ public class AuctionCentral implements Serializable {
     private static Calendar myCalendar;
 
     /**
-     * Constructor for AuctionCentral.
-     */
-    public AuctionCentral() {
-        myUsers = new UserRepo();
-        myCalendar = new Calendar();
-    }
-
-    /**
      * Start the program.
      *
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        //TODO Start up
+        myUsers = new UserRepo();
+        myCalendar = new Calendar();
+
         System.out.println("Welcome to AuctionCentral");
 
         //read in serialized objects
-        readCalAndUsers();
+        if(!DEBUG_FILE_MODE) readCalAndUsers();
 
         //start the UI
-        Contact jd = new Contact("John Doe",
-                "johndoe4",
-                "253-867-5309",
-                "contact@somewhere.edu",
-                "123 Main St",
-                "Veridian Dynamics");
-        Auction futureJD1 = new Auction(LocalDateTime.now().plusWeeks(2), jd);
-        myCalendar.addAuction(futureJD1);
-        myUsers.registerUser(jd);
 
         //save serialized objects when UI is done
-        writeCalAndUsers();
+        if(!DEBUG_FILE_MODE) writeCalAndUsers();
 
     }
 
@@ -69,8 +57,6 @@ public class AuctionCentral implements Serializable {
                 System.out.println("Yeah something went wrong reading a file. ");
                 e.printStackTrace();
             }
-        } else {
-            myUsers = new UserRepo();
         }
         //read Calendar
         if(CALENDAR_FILE.isFile()) {
@@ -80,8 +66,6 @@ public class AuctionCentral implements Serializable {
                 System.out.println("Yeah something went wrong reading a file. ");
                 e.printStackTrace();
             }
-        } else {
-            myCalendar = new Calendar();
         }
     }
 
