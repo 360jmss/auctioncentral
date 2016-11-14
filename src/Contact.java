@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * Contact holds information necessary for a contact of a non-profit organization who wishes to use AuctionCentral.
  * This information includes a business phone number, a business email, a business address, the name of their

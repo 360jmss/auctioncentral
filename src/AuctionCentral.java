@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDateTime;
 
 /**
  * This class is the starting point for the AuctionCentral program and is responsible for storing and saving the
@@ -41,6 +42,15 @@ public class AuctionCentral implements Serializable {
         readCalAndUsers();
 
         //start the UI
+        Contact jd = new Contact("John Doe",
+                "johndoe4",
+                "253-867-5309",
+                "contact@somewhere.edu",
+                "123 Main St",
+                "Veridian Dynamics");
+        Auction futureJD1 = new Auction(LocalDateTime.now().plusWeeks(2), jd);
+        myCalendar.addAuction(futureJD1);
+        myUsers.registerUser(jd);
 
         //save serialized objects when UI is done
         writeCalAndUsers();
@@ -59,6 +69,8 @@ public class AuctionCentral implements Serializable {
                 System.out.println("Yeah something went wrong reading a file. ");
                 e.printStackTrace();
             }
+        } else {
+            myUsers = new UserRepo();
         }
         //read Calendar
         if(CALENDAR_FILE.isFile()) {
@@ -68,6 +80,8 @@ public class AuctionCentral implements Serializable {
                 System.out.println("Yeah something went wrong reading a file. ");
                 e.printStackTrace();
             }
+        } else {
+            myCalendar = new Calendar();
         }
     }
 
@@ -80,16 +94,16 @@ public class AuctionCentral implements Serializable {
             writeFile(myCalendar, CALENDAR_FILE);
         } catch ( Exception e) {
             System.out.println("Yeah something went wrong writing the file. ");
+            CALENDAR_FILE.delete();
             e.printStackTrace();
         }
 
-        if(CALENDAR_FILE.isFile()) {
-            try {
-                writeFile(myUsers, USERS_REPO_FILE);
-            } catch ( Exception e) {
-                System.out.println("Yeah something went wrong writing the file. ");
-                e.printStackTrace();
-            }
+        try {
+            writeFile(myUsers, USERS_REPO_FILE);
+        } catch ( Exception e) {
+            System.out.println("Yeah something went wrong writing the file. ");
+            USERS_REPO_FILE.delete();
+            e.printStackTrace();
         }
     }
 
@@ -106,6 +120,7 @@ public class AuctionCentral implements Serializable {
             ObjectInputStream in = new ObjectInputStream(fileIn);
             obj = in.readObject();
             in.close();
+            fileIn.close();
         } catch(IOException e) {
             e.printStackTrace();
             return null;
@@ -134,5 +149,4 @@ public class AuctionCentral implements Serializable {
             e.printStackTrace();
         }
     }
-
 }

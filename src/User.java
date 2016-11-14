@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 /**
  * Abstract class that encompasses Bidder, Staff, and Contact.
  *
  * @author Jessica Sills
  * @version Nov 12 2016
  */
-public abstract class User {
+public abstract class User implements Serializable{
 
     /** The name of a user as a string.*/
     public String myName;
