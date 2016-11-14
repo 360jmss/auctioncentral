@@ -5,9 +5,11 @@ import java.util.HashMap;
  * This class represents an AuctionItem and holds necessary information
  * that an item holds.
  * @author Samantha Ong
- * @version 11/11/2016.
+ * @version 11/13/2016.
  */
 public class AuctionItem implements Serializable{
+    /**The number for which an instance of an item will be taken from.*/
+    private static int ID = 0;
 
     /**The name of the AucitonItem*/
     private String myName;
@@ -33,10 +35,11 @@ public class AuctionItem implements Serializable{
     /**The list of bids on this AucitonItem*/
     private HashMap<String, Double> myBidList;
 
-    /**
-     * The highest bidder.
-     */
-    private Double myHighestBid;
+    /**The highest bidder.*/
+    private String myHighestBidder;
+
+    /**The items uniqueID*/
+    private int myUniqueID;
 
     /**
      * The constructor of AuctionItem.
@@ -54,7 +57,9 @@ public class AuctionItem implements Serializable{
         myDescription = "";
         myComment = "";
         myBidList = new HashMap<String, Double>();
-        myHighestBid = 0.0;
+        myHighestBidder = "";
+        myUniqueID = ID;
+        ID++;
     }
 
     /**
@@ -113,10 +118,19 @@ public class AuctionItem implements Serializable{
         return myComment;
     }
 
+    /**
+     * Returns the highest bid on the item.
+     * @return the highest bid.
+     */
     public Double getHighestBid() {
-        return myHighestBid;
+        return myBidList.get(myHighestBidder);
     }
 
+    /**
+     * Returns the users bid.
+     * @param theBidderName the user's name.
+     * @return the users bid.
+     */
     public Double getBid(String theBidderName) {
         return myBidList.get(theBidderName);
     }
@@ -152,9 +166,14 @@ public class AuctionItem implements Serializable{
      */
     public void addBid(String theBidderName,Double theBid) {
         myBidList.put(theBidderName, theBid);
-        if (myHighestBid < theBid) {
-            myHighestBid = theBid;
+        if (myBidList.get(myHighestBidder) < theBid) {
+            myHighestBidder = theBidderName;
         }
+    }
+
+    @Override
+    public String toString() {
+        return myUniqueID + myName + myCondition + myMinBid;
     }
 
 }
