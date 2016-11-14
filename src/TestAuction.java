@@ -4,15 +4,25 @@ import java.time.Month;
 import static org.junit.Assert.*;
 
 /**
- * Created by simon on 11/10/16.
+ * This is a JUnit test class for the Auction
+ * @author Simon DeMartini
+ * @version Nov 13 2016
  */
 public class TestAuction {
 
     private Auction aJan5;
+    private Contact jd;
 
     @org.junit.Before
     public void setUp() throws Exception {
-        aJan5 = new Auction(LocalDateTime.of(2017, Month.JANUARY, 5, 9, 30));
+        jd = new Contact("John Doe",
+                "johndoe",
+                "253-867-5309",
+                "contact@somewhere.edu",
+                "123 Main St",
+                "Veridian Dynamics");
+
+        aJan5 = new Auction(LocalDateTime.of(2017, Month.JANUARY, 5, 9, 30), jd);
         aJan5.setComment("Sample Auction");
         aJan5.setEstItems(5);
     }
