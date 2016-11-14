@@ -39,6 +39,8 @@ public class AuctionCentral {
         if(!DEBUG_FILE_MODE) readCalAndUsers();
 
         //start the UI
+        //UIMain ui = new UIMain();
+        //ui.start(myRepo, myCalendar);
 
         //save serialized objects when UI is done
         if(!DEBUG_FILE_MODE) writeCalAndUsers();
