@@ -23,11 +23,11 @@ public class Calendar implements Serializable {
 
     /**
      * Overloaded constructor for the Calendar when passing in a list of Auctions.
-     * @param AucList the  auction list
-     */
-    Calendar(List<Auction> AucList) {
-        myAuctions = AucList;
-    }
+     * @param myAucList the auction list
+     */ /* TODO are we implementing this?
+    Calendar(List<Auction> myAucList) {
+        myAuctions = myAucList;
+    } */
 
     /**
      * Add an auction to the list of auctions.
@@ -41,8 +41,39 @@ public class Calendar implements Serializable {
      * Get the list of all auctions
      * @return a list of Auctions
      */
-    public List<Auction> getAuctions(LocalDateTime theTime) {
+    public List<Auction> getAuctions() {
         return myAuctions;
+    }
+
+    /**
+     * Get the list of all auctions after specified date.
+     * @param theTime The time of comparison, usually the current time
+     * @return a filtered list of Auctions
+     */
+    public List<Auction> getAuctions(LocalDateTime theTime) {
+        List<Auction> myNewAuctions = new ArrayList<>();
+        for(Auction a : myAuctions) {
+            if(a.getStartTime().isAfter(theTime)) {
+                myNewAuctions.add(a);
+            }
+        }
+        return myNewAuctions;
+    }
+
+    /**
+     * Get the list of all auctions after specified date
+     *  within a one month period.
+     * @param theTime The time of comparison, usually the current time
+     * @return a filtered list of Auctions
+     */
+    public List<Auction> getAuctionsOneMonth(LocalDateTime theTime) {
+        List<Auction> myNewAuctions = new ArrayList<>();
+        for(Auction a : myAuctions) {
+            if(a.getStartTime().isAfter(theTime) && a.getStartTime().isBefore(theTime.plusMonths(1))) {
+                myNewAuctions.add(a);
+            }
+        }
+        return myNewAuctions;
     }
 
     /**
@@ -116,6 +147,22 @@ public class Calendar implements Serializable {
         int num = 0;
         for(Auction a : myAuctions) {
             if (a.getStartTime().toLocalDate().isAfter(today)) num++;
+        }
+        return num;
+    }
+
+    /**
+     * Return the number of future auctions scheduled after today
+     *  within a one month period.
+     * @return the number of auctions
+     */
+    public int getFutureAuctionOneMonth() {
+        LocalDate today = LocalDate.now();
+        int num = 0;
+        for(Auction a : myAuctions) {
+            if (a.getStartTime().toLocalDate().isAfter(today) &&
+                    a.getStartTime().toLocalDate().isBefore(today.plusMonths(1)))
+                        num++;
         }
         return num;
     }

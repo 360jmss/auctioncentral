@@ -18,7 +18,7 @@ public class TestAuction {
         jd = new Contact("John Doe",
                 "johndoe",
                 "253-867-5309",
-                "contact@somehwere.edu",
+                "contact@somewhere.edu",
                 "123 Main St",
                 "Veridian Dynamics");
 

@@ -2,6 +2,7 @@ import java.awt.event.ActionEvent;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 /**
  * The unit tests for Calendar.
@@ -12,7 +13,7 @@ public class TestCalendar {
 
     private Calendar calendar;
     private Contact jd;
-    private Auction futureJD1, futureJD2, futureJD3;
+    private Auction futureJD1, futureJD2, futureJD3, futureJD4;
 
     @org.junit.Before
     public void setUp() throws Exception {
@@ -21,13 +22,13 @@ public class TestCalendar {
         jd = new Contact("John Doe",
                 "johndoe",
                 "253-867-5309",
-                "contact@somehwere.edu",
+                "contact@somewhere.edu",
                 "123 Main St",
                 "Veridian Dynamics");
         futureJD1 = new Auction(LocalDateTime.now().plusWeeks(2), jd);
         futureJD2 = new Auction(LocalDateTime.now().plusWeeks(3), jd);
         futureJD3 = new Auction(LocalDateTime.now().plusWeeks(4), jd);
-
+        futureJD4 = new Auction(LocalDateTime.now().plusWeeks(5), jd);
         //more than one auction within past year?
     }
 
@@ -40,9 +41,27 @@ public class TestCalendar {
         return new Contact("John Doe",
                 "johndoe" + id,
                 "253-867-5309",
-                "contact@somehwere.edu",
+                "contact@somewhere.edu",
                 "123 Main St",
                 "Veridian Dynamics");
+    }
+
+    @org.junit.Test
+    public void testGetAuctions() throws Exception {
+        calendar.addAuction(futureJD1);
+        calendar.addAuction(futureJD2);
+        calendar.addAuction(futureJD3);
+        calendar.addAuction(futureJD4);
+        assertThat(calendar.getAuctions(), is(calendar.getAuctions(LocalDateTime.now())));
+    }
+
+    @org.junit.Test
+    public void testGetAuctionsOneMonth() throws Exception {
+        calendar.addAuction(futureJD1);
+        calendar.addAuction(futureJD2);
+        calendar.addAuction(futureJD3);
+        calendar.addAuction(futureJD4);
+        assertThat(calendar.getAuctions(), not(calendar.getAuctions(LocalDateTime.now())));
     }
 
     @org.junit.Test
@@ -234,6 +253,26 @@ public class TestCalendar {
             calendar.addAuction(new Auction(LocalDateTime.now().plusDays(i + 1), genContact(i)));
         }
         assertEquals(5, calendar.getFutureAuctionTotal());
+    }
+
+    @org.junit.Test
+    public void testGetFutureAuctionOneMonthTodayTomorrow() throws Exception {
+        calendar.addAuction(new Auction(LocalDateTime.now(), jd));
+        calendar.addAuction(futureJD1);
+        assertEquals(1, calendar.getFutureAuctionTotal());
+    }
+
+    @org.junit.Test
+    public void testGetFutureAuctionOneMonthZero() throws Exception {
+        assertEquals(0, calendar.getFutureAuctionTotal());
+    }
+
+    @org.junit.Test
+    public void testGetFutureAuctionOneMonth7() throws Exception {
+        for(int i = 0; i < 7; i++) {
+            calendar.addAuction(new Auction(LocalDateTime.now().plusDays(i + 1), genContact(i)));
+        }
+        assertEquals(7, calendar.getFutureAuctionTotal());
     }
 
 }
