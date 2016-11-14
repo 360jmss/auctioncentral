@@ -61,7 +61,7 @@ public class TestCalendar {
         calendar.addAuction(futureJD2);
         calendar.addAuction(futureJD3);
         calendar.addAuction(futureJD4);
-        assertThat(calendar.getAuctions(), not(calendar.getAuctions(LocalDateTime.now())));
+        assertThat(calendar.getAuctions(), not(calendar.getAuctionsOneMonth(LocalDateTime.now())));
     }
 
     @org.junit.Test
