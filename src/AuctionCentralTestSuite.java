@@ -16,6 +16,7 @@ import org.junit.runners.Suite;
         //TestStaff.class,
         //TestContact.class,
         TestAuctionItem.class,
+        TestUserRepo.class,
         //TestAuctionCentral.class
 })
 

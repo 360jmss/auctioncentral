@@ -119,4 +119,11 @@ public class Auction implements Serializable {
     public List<AuctionItem> getItems() {
         return myItems;
     }
+
+    /**
+     * Gets the String representation of an auction containing the date and the organization name
+     */
+    public String toString() {
+        return this.getStartTime().toLocalDate().toString() + " " + this.getContact().getOrganization();
+    }
 }
