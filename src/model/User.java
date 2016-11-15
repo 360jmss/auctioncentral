@@ -1,7 +1,9 @@
+package model;
+
 import java.io.Serializable;
 
 /**
- * Abstract class that encompasses Bidder, Staff, and Contact.
+ * Abstract class that encompasses model.Bidder, model.Staff, and model.Contact.
  *
  * @author Jessica Sills
  * @version Nov 12 2016

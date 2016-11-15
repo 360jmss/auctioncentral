@@ -1,4 +1,6 @@
-import org.junit.Test;
+package test;
+
+import model.AuctionItem;
 
 import static org.junit.Assert.*;
 

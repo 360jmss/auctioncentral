@@ -1,3 +1,5 @@
+package model;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -12,7 +14,7 @@ public class UserRepo implements Serializable {
     private HashMap<String, User> myUsers;
 
     /**
-     * The constructor for a new UserRepo
+     * The constructor for a new model.UserRepo
      */
     public UserRepo() {
         myUsers = new HashMap<>();
@@ -22,7 +24,7 @@ public class UserRepo implements Serializable {
      * Login in as a user based on their username
      *
      * @param theUsername the user's username
-     * @return the valid User, null if the user does not exist
+     * @return the valid model.User, null if the user does not exist
      */
     public User loginUser(String theUsername) {
         return myUsers.get(theUsername);

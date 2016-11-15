@@ -1,7 +1,7 @@
-import java.io.Serializable;
+package model;
 
 /**
- * Bidder holds information necessary for a bidder who wishes to use AuctionCentral.
+ * model.Bidder holds information necessary for a bidder who wishes to use main.AuctionCentral.
  * This information includes a phone number, an email, an address, their payment information, and a list of bids if
  * they currently have any. These are in addition to their name and username.
  *

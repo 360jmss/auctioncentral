@@ -1,3 +1,5 @@
+package model;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -5,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents a Calendar, which manages and schedules the auctions.
+ * This class represents a model.Calendar, which manages and schedules the auctions.
  * @author Miguel Barreto
  * @version 11 Nov, 2016
  */
@@ -15,15 +17,15 @@ public class Calendar implements Serializable {
     private List<Auction> myAuctions;
 
     /**
-     * The constructor for the Calendar.
+     * The constructor for the model.Calendar.
      */
-    Calendar() {
+    public Calendar() {
         myAuctions = new ArrayList<>();
     }
 
     /**
      * Add an auction to the list of auctions.
-     * @param auction a valid and complete Auction
+     * @param auction a valid and complete model.Auction
      */
     public void addAuction(Auction auction) {
         myAuctions.add(auction);
@@ -69,16 +71,16 @@ public class Calendar implements Serializable {
     }
 
     /**
-     * Check to see if an auction can fit in the Calendar with the correct rules.
+     * Check to see if an auction can fit in the model.Calendar with the correct rules.
      *  - Maximum of one future auction for a non-profit
      *  - No auctions withing past year
      *  - Max two auctions per day
      *  - Max 25 auctions
      *  - Cannot schedule more than one month into future
-     *  - Auction must be one week from the day it is scheduled
+     *  - model.Auction must be one week from the day it is scheduled
      *  @author Simon DeMartini
-     *  @param theAuction a valid and complete Auction
-     *  @return true if the Auction meets the above requirements, false otherwise
+     *  @param theAuction a valid and complete model.Auction
+     *  @return true if the model.Auction meets the above requirements, false otherwise
      */
     public boolean validateAuction(Auction theAuction) {
         return checkAuctionsByContact(theAuction) &&

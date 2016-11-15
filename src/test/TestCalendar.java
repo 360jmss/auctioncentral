@@ -1,4 +1,9 @@
-import java.awt.event.ActionEvent;
+package test;
+
+import model.Auction;
+import model.Calendar;
+import model.Contact;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -6,7 +11,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 /**
- * The unit tests for Calendar.
+ * The unit tests for model.Calendar.
  * @author Miguel Barreto
  * @version 11 Nov, 2016
  */

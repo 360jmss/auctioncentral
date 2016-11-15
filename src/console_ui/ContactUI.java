@@ -1,10 +1,17 @@
+package console_ui;
+
+import model.Auction;
+import model.AuctionItem;
+import model.Calendar;
+import model.Contact;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * This class is the sequence of screens the Contact user can see.
+ * This class is the sequence of screens the model.Contact user can see.
  *
  * @author Jessica Sills
  * @version November 14 2016
@@ -24,7 +31,7 @@ public class ContactUI {
     private Auction myAuction;
 
     /**
-     * Constructs a ContactUI object.
+     * Constructs a console_ui.ContactUI object.
      *
      * @param theUser The current user, a contact.
      * @param theCalendar The user's calendar.
@@ -40,7 +47,7 @@ public class ContactUI {
      * one.
      */
     private void displayHeader() {
-        System.out.println("AuctionCentral: the auctioneer for non-profit organizations.");
+        System.out.println("main.AuctionCentral: the auctioneer for non-profit organizations.");
         System.out.println();
         System.out.println(myUser.getName() + " logged in as a contact.");
         System.out.println();
@@ -51,7 +58,7 @@ public class ContactUI {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-            System.out.println("Upcoming Auction date: " + myAuction.getStartTime().format(formatter));
+            System.out.println("Upcoming model.Auction date: " + myAuction.getStartTime().format(formatter));
         } else {
             System.out.println("You have no upcoming auctions yet!");
         }
@@ -130,7 +137,7 @@ public class ContactUI {
         System.out.println("One of three things happened:");
         System.out.println("1. You already had an auction within the past year.");
         System.out.println("2. You already have an auction scheduled sometime from today's date.");
-        System.out.println("3. Auction Central has the max number of auctions scheduled within the date you ");
+        System.out.println("3. model.Auction Central has the max number of auctions scheduled within the date you ");
         System.out.println("    chose, the week you chose, or within the next three months.");
         System.out.println();
         System.out.println("You are being returned to the main menu. Please try changing the date of your auction");
@@ -295,7 +302,7 @@ public class ContactUI {
      */
     public void start() {
         int menuChoice;
-        System.out.println("Hello! Welcome to Auction Central! \n");
+        System.out.println("Hello! Welcome to model.Auction Central! \n");
         do {
             menuChoice = getMenuChoice();
             if (menuChoice == 1) {
@@ -305,6 +312,6 @@ public class ContactUI {
                 displayAddItems();
             }
         } while (menuChoice != 3);
-        System.out.println("\nLogging out. Thank you for using Auction Central.");
+        System.out.println("\nLogging out. Thank you for using model.Auction Central.");
     }
 }

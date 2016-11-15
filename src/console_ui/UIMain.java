@@ -1,4 +1,7 @@
-import java.util.HashMap;
+package console_ui;
+
+import model.*;
+
 import java.util.Scanner;
 
 /**
@@ -15,18 +18,18 @@ public class UIMain {
     /** The master list of all users that can log in. */
     private UserRepo myRepo;
 
-    /** The master calendar for AuctionCentral. */
+    /** The master calendar for main.AuctionCentral. */
     private Calendar myCalendar;
 
     /** Menu option for exiting the UI */
     private static final int EXIT = 3;
 
     /**
-     * The constructor for the UIMain
+     * The constructor for the console_ui.UIMain
      * @param theRepo The repo for the loaded map of all users
      * @param theCalendar The calendar for the loaded list of all auctions
      */
-    UIMain(UserRepo theRepo, Calendar theCalendar) {
+    public UIMain(UserRepo theRepo, Calendar theCalendar) {
         myRepo = theRepo;
         myCalendar = theCalendar;
     }
@@ -38,7 +41,7 @@ public class UIMain {
      */
     private int getMenuChoice() {
         int input;
-        System.out.println("AuctionCentral: the auctioneer for non-profit organizations.\n");
+        System.out.println("main.AuctionCentral: the auctioneer for non-profit organizations.\n");
         printMenuChoices();
         do {
             System.out.print("> ");
@@ -61,7 +64,7 @@ public class UIMain {
         System.out.println("What would you like to do? (Enter an Integer)");
         System.out.println("1. Login");
         System.out.println("2. Register");
-        System.out.println("3. Exit AuctionCentral\n");
+        System.out.println("3. Exit main.AuctionCentral\n");
     }
 
     /**
@@ -69,9 +72,9 @@ public class UIMain {
      */
     private void printRegisterChoices() {
         System.out.println("What type of user are you?");
-        System.out.println("1. Bidder");
-        System.out.println("2. Non-Profit Contact");
-        System.out.println("3. AuctionCentral Staff");
+        System.out.println("1. model.Bidder");
+        System.out.println("2. Non-Profit model.Contact");
+        System.out.println("3. main.AuctionCentral model.Staff");
         System.out.println("4. Go Back");
     }
 
@@ -84,7 +87,7 @@ public class UIMain {
     private void menuLogin() {
         User loginUser;
         String username;
-        System.out.println("\nAuction Central - Login");
+        System.out.println("\nmodel.Auction Central - Login");
         System.out.print("\tUsername: ");
         username = S.nextLine();
         //System.out.println("\tPassword:");
@@ -121,7 +124,7 @@ public class UIMain {
     private void menuRegister() {
         User newUser;
         int input;
-        System.out.println("\nAuction Central - Register");
+        System.out.println("\nmodel.Auction Central - Register");
         printRegisterChoices();
         do {
             System.out.print("> ");
@@ -133,15 +136,15 @@ public class UIMain {
         } while (!(input == 1 || input == 2 || input == 3 || input == 4));
         S.nextLine();
         if (input == 1) {
-            System.out.println("\nRegister as Bidder...");
+            System.out.println("\nRegister as model.Bidder...");
             newUser = menuRegisterBidder();
         }
         else if (input == 2 ) {
-            System.out.println("\nRegister as Contact...");
+            System.out.println("\nRegister as model.Contact...");
             newUser = menuRegisterContact();
         }
         else if (input == 3 ) {
-            System.out.println("\nRegister as Staff...");
+            System.out.println("\nRegister as model.Staff...");
             newUser = menuRegisterStaff();
         }
         else
@@ -156,8 +159,8 @@ public class UIMain {
 
     /**
      * Prompts the user to fill in the required field
-     *  for registering as a Bidder.
-     * @return the to-be registered User
+     *  for registering as a model.Bidder.
+     * @return the to-be registered model.User
      */
     private User menuRegisterBidder() {
         Bidder newBidder;
@@ -178,8 +181,8 @@ public class UIMain {
 
     /**
      * Prompts the user to fill in the required field
-     *  for registering as a Contact.
-     * @return the to-be registered User
+     *  for registering as a model.Contact.
+     * @return the to-be registered model.User
      */
     private User menuRegisterContact() {
         Contact newContact;
@@ -202,8 +205,8 @@ public class UIMain {
 
     /**
      * Prompts the user to fill in the required field
-     *  for registering as a Staff.
-     * @return the to-be registered User
+     *  for registering as a model.Staff.
+     * @return the to-be registered model.User
      */
     private User menuRegisterStaff() {
         Staff newStaff;
@@ -217,11 +220,11 @@ public class UIMain {
     }
 
     /**
-     * Main UI for Auction Central. Entry point for all the UI.
+     * Main UI for model.Auction Central. Entry point for all the UI.
      */
     public void start() {
         int menuChoice;
-        System.out.println("Hello! Welcome to Auction Central! \n");
+        System.out.println("Hello! Welcome to model.Auction Central! \n");
         do {
             menuChoice = getMenuChoice();
             if (menuChoice == 1) {
@@ -232,7 +235,7 @@ public class UIMain {
             }
         } while (menuChoice != EXIT);
         S.close();
-        System.out.println("\nExiting program. Thank you for using Auction Central.");
+        System.out.println("\nExiting program. Thank you for using model.Auction Central.");
     }
 
 }

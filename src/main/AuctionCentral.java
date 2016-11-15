@@ -1,8 +1,13 @@
+package main;
+
+import console_ui.UIMain;
+import model.*;
+
 import java.io.*;
 import java.time.LocalDateTime;
 
 /**
- * This class is the starting point for the AuctionCentral program and is responsible for storing and saving the
+ * This class is the starting point for the main.AuctionCentral program and is responsible for storing and saving the
  * serialized objects.
  * @author Simon DeMartini
  * @version Nov 7 2016
@@ -18,10 +23,10 @@ public class AuctionCentral {
     /** A debugging mode where files are not saved if true. False by default */
     private static final boolean DEBUG_FILE_MODE = false;
 
-    /** The Master UserRepo */
+    /** The Master model.UserRepo */
     private static UserRepo myUsers;
 
-    /** The Master Calendar */
+    /** The Master model.Calendar */
     private static Calendar myCalendar;
 
     /**
@@ -33,7 +38,7 @@ public class AuctionCentral {
         myUsers = new UserRepo();
         myCalendar = new Calendar();
 
-        System.out.println("Welcome to AuctionCentral");
+        System.out.println("Welcome to main.AuctionCentral");
 
         //read in serialized objects
         readCalAndUsers();
@@ -50,10 +55,10 @@ public class AuctionCentral {
     }
 
     /**
-     * Read the UserRepo and Calendar files if they exist and assign to myUsers and myCalendar
+     * Read the model.UserRepo and model.Calendar files if they exist and assign to myUsers and myCalendar
      */
     private static void readCalAndUsers() {
-        //read UserRepo
+        //read model.UserRepo
         if(USERS_REPO_FILE.isFile()) {
             try {
                 myUsers = (UserRepo) readFile(USERS_REPO_FILE);
@@ -62,7 +67,7 @@ public class AuctionCentral {
                 e.printStackTrace();
             }
         }
-        //read Calendar
+        //read model.Calendar
         if(CALENDAR_FILE.isFile()) {
             try {
                 myCalendar = (Calendar) readFile(CALENDAR_FILE);
@@ -74,7 +79,7 @@ public class AuctionCentral {
     }
 
     /**
-     * Write the UserRepo and Calendar files if they exist and assign to myUsers and myCalendar
+     * Write the model.UserRepo and model.Calendar files if they exist and assign to myUsers and myCalendar
      */
     private static void writeCalAndUsers() {
 
@@ -204,7 +209,7 @@ public class AuctionCentral {
                 "333-222-2222",
                 "joe@somewhere.edu",
                 "555 Broadway St",
-                "Past Auction within past year");
+                "Past model.Auction within past year");
         myUsers.registerUser(joe);
         Auction joeAuction = new Auction(LocalDateTime.now().minusYears(1).plusDays(5), joe);
         myCalendar.addAuction(joeAuction);
@@ -215,7 +220,7 @@ public class AuctionCentral {
                 "333-55-2222",
                 "kevin@somewhere.edu",
                 "555 Main St",
-                "Past Auction more than past year");
+                "Past model.Auction more than past year");
         myUsers.registerUser(kevin);
         Auction kevinAuction = new Auction(LocalDateTime.now().minusYears(1).minusDays(5), kevin);
         myCalendar.addAuction(kevinAuction);

@@ -1,8 +1,10 @@
+package model;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * This class represents an AuctionItem and holds necessary information
+ * This class represents an model.AuctionItem and holds necessary information
  * that an item holds.
  * @author Samantha Ong
  * @version 11/13/2016.
@@ -42,13 +44,13 @@ public class AuctionItem implements Serializable{
     private int myUniqueID;
 
     /**
-     * The constructor of AuctionItem.
+     * The constructor of model.AuctionItem.
      * @param theName the name of the auciton item.
      * @param theCondition the condition of the auction item.
      * @param theSize the size of the auction item.
      * @param theMinBid the min bid of the auction item.
      */
-    AuctionItem(String theName, String theCondition, int theSize, Double theMinBid) {
+    public AuctionItem(String theName, String theCondition, int theSize, Double theMinBid) {
         myName = theName;
         myCondition = theCondition;
         mySize = theSize;

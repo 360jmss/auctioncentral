@@ -1,5 +1,7 @@
+package model;
+
 /**
- * Staff holds information necessary for a staff member of Auction Central. They need a name and username.
+ * model.Staff holds information necessary for a staff member of model.Auction Central. They need a name and username.
  *
  * @author Jessica Sills
  * @version Nov 12 2016
@@ -7,7 +9,7 @@
 public class Staff extends User {
 
     /**
-     * Constructs a Staff object. The staff must have a name and username associated with it.
+     * Constructs a model.Staff object. The staff must have a name and username associated with it.
      *
      * @param theName The name of the user.
      * @param theUsername The username of the user.

@@ -1,10 +1,16 @@
+package test;
+
+import model.Auction;
+import model.AuctionItem;
+import model.Contact;
+
 import java.time.LocalDateTime;
 import java.time.Month;
 
 import static org.junit.Assert.*;
 
 /**
- * This is a JUnit test class for the Auction
+ * This is a JUnit test class for the model.Auction
  * @author Simon DeMartini
  * @version Nov 13 2016
  */
@@ -23,7 +29,7 @@ public class TestAuction {
                 "Veridian Dynamics");
 
         aJan5 = new Auction(LocalDateTime.of(2017, Month.JANUARY, 5, 9, 30), jd);
-        aJan5.setComment("Sample Auction");
+        aJan5.setComment("Sample model.Auction");
         aJan5.setEstItems(5);
     }
 

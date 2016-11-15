@@ -1,3 +1,10 @@
+package test;
+
+import model.Bidder;
+import model.Contact;
+import model.Staff;
+import model.UserRepo;
+
 import static org.junit.Assert.*;
 
 /**

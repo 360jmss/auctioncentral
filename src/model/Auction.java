@@ -1,3 +1,5 @@
+package model;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class Auction implements Serializable {
     /** A list of all AuctionItems for this auction. */
     private List<AuctionItem> myItems;
 
-    /** The contact person for the Auction. */
+    /** The contact person for the model.Auction. */
     private Contact myContact;
 
 
@@ -30,7 +32,7 @@ public class Auction implements Serializable {
      * The constructor for the auction. All fields are required. Set any optional fields with setters.
      * @param theStartTime the starting time
      */
-    Auction(LocalDateTime theStartTime, Contact theContact) {
+    public Auction(LocalDateTime theStartTime, Contact theContact) {
         myStartTime = theStartTime;
         myContact = theContact;
 
@@ -41,7 +43,7 @@ public class Auction implements Serializable {
 
     /**
      * Add an item to the list of items for this auction.
-     * @param item a valid and complete AuctionItem
+     * @param item a valid and complete model.AuctionItem
      */
     public void addItem(AuctionItem item) {
         myItems.add(item);

@@ -1,7 +1,7 @@
-import java.io.Serializable;
+package model;
 
 /**
- * Contact holds information necessary for a contact of a non-profit organization who wishes to use AuctionCentral.
+ * model.Contact holds information necessary for a contact of a non-profit organization who wishes to use main.AuctionCentral.
  * This information includes a business phone number, a business email, a business address, the name of their
  * organization, and an auction, if they currently have one scheduled. These are in addition to their name and
  * username.
@@ -25,8 +25,8 @@ public class Contact extends User {
     private String myOrganization;
 
     /**
-     * Constructs a Contact object. The contact must have a name, username, business phone number, business email,
-     * business address, and organization associated with it. In addition, they will have an Auction, but it will be
+     * Constructs a model.Contact object. The contact must have a name, username, business phone number, business email,
+     * business address, and organization associated with it. In addition, they will have an model.Auction, but it will be
      * updated when they enter an auction.
      *
      * @param theName The name of the user.

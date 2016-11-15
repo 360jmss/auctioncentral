@@ -1,3 +1,10 @@
+package console_ui;
+
+import model.Auction;
+import model.AuctionItem;
+import model.Calendar;
+import model.User;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -5,7 +12,7 @@ import java.util.Scanner;
 
 
 /**
- * This is the Bidder UI.
+ * This is the model.Bidder UI.
  * @author Samantha Ong
  * @version 11/13/2016
  */
@@ -13,7 +20,7 @@ public final class BidderUI {
     /**The user for this ui*/
     private User myUser;
 
-    /**Calendar for auctions.*/
+    /**model.Calendar for auctions.*/
     private Calendar myCalendar;
 
     /** Global scanner for user input. */
@@ -22,7 +29,7 @@ public final class BidderUI {
     private List<Auction> myAuctionList;
 
     /**
-     * The Bidder UI.
+     * The model.Bidder UI.
      * @param theUser the user
      * @param theCalendar the calendar
      */
@@ -33,7 +40,7 @@ public final class BidderUI {
     }
 
     /**
-     * Prints the view for Auction List view.
+     * Prints the view for model.Auction List view.
      */
     private void printAuctionListView() {
         displayHeader();
@@ -231,8 +238,8 @@ public final class BidderUI {
      * Displays the header of the UI.
      */
     private void displayHeader() {
-        System.out.println("AuctionCentral: the auctioneer for non-profit organizations.");
-        System.out.println(myUser.getName() + " logged in as Bidder");
+        System.out.println("main.AuctionCentral: the auctioneer for non-profit organizations.");
+        System.out.println(myUser.getName() + " logged in as model.Bidder");
         System.out.println("Todays Date: " + LocalDate.now().toString() + "\n");
     }
 

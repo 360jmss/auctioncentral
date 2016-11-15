@@ -1,4 +1,4 @@
-/**
+package test; /**
  * The TestSuite.
  * @author Samantha Ong
  * @version 11/11/2016.

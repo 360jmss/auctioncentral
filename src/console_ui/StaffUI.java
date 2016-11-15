@@ -1,3 +1,8 @@
+package console_ui;
+
+import model.Calendar;
+import model.User;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class represents the Staff view for the console UI.
+ * This class represents the model.Staff view for the console UI.
  * @author Miguel Barreto
  * @version 14 Nov, 2016
  */
@@ -18,14 +23,14 @@ public class StaffUI {
     /** The current user who is logged in */
     private User myUser;
 
-    /** The master calendar for AuctionCentral */
+    /** The master calendar for main.AuctionCentral */
     private Calendar myCalendar;
 
-    /** Menu option for logging out and exiting Staff UI */
+    /** Menu option for logging out and exiting model.Staff UI */
     private static final int EXIT = 3;
 
     /**
-     * The Staff UI.
+     * The model.Staff UI.
      * @param theUser The user who is logged in
      * @param theCalendar The calendar for the loaded list of all auctions
      */
@@ -36,7 +41,7 @@ public class StaffUI {
 
     /**
      * Prompts the user for what they would like to do.
-     *  View Calendar, Admin Functions, or Exit
+     *  View model.Calendar, Admin Functions, or Exit
      * @return the menu choice
      */
     private int getMenuChoice() {
@@ -56,7 +61,7 @@ public class StaffUI {
     }
 
     /**
-     * Prints the Staff menu choices.
+     * Prints the model.Staff menu choices.
      *  If this list is updated, the EXIT constant needs to be updated
      *  as well as the getMenuChoice() method's validation.
      */
@@ -71,14 +76,14 @@ public class StaffUI {
      * Displays the header of the UI.
      */
     private void displayHeader() {
-        System.out.println("AuctionCentral: the auctioneer for non-profit organizations.");
-        System.out.println(myUser.getName() + " logged in as Auction Central Staff Person\n");
+        System.out.println("main.AuctionCentral: the auctioneer for non-profit organizations.");
+        System.out.println(myUser.getName() + " logged in as model.Auction Central model.Staff Person\n");
         System.out.println(LocalDate.now().toString() + "  Total number of upcoming auctions: "
                 + myCalendar.getFutureAuctionTotal() + "\n");
     }
 
     /**
-     * Allows the staff member to view the Calendar.
+     * Allows the staff member to view the model.Calendar.
      */
     private void menuViewCalendar() {
         LocalDateTime startTime = LocalDateTime.now().plusDays(1).withHour(0).withMinute(0);
@@ -86,7 +91,7 @@ public class StaffUI {
         LocalDate endDate = startDate.plusMonths(1);
         int dayOfWeek = alignCalendar(startDate);
         //LocalDate startOfWeek = startDate.minusDays(dayOfWeek);
-        //List<Auction> auctionsOneMonth = myCalendar.getAuctionsOneMonth(startTime);
+        //List<model.Auction> auctionsOneMonth = myCalendar.getAuctionsOneMonth(startTime);
         int currMonth = 0;
         displayHeader();
         System.out.println("Su\t\tMo\t\tTu\t\tWe\t\tTh\t\tFr\t\tSa");
@@ -146,7 +151,7 @@ public class StaffUI {
     }
 
     /**
-     * Main entry point for the Staff UI.
+     * Main entry point for the model.Staff UI.
      */
     public void start() {
         int menuChoice;
