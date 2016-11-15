@@ -13,7 +13,7 @@ public class TestAuctionItem {
 
     @org.junit.Before
     public void setUp() throws Exception {
-        apple = new AuctionItem("apple", 1, 1, 10.0);
+        apple = new AuctionItem("apple", "1", 1, 10.0);
         apple.addBid("Hannah", 55.0);
     }
 

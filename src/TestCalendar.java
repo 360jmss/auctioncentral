@@ -1,4 +1,5 @@
 import java.awt.event.ActionEvent;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
@@ -291,6 +292,24 @@ public class TestCalendar {
         calendar.addAuction(futureJD2);
         calendar.addAuction(futureJD3);
         assertEquals(futureJD3, calendar.getContactsAuction(jd));
+    }
+
+    @org.junit.Test
+    public void testGetAuctionTotalOnDayNone() throws Exception {
+        assertEquals(0, calendar.getAuctionTotalOnDay(LocalDate.now()));
+    }
+
+    @org.junit.Test
+    public void testGetAuctionTotalOnDayOne() throws Exception {
+        calendar.addAuction(futureJD2);
+        assertEquals(1, calendar.getAuctionTotalOnDay(futureJD2.getStartTime().toLocalDate()));
+    }
+
+    @org.junit.Test
+    public void testGetAuctionTotalOnDayTwo() throws Exception {
+        calendar.addAuction(futureJD2);
+        calendar.addAuction(new Auction(LocalDateTime.now().plusWeeks(3), jd));
+        assertEquals(2, calendar.getAuctionTotalOnDay(futureJD2.getStartTime().toLocalDate()));
     }
 
 }

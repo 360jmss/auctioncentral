@@ -162,6 +162,19 @@ public class Calendar implements Serializable {
     }
 
     /**
+     * Return the number of auctions on a particular day
+     */
+    public int getAuctionTotalOnDay(LocalDate theDate) {
+        int num = 0;
+        for(Auction a : myAuctions) {
+            if(a.getStartTime().toLocalDate().equals(theDate)) {
+                num++;
+            }
+        }
+        return num;
+    }
+
+    /**
      * Return the number of future auctions scheduled after today
      *  within a one month period.
      * @return the number of auctions
