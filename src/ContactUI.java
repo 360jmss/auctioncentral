@@ -68,6 +68,7 @@ public class ContactUI {
      */
     private void displayHeader() {
         System.out.println("AuctionCentral: the auctioneer for non-profit organizations.");
+        System.out.println();
         System.out.println(myUser.getName() + " logged in as a contact.");
         System.out.println();
         System.out.println("Today's date: " + LocalDate.now().toString());
@@ -78,6 +79,7 @@ public class ContactUI {
         } else {
             System.out.println("You have no upcoming auctions yet!");
         }
+        System.out.println();
     }
 
     /**
@@ -104,7 +106,6 @@ public class ContactUI {
     private void enterAuctionRequest() {
         System.out.println("Please enter the start time of your auction (YYYY-MM-DD HH:mm): ");
         String date = sc.nextLine();
-        System.out.println();
         System.out.println();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -162,6 +163,7 @@ public class ContactUI {
         System.out.println();
         System.out.println("You are being returned to the main menu. Please try changing the date of your auction");
         System.out.println("or try again later.");
+        System.out.println();
         displayMenu();
     }
 
