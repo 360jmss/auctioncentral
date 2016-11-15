@@ -194,6 +194,43 @@ public class AuctionItem implements Serializable{
         }
         return result;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AuctionItem that = (AuctionItem) o;
+
+        if (mySize != that.mySize) return false;
+        if (myUniqueID != that.myUniqueID) return false;
+        if (myName != null ? !myName.equals(that.myName) : that.myName != null) return false;
+        if (myCondition != null ? !myCondition.equals(that.myCondition) : that.myCondition != null) return false;
+        if (myMinBid != null ? !myMinBid.equals(that.myMinBid) : that.myMinBid != null) return false;
+        if (myDonorName != null ? !myDonorName.equals(that.myDonorName) : that.myDonorName != null) return false;
+        if (myDescription != null ? !myDescription.equals(that.myDescription) : that.myDescription != null)
+            return false;
+        if (myComment != null ? !myComment.equals(that.myComment) : that.myComment != null) return false;
+        if (myBidList != null ? !myBidList.equals(that.myBidList) : that.myBidList != null) return false;
+        return myHighestBidder != null ? myHighestBidder.equals(that.myHighestBidder) : that.myHighestBidder == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = myName != null ? myName.hashCode() : 0;
+        result = 31 * result + (myCondition != null ? myCondition.hashCode() : 0);
+        result = 31 * result + mySize;
+        result = 31 * result + (myMinBid != null ? myMinBid.hashCode() : 0);
+        result = 31 * result + (myDonorName != null ? myDonorName.hashCode() : 0);
+        result = 31 * result + (myDescription != null ? myDescription.hashCode() : 0);
+        result = 31 * result + (myComment != null ? myComment.hashCode() : 0);
+        result = 31 * result + (myBidList != null ? myBidList.hashCode() : 0);
+        result = 31 * result + (myHighestBidder != null ? myHighestBidder.hashCode() : 0);
+        result = 31 * result + myUniqueID;
+        return result;
+    }
+
     /**
      * Checks if the bid price is valid, greater than
      * @param theBid the bid to check.
@@ -203,6 +240,7 @@ public class AuctionItem implements Serializable{
         boolean result = false;
         if (theBid != null && theBid >= myMinBid) {
             result = true;
+
         }
         return result;
     }

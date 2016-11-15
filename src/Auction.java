@@ -120,6 +120,31 @@ public class Auction implements Serializable {
         return myItems;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Auction auction = (Auction) o;
+
+        if (myEstItems != auction.myEstItems) return false;
+        if (myStartTime != null ? !myStartTime.equals(auction.myStartTime) : auction.myStartTime != null) return false;
+        if (myComment != null ? !myComment.equals(auction.myComment) : auction.myComment != null) return false;
+        if (myItems != null ? !myItems.equals(auction.myItems) : auction.myItems != null) return false;
+        return myContact != null ? myContact.equals(auction.myContact) : auction.myContact == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = myStartTime != null ? myStartTime.hashCode() : 0;
+        result = 31 * result + myEstItems;
+        result = 31 * result + (myComment != null ? myComment.hashCode() : 0);
+        result = 31 * result + (myItems != null ? myItems.hashCode() : 0);
+        result = 31 * result + (myContact != null ? myContact.hashCode() : 0);
+        return result;
+    }
+
     /**
      * Gets the String representation of an auction containing the date and the organization name
      */
