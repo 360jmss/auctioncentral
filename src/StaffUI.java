@@ -89,24 +89,31 @@ public class StaffUI {
         //List<Auction> auctionsOneMonth = myCalendar.getAuctionsOneMonth(startTime);
         int currMonth = 0;
         displayHeader();
-        System.out.println("Su\tMo\tTu\tWe\tTh\tFr\tSa");
-        while(startDate != endDate) {
+        System.out.println("Su\t\tMo\t\tTu\t\tWe\t\tTh\t\tFr\t\tSa");
+        while(startDate.isBefore(endDate)) {
             if(currMonth != startDate.getMonthValue()) {
-                System.out.println("\t\t[" + startDate.getMonth().toString() + "]");
+                if(currMonth != 0)
+                    System.out.print("|\n");
+                System.out.println("\t\t\t[" + startDate.getMonth().toString() + "]");
                 dayOfWeek = alignCalendar(startDate);
                 currMonth = startDate.getMonthValue();
                 for (int i = 0; i < dayOfWeek; i++)
-                    System.out.print("|\t");
+                    System.out.print("|\t\t");
             }
             System.out.print("| " + startDate.getDayOfMonth() + ":"
                     + myCalendar.getAuctionTotalOnDay(startDate) + "\t");
-            startDate.plusDays(1);
+            startDate = startDate.plusDays(1);
             dayOfWeek++;
-            if(dayOfWeek > 7){
+            if(dayOfWeek > 6){
                 dayOfWeek = 0;
                 System.out.print("|\n");
             }
         }
+        System.out.println("|\n\nEnter anything to continue...");
+        try {
+            System.in.read();
+        }
+        catch(Exception e) {}
     }
 
     /**
