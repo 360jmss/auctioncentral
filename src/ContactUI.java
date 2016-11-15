@@ -213,8 +213,67 @@ public class ContactUI {
         String name = sc.nextLine();
         System.out.println();
 
-        System.out.println("Please enter the name of your item: ");
-        String name = sc.nextLine();
+        System.out.println("Please enter the condition of your item: ");
+        String condition = sc.nextLine();
         System.out.println();
+
+        System.out.println("Please enter the size of your item: ");
+        int size = sc.nextInt();
+        System.out.println();
+
+        System.out.println("Please enter the minimum bid of your item: ");
+        double minBid = sc.nextDouble();
+        System.out.println();
+
+        AuctionItem newItem = new AuctionItem(name, condition, size, minBid);
+
+        if (myAuction.validateItem(newItem)) {
+            successfulItemAdd(newItem);
+        } else {
+            failedItemAdd();
+        }
+    }
+
+    /**
+     * donor name description comment
+     */
+
+    private void successfulItemAdd(AuctionItem theItem) {
+        System.out.println("Your item was successfully added to your auction!");
+        System.out.println("Would you like to enter the the name of the donor of this item? Y or N:");
+        System.out.print("> ");
+        String answer = sc.next();
+        System.out.println();
+
+        if (answer == "Y") {
+
+        }
+
+        System.out.println();
+        System.out.println("Would you like to enter a description for this item? Y or N:");
+        answer = sc.next();
+        System.out.println();
+
+        if (answer == "Y") {
+
+        }
+
+        System.out.println();
+        System.out.println("Would you like to enter a comment for this item? Y or N:");
+        answer = sc.next();
+        System.out.println();
+
+        if (answer == "Y") {
+
+        }
+
+        System.out.println();
+        System.out.println("You are now being returned to the main menu.");
+
+        displayMenu();
+    }
+
+    private void failedItemAdd() {
+        displayMenu();
     }
 }
