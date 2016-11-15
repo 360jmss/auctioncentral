@@ -9,14 +9,14 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses ({
-        TestCalendar.class,
-        TestAuction.class,
+        CalendarTest.class,
+        AuctionTest.class,
         //TestUser.class,
         //TestBidder.class,
         //TestStaff.class,
         //TestContact.class,
-        TestAuctionItem.class,
-        TestUserRepo.class,
+        AuctionItemTest.class,
+        UserRepoTest.class,
         //TestAuctionCentral.class
 })
 

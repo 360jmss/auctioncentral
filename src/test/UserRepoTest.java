@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  * @author Simon DeMartini
  * @version Nov 13 2016
  */
-public class TestUserRepo {
+public class UserRepoTest {
 
     private UserRepo repo;
     private Bidder b1;

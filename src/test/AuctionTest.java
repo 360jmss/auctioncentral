@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
  * @author Simon DeMartini
  * @version Nov 13 2016
  */
-public class TestAuction {
+public class AuctionTest {
 
     private Auction aJan5;
     private Contact jd;

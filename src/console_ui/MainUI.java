@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Miguel Barreto
  * @version 13 Nov, 2016
  */
-public class UIMain {
+public class MainUI {
 
     /** Global scanner for user input. */
     private static Scanner S = new Scanner(System.in);
@@ -25,11 +25,11 @@ public class UIMain {
     private static final int EXIT = 3;
 
     /**
-     * The constructor for the console_ui.UIMain
+     * The constructor for the console_ui.MainUI
      * @param theRepo The repo for the loaded map of all users
      * @param theCalendar The calendar for the loaded list of all auctions
      */
-    public UIMain(UserRepo theRepo, Calendar theCalendar) {
+    public MainUI(UserRepo theRepo, Calendar theCalendar) {
         myRepo = theRepo;
         myCalendar = theCalendar;
     }

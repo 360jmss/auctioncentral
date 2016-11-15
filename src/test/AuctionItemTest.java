@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
  * @author Samantha Ong
  * @version 11/4/2016.
  */
-public class TestAuctionItem {
+public class AuctionItemTest {
 
     private AuctionItem apple;
 

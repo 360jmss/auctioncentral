@@ -1,6 +1,6 @@
 package main;
 
-import console_ui.UIMain;
+import console_ui.MainUI;
 import model.*;
 
 import java.io.*;
@@ -46,7 +46,7 @@ public class AuctionCentral {
         //createTestData();
 
         //start the UI
-        UIMain ui = new UIMain(myUsers, myCalendar);
+        MainUI ui = new MainUI(myUsers, myCalendar);
         ui.start();
 
         //save serialized objects when UI is done

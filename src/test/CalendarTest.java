@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.*;
  * @author Miguel Barreto
  * @version 11 Nov, 2016
  */
-public class TestCalendar {
+public class CalendarTest {
 
     private Calendar calendar;
     private Contact jd;
