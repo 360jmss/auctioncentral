@@ -28,10 +28,15 @@ public class TestAuction {
     }
 
     @org.junit.Test
-    public void addItem() throws Exception {
+    public void testAddItem() throws Exception {
         AuctionItem ai = new AuctionItem("Apple", 1, 1, 50.00);
         aJan5.addItem(ai);
         assertEquals(1, aJan5.getItems().size());
+    }
+
+    @org.junit.Test
+    public void testToString() throws Exception {
+        assertEquals("2017-01-05 Veridian Dynamics", aJan5.toString());
     }
 
 }

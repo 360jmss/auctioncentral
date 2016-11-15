@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * Bidder holds information necessary for a bidder who wishes to use AuctionCentral.
  * This information includes a phone number, an email, an address, their payment information, and a list of bids if
