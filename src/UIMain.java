@@ -99,7 +99,7 @@ public class UIMain {
             }
             else if(loginUser instanceof Contact) {
                 System.out.println("You are a Contact");
-                ContactUI ui = new ContactUI(loginUser, myCalendar);
+                ContactUI ui = new ContactUI((Contact) loginUser, myCalendar);
                 ui.start();
             }
             else if(loginUser instanceof Staff) {
