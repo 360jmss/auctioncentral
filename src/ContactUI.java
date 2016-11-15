@@ -73,7 +73,10 @@ public class ContactUI {
         System.out.println("Today's date: " + LocalDate.now().toString());
 
         if (myAuction != null) {
+            System.out.println(myAuction.toString());
             System.out.println("Upcoming Auction date: " + myAuction.getStartTime().toString());
+        } else {
+            System.out.println("You have no upcoming auctions yet!");
         }
     }
 
