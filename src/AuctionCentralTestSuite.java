@@ -11,7 +11,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses ({
         TestCalendar.class,
         TestAuction.class,
-        //TestUsers.class,
+        //TestUser.class,
         //TestBidder.class,
         //TestStaff.class,
         //TestContact.class,

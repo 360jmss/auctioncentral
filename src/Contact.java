@@ -24,9 +24,6 @@ public class Contact extends User {
     /** The contact person's organization name as a string.*/
     private String myOrganization;
 
-    /** The contact person's Auction.*/
-    private Auction myAuction;
-
     /**
      * Constructs a Contact object. The contact must have a name, username, business phone number, business email,
      * business address, and organization associated with it. In addition, they will have an Auction, but it will be
@@ -48,7 +45,6 @@ public class Contact extends User {
         myBusinessEmail = theBusinessEmail;
         myBusinessAddress = theBusinessAddress;
         myOrganization = theOrganization;
-        //myAuction = new Auction();
     }
 
     /**
@@ -101,18 +97,7 @@ public class Contact extends User {
      *
      * @return The name of the organization of the contact.
      */
-    public String getOrganization() {
-        return myOrganization;
-    }
-
-    /**
-     * Retrieves the Auction that the contact has scheduled.
-     *
-     * @return The Auction that a contact has scheduled.
-     */
-    public Auction getAuction() {
-        return myAuction;
-    }
+    public String getOrganization() { return myOrganization; }
 
     /**
      * Sets the name of a user.
@@ -164,14 +149,5 @@ public class Contact extends User {
      */
     public void setOrganization(String theOrganization) {
         myOrganization = theOrganization;
-    }
-
-    /**
-     * Sets the Auction that the contact has scheduled.
-     *
-     * @param theAuction The Auction that a contact has scheduled.
-     */
-    public void setAuction(Auction theAuction) {
-        myAuction = theAuction;
     }
 }

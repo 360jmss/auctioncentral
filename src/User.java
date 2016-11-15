@@ -41,5 +41,4 @@ public abstract class User implements Serializable{
      * @param theUsername The username of a user.
      */
     public abstract void setUsername(String theUsername);
-
 }
