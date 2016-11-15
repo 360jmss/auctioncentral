@@ -158,6 +158,12 @@ public class Contact extends User {
 
         Contact contact = (Contact) o;
 
+        if (this.myUsername != null ? !this.myUsername.equals(contact.myUsername) : contact.myUsername != null)
+            return false;
+        if (this.myName != null ? !this.myName.equals(contact.myName) : contact.myName != null)
+            return false;
+        if (myBusinessEmail != null ? !myBusinessEmail.equals(contact.myBusinessEmail) : contact.myBusinessEmail != null)
+            return false;
         if (myBusinessPhoneNumber != null ? !myBusinessPhoneNumber.equals(contact.myBusinessPhoneNumber) : contact.myBusinessPhoneNumber != null)
             return false;
         if (myBusinessEmail != null ? !myBusinessEmail.equals(contact.myBusinessEmail) : contact.myBusinessEmail != null)
@@ -174,6 +180,8 @@ public class Contact extends User {
         result = 31 * result + (myBusinessEmail != null ? myBusinessEmail.hashCode() : 0);
         result = 31 * result + (myBusinessAddress != null ? myBusinessAddress.hashCode() : 0);
         result = 31 * result + (myOrganization != null ? myOrganization.hashCode() : 0);
+        result = 31 * result + (this.myName != null ? this.myName.hashCode() : 0);
+        result = 31 * result + (this.myUsername != null ? this.myUsername.hashCode() : 0);
         return result;
     }
 }

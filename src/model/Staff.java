@@ -53,4 +53,24 @@ public class Staff extends User {
         myUsername = theUsername;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Staff staff = (Staff) o;
+
+        if (this.myUsername != null ? !this.myUsername.equals(staff.myUsername) : staff.myUsername != null)
+            return false;
+        return this.myName != null ? !this.myName.equals(staff.myName) : staff.myName != null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = this.myName != null ? this.myName.hashCode() : 0;
+        result = 31 * result + (this.myUsername != null ? this.myUsername.hashCode() : 0);
+        return result;
+    }
+
 }

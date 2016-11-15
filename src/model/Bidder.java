@@ -153,6 +153,10 @@ public class Bidder extends User {
 
         Bidder bidder = (Bidder) o;
 
+        if (this.myUsername != null ? !this.myUsername.equals(bidder.myUsername) : bidder.myUsername != null)
+            return false;
+        if (this.myName != null ? !this.myName.equals(bidder.myName) : bidder.myName != null)
+            return false;
         if (myPhoneNumber != null ? !myPhoneNumber.equals(bidder.myPhoneNumber) : bidder.myPhoneNumber != null)
             return false;
         if (myAddress != null ? !myAddress.equals(bidder.myAddress) : bidder.myAddress != null) return false;
@@ -167,6 +171,8 @@ public class Bidder extends User {
         result = 31 * result + (myAddress != null ? myAddress.hashCode() : 0);
         result = 31 * result + (myEmail != null ? myEmail.hashCode() : 0);
         result = 31 * result + (myPaymentInfo != null ? myPaymentInfo.hashCode() : 0);
+        result = 31 * result + (this.myName != null ? this.myName.hashCode() : 0);
+        result = 31 * result + (this.myUsername != null ? this.myUsername.hashCode() : 0);
         return result;
     }
 }
