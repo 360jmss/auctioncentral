@@ -150,4 +150,30 @@ public class Contact extends User {
     public void setOrganization(String theOrganization) {
         myOrganization = theOrganization;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Contact contact = (Contact) o;
+
+        if (myBusinessPhoneNumber != null ? !myBusinessPhoneNumber.equals(contact.myBusinessPhoneNumber) : contact.myBusinessPhoneNumber != null)
+            return false;
+        if (myBusinessEmail != null ? !myBusinessEmail.equals(contact.myBusinessEmail) : contact.myBusinessEmail != null)
+            return false;
+        if (myBusinessAddress != null ? !myBusinessAddress.equals(contact.myBusinessAddress) : contact.myBusinessAddress != null)
+            return false;
+        return myOrganization != null ? myOrganization.equals(contact.myOrganization) : contact.myOrganization == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = myBusinessPhoneNumber != null ? myBusinessPhoneNumber.hashCode() : 0;
+        result = 31 * result + (myBusinessEmail != null ? myBusinessEmail.hashCode() : 0);
+        result = 31 * result + (myBusinessAddress != null ? myBusinessAddress.hashCode() : 0);
+        result = 31 * result + (myOrganization != null ? myOrganization.hashCode() : 0);
+        return result;
+    }
 }
