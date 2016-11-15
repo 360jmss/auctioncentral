@@ -48,8 +48,7 @@ public class Auction implements Serializable {
     public void addItem(AuctionItem item) {
         myItems.add(item);
     }
-    
-    
+
     /**
      * Get the start date and time of the auction.
      * @return the start date and time of the auction.

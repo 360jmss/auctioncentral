@@ -41,6 +41,7 @@ public class AuctionCentral {
         System.out.println("Welcome to AuctionCentral");
 
         //read in serialized objects
+        //TODO Move serialization and test data creation to separate class
         readCalAndUsers();
 
         //createTestData();
