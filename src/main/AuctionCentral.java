@@ -21,12 +21,12 @@ public class AuctionCentral {
     private static final File CALENDAR_FILE= new File("./cal.ser");
 
     /** A debugging mode where files are not saved if true. False by default */
-    private static final boolean DEBUG_FILE_MODE = false;
+    private static final boolean DEBUG_FILE_MODE = true;
 
-    /** The Master model.UserRepo */
+    /** The Master UserRepo */
     private static UserRepo myUsers;
 
-    /** The Master model.Calendar */
+    /** The Master Calendar */
     private static Calendar myCalendar;
 
     /**
