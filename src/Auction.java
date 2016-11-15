@@ -43,9 +43,7 @@ public class Auction implements Serializable {
      * Add an item to the list of items for this auction.
      * @param item a valid and complete AuctionItem
      */
-    public void addItem(AuctionItem item) {
-        myItems.add(item);
-    }
+    public void addItem(AuctionItem item) { myItems.add(item); }
 
     /**
      * Checks if an auction is currently able to be bid on by bidders. (Up to 24 hrs before the auction)
@@ -118,5 +116,27 @@ public class Auction implements Serializable {
      */
     public List<AuctionItem> getItems() {
         return myItems;
+    }
+
+    /**
+     * Validates whether or not an item already exists in the system for this auction.
+     * @param theItem The auction item that will be validated.
+     * @return True if the auction item is not already in the system, false otherwise.
+     */
+    public boolean validateItem(AuctionItem theItem) {
+        int check = 0;
+        boolean validate = true;
+
+        for (int i = 0; i < myItems.size(); i++) {
+            if (theItem.getName() == myItems.get(i).getName()) {
+                check++;
+            }
+        }
+
+        if (check > 0) {
+            validate = false;
+        }
+
+        return validate;
     }
 }
