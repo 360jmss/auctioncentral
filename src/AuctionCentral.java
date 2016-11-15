@@ -15,8 +15,8 @@ public class AuctionCentral {
     /** The file location for the users repo when serialized."*/
     private static final File CALENDAR_FILE= new File("./cal.ser");
 
-    /** A debugging mode where files are not saved or serialized if true. False by default */
-    private static final boolean DEBUG_FILE_MODE = false;
+    /** A debugging mode where files are not saved if true. False by default */
+    private static final boolean DEBUG_FILE_MODE = true;
 
     /** The Master UserRepo */
     private static UserRepo myUsers;
@@ -36,7 +36,9 @@ public class AuctionCentral {
         System.out.println("Welcome to AuctionCentral");
 
         //read in serialized objects
-        if(!DEBUG_FILE_MODE) readCalAndUsers();
+        readCalAndUsers();
+
+        //createTestData();
 
         //start the UI
         UIMain ui = new UIMain(myUsers, myCalendar);
@@ -133,6 +135,35 @@ public class AuctionCentral {
             fileOut.close();
         } catch(IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Create a bunch of random test data
+     */
+    private static void createTestData() {
+        // 2 staff
+        myUsers.registerUser(new Staff("Jane Smith", "jsmith"));
+        myUsers.registerUser(new Staff("Bobby Joe", "bj"));
+
+        // 5 bidders
+        myUsers.registerUser(new Bidder("Leonardo", "leo", "55", "Address", "leo@email.com"));
+        myUsers.registerUser(new Bidder("Katy", "katy", "234234", "Somewhere", "katy@email.com"));
+        myUsers.registerUser(new Bidder("Joey", "joey", "436523", "Here", "joey@email.com"));
+        myUsers.registerUser(new Bidder("Monica", "monica", "1", "There", "monica@email.com"));
+        myUsers.registerUser(new Bidder("Rachel", "rachel", "32409237849", "Nowhere", "rachel@email.com"));
+
+        //24 future Auctions and contacts
+        for(int i = 0; i < 24; i++) {
+            Contact c = new Contact("John Doe the " + i,
+                    "con" + i,
+                    "253-54" + i,
+                    "contact" + i + "@somewhere.edu",
+                    i + " Main St",
+                    "Big Ole Company #" + i);
+
+            myUsers.registerUser(c);
+            myCalendar.addAuction(new Auction(LocalDateTime.now().plusDays(i), c));
         }
     }
 }
