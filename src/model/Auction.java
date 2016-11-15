@@ -48,15 +48,7 @@ public class Auction implements Serializable {
     public void addItem(AuctionItem item) {
         myItems.add(item);
     }
-
-    /**
-     * Checks if an auction is currently able to be bid on by bidders. (Up to 24 hrs before the auction)
-     * @return true if active, false otherwise
-     */
-    public boolean isActive() {
-        //TODO do we need this?
-        return false;
-    }
+    
     
     /**
      * Get the start date and time of the auction.
