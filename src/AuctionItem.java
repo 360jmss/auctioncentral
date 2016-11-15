@@ -114,8 +114,16 @@ public class AuctionItem implements Serializable{
      * Returns the comment of this auciton item.
      * @return the comment.
      */
-    public String getComent() {
+    public String getComment() {
         return myComment;
+    }
+
+    /**
+     * Returns the unique id of this item.
+     * @return the unique id of the item.
+     */
+    public int getUniqueID() {
+        return myUniqueID;
     }
 
     /**
@@ -165,10 +173,38 @@ public class AuctionItem implements Serializable{
      * @param theBid the bid value.
      */
     public void addBid(String theBidderName,Double theBid) {
-        myBidList.put(theBidderName, theBid);
-        if (myBidList.get(myHighestBidder) < theBid) {
-            myHighestBidder = theBidderName;
+        if(isValidBidPrice(theBid)) {
+            myBidList.put(theBidderName, theBid);
+            if(isHighestBid(theBid)) {
+                myHighestBidder = theBidderName;
+            }
         }
+
+    }
+
+    /**
+     * Checks if the new bid being added is the highest bid.
+     * @param theBid the bid to compare with the highest bid.
+     * @return true if the bid is the highest bid; false otherwise.
+     */
+    public boolean isHighestBid(Double theBid) {
+        boolean result = false;
+        if(myBidList.get(myHighestBidder) < theBid) {
+            result = true;
+        }
+        return result;
+    }
+    /**
+     * Checks if the bid price is valid, greater than
+     * @param theBid the bid to check.
+     * @return true if valid; false otherwise.
+     */
+    public boolean isValidBidPrice(Double theBid) {
+        boolean result = false;
+        if (theBid >= myMinBid) {
+            result = true;
+        }
+        return result;
     }
 
     @Override

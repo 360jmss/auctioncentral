@@ -46,16 +46,36 @@ public final class BidderUI {
             System.out.println(i + ". " + auctionList.get(i - 1).toString());
         }
         System.out.println("\nWhat would you like to do?");
-        System.out.println("1. Bid on an auction");
+        System.out.println("1. View an auction");
         System.out.println("2. View my bids");
         System.out.println("3. Go back");
     }
 
     /**
-     * Displays the view for bidding on an auction.
+     * Displays the view for viewing an auction.
      */
-    private void displayBidOnAuction() {
+    private void displayBidOnAuction(Auction theAuction) {
         //TODO
+        displayHeader();
+        System.out.println(theAuction.toString());
+        System.out.println("Items offered for sale:");
+        System.out.format("%6s%25s%10d%16s","ID", "Item Name", "Condition", "Minimum Bid");
+        for (AuctionItem item : theAuction.getItems()) {
+            System.out.format("%8s%25s%12d%8s", item.getUniqueID(), item.getName(),
+                    item.getCondition(), item.getMinBid());
+        }
+        System.out.println("What would you like to do?");
+        System.out.println("1. Bid on an item");
+        System.out.println("2. Go back");
+        System.out.println("3. Exit AuctionCentral");
+    }
+
+    /**
+     * Displays the view for bidding on an item.
+     * @param theItem
+     */
+    private void displayBidOnAnItem(AuctionItem theItem) {
+
     }
 
     /**
@@ -63,6 +83,7 @@ public final class BidderUI {
      */
     private void displayViewMyBids() {
         //TODO
+        displayHeader();
     }
 
     /**
