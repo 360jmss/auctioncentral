@@ -201,7 +201,7 @@ public class AuctionItem implements Serializable{
      */
     public boolean isValidBidPrice(Double theBid) {
         boolean result = false;
-        if (theBid >= myMinBid) {
+        if (theBid != null && theBid >= myMinBid) {
             result = true;
         }
         return result;
