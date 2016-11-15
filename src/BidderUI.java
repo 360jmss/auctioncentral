@@ -38,8 +38,10 @@ public final class BidderUI {
     private void printAuctionListView() {
         displayHeader();
         System.out.println("Below are the list of auctions:");
-        for(int i = 1; i < myCalendar.getAuctions().size(); i++) {
-            System.out.println(i + ". " + myAuctionList.get(i - 1).toString());
+
+        int i = 1;
+        for(Auction a: myAuctionList ) {
+            System.out.println(i++ + ". " + a.toString());
         }
 
     }
