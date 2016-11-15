@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class UIMain {
 
     /** Global scanner for user input. */
-    private static final Scanner S = new Scanner(System.in);
+    private static Scanner S = new Scanner(System.in);
 
     /** The master list of all users that can log in. */
     private UserRepo myRepo;
@@ -86,27 +86,23 @@ public class UIMain {
         String username;
         System.out.println("\nAuction Central - Login");
         System.out.print("\tUsername: ");
-        username = S.next();
+        username = S.nextLine();
         //System.out.println("\tPassword:");
         //password = S.next();
         loginUser = myRepo.loginUser(username);
         if(loginUser != null) {
             System.out.println("Login Successful. Welcome " + loginUser.getName() + "!\n");
             if(loginUser instanceof Bidder) {
-                System.out.println("You are a Bidder");
                 BidderUI ui = new BidderUI(loginUser, myCalendar);
                 ui.start();
             }
             else if(loginUser instanceof Contact) {
-                System.out.println("You are a Contact");
                 ContactUI ui = new ContactUI((Contact) loginUser, myCalendar);
                 ui.start();
             }
             else if(loginUser instanceof Staff) {
-                /*
                 StaffUI ui = new StaffUI(loginUser, myCalendar);
                 ui.start();
-                */
             }
             else {
                 System.out.println("There seems to be an error. Returning...");

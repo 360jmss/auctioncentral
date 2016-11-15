@@ -1,38 +1,33 @@
-/**
- * Created by Jessica on 11/13/2016.
- */
-
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class is the sequence of screens the Contact user can see.
+ *
+ * @author Jessica Sills
+ * @version November 14 2016
+ */
 public class ContactUI {
 
-    /**
-     *
-     */
+    /** Global scanner for user input.*/
     private static final Scanner sc = new Scanner(System.in);
 
-    /**
-     *
-     */
+    /** Current user who should be a contact.*/
     private Contact myUser;
 
-    /**
-     *
-     */
+    /** The contact's calendar.*/
     private Calendar myCalendar;
 
-    /**
-     *
-     */
+    /** The contact's upcoming auction.*/
     private Auction myAuction;
 
     /**
+     * Constructs a ContactUI object.
      *
-     * @param theUser
-     * @param theCalendar
+     * @param theUser The current user, a contact.
+     * @param theCalendar The user's calendar.
      */
     public ContactUI(Contact theUser, Calendar theCalendar) {
         myUser = theUser;
@@ -41,30 +36,8 @@ public class ContactUI {
     }
 
     /**
-     *
-     */
-//    private void displayMenu() {
-//        displayHeader();
-//        System.out.println("What would you like to do?");
-//        System.out.println("1. Submit an auction request");
-//        System.out.println("2. Add items to your auction");
-//        System.out.println("3. Exit Auction Central");
-//        System.out.println();
-//        System.out.print("> ");
-//        String choice = sc.nextLine();
-//        System.out.println();
-//
-//        if (choice.equals("1")) {
-//            displayAuctionRequest();
-//        } else if (choice.equals("2")) {
-//            displayAddItems();
-//        }
-//        sc.close();
-//        System.out.println("\nLogging out...");
-//    }
-
-    /**
-     *
+     * Displays the header for the contact. It shows the current date and the date of an upcoming auction if they have
+     * one.
      */
     private void displayHeader() {
         System.out.println("AuctionCentral: the auctioneer for non-profit organizations.");
@@ -75,7 +48,10 @@ public class ContactUI {
 
         if (myAuction != null) {
             System.out.println(myAuction.toString());
-            System.out.println("Upcoming Auction date: " + myAuction.getStartTime().toString());
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+            System.out.println("Upcoming Auction date: " + myAuction.getStartTime().format(formatter));
         } else {
             System.out.println("You have no upcoming auctions yet!");
         }
@@ -83,7 +59,7 @@ public class ContactUI {
     }
 
     /**
-     *
+     * Double checks that the user wants to submit an auction request.
      */
     private void displayAuctionRequest() {
         System.out.println("You are about to submit an auction request.");
@@ -93,14 +69,14 @@ public class ContactUI {
         System.out.println();
 
         if (choice.equals("0")) {
-            System.out.println("Taking you back to the main menu.");
+            System.out.println("Taking you back to the main menu.\n");
         } else if (choice.equals("1")) {
             enterAuctionRequest();
         }
     }
 
     /**
-     *
+     * Asks for the date of the user's requested auction. Checks that it's valid.
      */
     private void enterAuctionRequest() {
         System.out.println("Please enter the start time of your auction (YYYY-MM-DD HH:mm): ");
@@ -121,7 +97,8 @@ public class ContactUI {
     }
 
     /**
-     *
+     * If the auction request is valid, let's the user know. Asks them if they want to add an estimated amount of
+     * items and a comment for their auction.
      */
     private void successfulAuctionRequest() {
         System.out.println("Your auction was successfully added to the calendar!");
@@ -140,12 +117,13 @@ public class ContactUI {
             enterComment();
         }
 
-        System.out.println("You are now being returned to the main menu.");
+        System.out.println("Your upcoming auction is: " + myAuction.toString());
+        System.out.println("You are now being returned to the main menu.\n");
         myCalendar.addAuction(myAuction);
     }
 
     /**
-     *
+     * If the auction request was invalid, it let's the user know why.
      */
     private void failedAuctionRequest() {
         System.out.println("Your auction was NOT successfully added to the calendar.");
@@ -156,12 +134,11 @@ public class ContactUI {
         System.out.println("    chose, the week you chose, or within the next three months.");
         System.out.println();
         System.out.println("You are being returned to the main menu. Please try changing the date of your auction");
-        System.out.println("or try again later.");
-        System.out.println();
+        System.out.println("or try again later.\n");
     }
 
     /**
-     *
+     * Let's the user enter an estimated number of items for their auction.
      */
     private void enterEstItems() {
         System.out.println("Please enter the estimated number of items in your auction: ");
@@ -171,7 +148,7 @@ public class ContactUI {
     }
 
     /**
-     *
+     * Let's the user enter a comment for their auction.
      */
     private void enterComment() {
         System.out.println("Please enter a comment for your auction: ");
@@ -180,7 +157,7 @@ public class ContactUI {
     }
 
     /**
-     *
+     * Double checks that the user wants to add an item to their auction.
      */
     private void displayAddItems() {
         if (myAuction == null) {
@@ -194,7 +171,7 @@ public class ContactUI {
             System.out.println();
 
             if (choice.equals("0")) {
-                System.out.println("Taking you back to the main menu.");
+                System.out.println("Taking you back to the main menu.\n");
             } else if (choice.equals("1")) {
                 enterAnItem();
             }
@@ -202,7 +179,7 @@ public class ContactUI {
     }
 
     /**
-     *
+     * Asks for the name, condition, size, and minimum bid of their item.
      */
     private void enterAnItem() {
         System.out.println("Please enter the name of your item: ");
@@ -211,7 +188,7 @@ public class ContactUI {
         System.out.println("Please enter the condition of your item: ");
         String condition = sc.nextLine();
 
-        System.out.println("Please enter the size of your item: ");
+        System.out.println("Please enter the size of your item (as an integer): ");
         int size = sc.nextInt();
         sc.nextLine();
 
@@ -229,8 +206,9 @@ public class ContactUI {
     }
 
     /**
+     * If their item add was valid, let's the user add a donor name, description, and/or comment to their auction.
      *
-     * @param theItem
+     * @param theItem The item the contact added.
      */
     private void successfulItemAdd(AuctionItem theItem) {
         System.out.println("Your item was successfully added to your auction!");
@@ -262,19 +240,21 @@ public class ContactUI {
             theItem.setComment(comment);
         }
 
+        System.out.println("Item: " + theItem.toString() + " has been added to your auction.");
+
         myAuction.addItem(theItem);
 
-        System.out.println("You are now being returned to the main menu.");
+        System.out.println("You are now being returned to the main menu.\n");
     }
 
     /**
-     *
+     * If their item add was invalid, let's the user know why.
      */
     private void failedItemAdd() {
         System.out.println("Your item was NOT successfully added to your auction.");
         System.out.println("This is because the name of the item matched the name of another item that is already");
         System.out.println("in the auction item list.");
-        System.out.println("You are being returned to the main menu.");
+        System.out.println("You are being returned to the main menu.\n");
     }
 
     /**
@@ -296,7 +276,6 @@ public class ContactUI {
      */
     private int getMenuChoice() {
         int input;
-        System.out.println();
         displayHeader();
         printMenuChoices();
         do {
@@ -311,6 +290,9 @@ public class ContactUI {
         return input;
     }
 
+    /**
+     * Starts the UI.
+     */
     public void start() {
         int menuChoice;
         System.out.println("Hello! Welcome to Auction Central! \n");
@@ -323,7 +305,6 @@ public class ContactUI {
                 displayAddItems();
             }
         } while (menuChoice != 3);
-        sc.close();
         System.out.println("\nLogging out. Thank you for using Auction Central.");
     }
 }
