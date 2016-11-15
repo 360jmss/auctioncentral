@@ -176,10 +176,10 @@ public class AuctionCentral {
                 "Bill Gates Foundation");
         myUsers.registerUser(bill);
         Auction billsAuction = new Auction(LocalDateTime.now().plusDays(11), bill);
-        billsAuction.addItem(new AuctionItem("Apple", "Fresh", 1, 50.00));
-        billsAuction.addItem(new AuctionItem("Orange", "Gross", 1, 4.73));
+        billsAuction.addItem(new AuctionItem("Apple", "Good", 1, 50.00));
+        billsAuction.addItem(new AuctionItem("Orange", "Very Good", 1, 4.73));
         billsAuction.addItem(new AuctionItem("Banana", "Acceptable", 1, 11.00));
-        billsAuction.addItem(new AuctionItem("Grapes", "Pretty much just raisins", 1, 11.00));
+        billsAuction.addItem(new AuctionItem("Grapes", "Like New", 1, 11.00));
         myCalendar.addAuction(billsAuction);
 
         Contact steve = new Contact("Steve Jobs",
@@ -190,14 +190,13 @@ public class AuctionCentral {
                 "Apples Foundation");
         myUsers.registerUser(steve);
         Auction stevesAuction = new Auction(LocalDateTime.now().plusDays(14), steve);
-        stevesAuction.addItem(new AuctionItem("Rock", "Fresh", 1, 10.00));
-        stevesAuction.addItem(new AuctionItem("Twig", "Crunchy", 1, 50.73));
-        stevesAuction.addItem(new AuctionItem("Boulder", "Large", 1, 11000.00));
-        stevesAuction.addItem(new AuctionItem("A big river", "Moist", 1, 11000000.00));
-        stevesAuction.addItem(new AuctionItem("Everything", "Big", 1, 78235982398740.00));
+        stevesAuction.addItem(new AuctionItem("Rock", "New", 1, 10.00));
+        stevesAuction.addItem(new AuctionItem("Twig", "Like New", 1, 50.73));
+        stevesAuction.addItem(new AuctionItem("Boulder", "Very Good", 1, 1100.00));
+        stevesAuction.addItem(new AuctionItem("A big river", "Good", 1, 1200.00));
+        stevesAuction.addItem(new AuctionItem("Everything", "Acceptable", 1, 1832.03));
 
         myCalendar.addAuction(stevesAuction);
-
 
     }
 }

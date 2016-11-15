@@ -48,7 +48,10 @@ public class ContactUI {
 
         if (myAuction != null) {
             System.out.println(myAuction.toString());
-            System.out.println("Upcoming Auction date: " + myAuction.getStartTime().toString());
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+            System.out.println("Upcoming Auction date: " + myAuction.getStartTime().format(formatter));
         } else {
             System.out.println("You have no upcoming auctions yet!");
         }
