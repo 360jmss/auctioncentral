@@ -55,9 +55,9 @@ public class ContactUI {
         String choice = sc.next();
         System.out.println();
 
-        if (choice == "1") {
+        if (choice.equals("1")) {
             displayAuctionRequest();
-        } else if (choice == "2") {
+        } else if (choice.equals("2")) {
             displayAddItems();
         }
         sc.close();
@@ -88,9 +88,9 @@ public class ContactUI {
         String choice = sc.next();
         System.out.println();
 
-        if (choice == "0") {
+        if (choice.equals("0")) {
             displayMenu();
-        } else if (choice == "1") {
+        } else if (choice.equals("1")) {
             enterAuctionRequest();
         }
     }
@@ -127,7 +127,7 @@ public class ContactUI {
         String answer = sc.next();
         System.out.println();
 
-        if (answer == "Y") {
+        if (answer.equals("Y")) {
             enterEstItems();
         }
 
@@ -136,7 +136,7 @@ public class ContactUI {
         answer = sc.next();
         System.out.println();
 
-        if (answer == "Y") {
+        if (answer.equals("Y")) {
             enterComment();
         }
 
@@ -198,9 +198,9 @@ public class ContactUI {
         String choice = sc.next();
         System.out.println();
 
-        if (choice == "0") {
+        if (choice.equals("0")) {
             displayMenu();
-        } else if (choice == "1") {
+        } else if (choice.equals("1")) {
             enterAnItem();
         }
     }
@@ -245,7 +245,7 @@ public class ContactUI {
         String answer = sc.next();
         System.out.println();
 
-        if (answer == "Y") {
+        if (answer.equals("Y")) {
             System.out.println("Please enter a donor name for your item: ");
             String donor = sc.nextLine();
             theItem.setDonorName(donor);
@@ -256,7 +256,7 @@ public class ContactUI {
         answer = sc.next();
         System.out.println();
 
-        if (answer == "Y") {
+        if (answer.equals("Y")) {
             System.out.println("Please enter a description for your item: ");
             String description = sc.nextLine();
             theItem.setDescription(description);
@@ -267,7 +267,7 @@ public class ContactUI {
         answer = sc.next();
         System.out.println();
 
-        if (answer == "Y") {
+        if (answer.equals("Y")) {
             System.out.println("Please enter a comment for your item: ");
             String comment = sc.nextLine();
             theItem.setComment(comment);

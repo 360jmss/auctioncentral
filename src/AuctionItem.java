@@ -189,7 +189,7 @@ public class AuctionItem implements Serializable{
      */
     public boolean isHighestBid(Double theBid) {
         boolean result = false;
-        if(myBidList.get(myHighestBidder) < theBid) {
+        if(myBidList.get(myHighestBidder) == null || myBidList.get(myHighestBidder) < theBid) {
             result = true;
         }
         return result;

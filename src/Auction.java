@@ -137,7 +137,7 @@ public class Auction implements Serializable {
         boolean validate = true;
 
         for (int i = 0; i < myItems.size(); i++) {
-            if (theItem.getName() == myItems.get(i).getName()) {
+            if (theItem.getName().equals(myItems.get(i).getName())) {
                 check++;
             }
         }

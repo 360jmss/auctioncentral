@@ -58,6 +58,9 @@ public final class BidderUI {
 
     }
 
+    /**
+     * Displays the View to choose an auction.
+     */
     private void displayChooseAuctionView() {
         System.out.println("Which auction would you like to View?");
         System.out.println("Enter 0 to go back.");
@@ -96,6 +99,10 @@ public final class BidderUI {
 
     }
 
+    /**
+     * Displays the view to choose an item.
+     * @param theItemList the list of items from the auction.
+     */
     private void displayChooseItemView(List<AuctionItem> theItemList) {
         System.out.println("Which item would you like to view?");
         System.out.println("Enter 0 to go back.");
@@ -124,14 +131,29 @@ public final class BidderUI {
         do {
             menuChoice = getMenuChoice(2);
             if (menuChoice <= 1) {
-                displayBidOnItemView();
+                displayBidOnItemView(theItem);
             }
         } while (menuChoice != 2);
 
     }
 
-    private void displayBidOnItemView() {
-        
+    /**
+     *
+     */
+    private void displayBidOnItemView(AuctionItem theItem) {
+        System.out.println(theItem.toString());
+        System.out.println("This items minimum bid: " + theItem.getMinBid());
+        System.out.println("\nPlease enter your bid: (Please enter bids with decimal value, ie. 5.00");
+//        int input;
+//        do {
+//            System.out.print("> ");
+//            while (!S.hasNextDouble()) {
+//                System.out.println("Invalid Bid, please enter a valid bid with decimal value, ie 6.50");
+//                S.next();
+//            }
+//            input = S.nextInt();
+//        } while (!(input <= n));
+//        S.nextLine();
     }
 
     /**
