@@ -77,16 +77,15 @@ public final class BidderUI {
      * Displays the view for viewing an auction.
      */
     private void displayViewAuction(Auction theAuction) {
-        //TODO
         displayHeader();
         System.out.println(theAuction.toString());
         System.out.println("Items offered for sale:");
-        System.out.format("%6s%25s%10d%16s","ID", "Item Name", "Condition", "Minimum Bid");
+        System.out.format("%6s%25s%10s%16s","ID", "Item Name", "Condition", "Minimum Bid");
         for (AuctionItem item : theAuction.getItems()) {
-            System.out.format("%8s%25s%12d%8s", item.getUniqueID(), item.getName(),
+            System.out.format("%8d%25s%12s%8.2f", item.getUniqueID(), item.getName(),
                     item.getCondition(), item.getMinBid());
         }
-        System.out.println("What would you like to do?");
+        System.out.println("\n\nWhat would you like to do?");
         System.out.println("1. View an item");
         System.out.println("2. Go back");
         int menuChoice;
@@ -138,22 +137,24 @@ public final class BidderUI {
     }
 
     /**
-     *
+     * Displays the bid on item view.
      */
     private void displayBidOnItemView(AuctionItem theItem) {
         System.out.println(theItem.toString());
         System.out.println("This items minimum bid: " + theItem.getMinBid());
         System.out.println("\nPlease enter your bid: (Please enter bids with decimal value, ie. 5.00");
-//        int input;
-//        do {
-//            System.out.print("> ");
-//            while (!S.hasNextDouble()) {
-//                System.out.println("Invalid Bid, please enter a valid bid with decimal value, ie 6.50");
-//                S.next();
-//            }
-//            input = S.nextInt();
-//        } while (!(input <= n));
-//        S.nextLine();
+
+        Double input;
+        do  {
+            System.out.print("> ");
+            while (!S.hasNextDouble()) {
+                System.out.println("Invalid input, please enter valid bid with decimal value, ie 5.50");
+                S.next();
+            }
+            input = S.nextDouble();
+        } while(!S.hasNextDouble());
+        theItem.addBid(myUser.getName(), input);
+
     }
 
     /**
