@@ -17,12 +17,6 @@ public class TestAuctionItem {
         apple.addBid("Hannah", 55.0);
     }
 
-    @org.junit.Test
-    public void testAddBidHighestBid() {
-        apple.addBid("Sam", 1.0);
-        Double one = 1.0;
-        assertEquals(one, apple.getHighestBid());
-    }
 
     @org.junit.Test
     public void testIsValidPriceForBidOnNegativeBid() {

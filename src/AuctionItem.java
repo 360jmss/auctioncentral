@@ -15,7 +15,7 @@ public class AuctionItem implements Serializable{
     private String myName;
 
     /**The condition of the item*/
-    private int myCondition;
+    private String myCondition;
 
     /**The size of an item*/
     private int mySize;
@@ -48,7 +48,7 @@ public class AuctionItem implements Serializable{
      * @param theSize the size of the auction item.
      * @param theMinBid the min bid of the auction item.
      */
-    AuctionItem(String theName, int theCondition, int theSize, Double theMinBid) {
+    AuctionItem(String theName, String theCondition, int theSize, Double theMinBid) {
         myName = theName;
         myCondition = theCondition;
         mySize = theSize;
@@ -74,7 +74,7 @@ public class AuctionItem implements Serializable{
      * Returns the condition of this auction item.
      * @return the condition.
      */
-    public int getCondition() {
+    public String getCondition() {
         return myCondition;
     }
 
