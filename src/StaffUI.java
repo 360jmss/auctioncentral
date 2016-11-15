@@ -64,7 +64,7 @@ public class StaffUI {
         System.out.println("What would you like to do? (Enter an Integer)");
         System.out.println("1. View calendar of upcoming auctions");
         System.out.println("2. Administrative functions");
-        System.out.println("3. Exit AuctionCentral\n");
+        System.out.println("3. Logout\n");
     }
 
     /**
