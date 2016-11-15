@@ -15,7 +15,7 @@ public class AuctionItem implements Serializable{
     private String myName;
 
     /**The condition of the item*/
-    private int myCondition;
+    private String myCondition;
 
     /**The size of an item*/
     private int mySize;
@@ -48,7 +48,7 @@ public class AuctionItem implements Serializable{
      * @param theSize the size of the auction item.
      * @param theMinBid the min bid of the auction item.
      */
-    AuctionItem(String theName, int theCondition, int theSize, Double theMinBid) {
+    AuctionItem(String theName, String theCondition, int theSize, Double theMinBid) {
         myName = theName;
         myCondition = theCondition;
         mySize = theSize;
@@ -74,7 +74,7 @@ public class AuctionItem implements Serializable{
      * Returns the condition of this auction item.
      * @return the condition.
      */
-    public int getCondition() {
+    public String getCondition() {
         return myCondition;
     }
 
@@ -114,8 +114,16 @@ public class AuctionItem implements Serializable{
      * Returns the comment of this auciton item.
      * @return the comment.
      */
-    public String getComent() {
+    public String getComment() {
         return myComment;
+    }
+
+    /**
+     * Returns the unique id of this item.
+     * @return the unique id of the item.
+     */
+    public int getUniqueID() {
+        return myUniqueID;
     }
 
     /**
@@ -165,10 +173,38 @@ public class AuctionItem implements Serializable{
      * @param theBid the bid value.
      */
     public void addBid(String theBidderName,Double theBid) {
-        myBidList.put(theBidderName, theBid);
-        if (myBidList.get(myHighestBidder) == null || myBidList.get(myHighestBidder) < theBid) {
-            myHighestBidder = theBidderName;
+        if(isValidBidPrice(theBid)) {
+            myBidList.put(theBidderName, theBid);
+            if(isHighestBid(theBid)) {
+                myHighestBidder = theBidderName;
+            }
         }
+
+    }
+
+    /**
+     * Checks if the new bid being added is the highest bid.
+     * @param theBid the bid to compare with the highest bid.
+     * @return true if the bid is the highest bid; false otherwise.
+     */
+    public boolean isHighestBid(Double theBid) {
+        boolean result = false;
+        if(myBidList.get(myHighestBidder) < theBid) {
+            result = true;
+        }
+        return result;
+    }
+    /**
+     * Checks if the bid price is valid, greater than
+     * @param theBid the bid to check.
+     * @return true if valid; false otherwise.
+     */
+    public boolean isValidBidPrice(Double theBid) {
+        boolean result = false;
+        if (theBid != null && theBid >= myMinBid) {
+            result = true;
+        }
+        return result;
     }
 
     @Override
