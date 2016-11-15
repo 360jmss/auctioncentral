@@ -10,7 +10,7 @@ import java.time.Month;
 import static org.junit.Assert.*;
 
 /**
- * This is a JUnit test class for the model.Auction
+ * This is a JUnit test class for the Auction
  * @author Simon DeMartini
  * @version Nov 13 2016
  */

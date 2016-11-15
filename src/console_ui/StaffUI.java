@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class represents the model.Staff view for the console UI.
+ * This class represents the Staff view for the console UI.
  * @author Miguel Barreto
  * @version 14 Nov, 2016
  */
@@ -23,14 +23,14 @@ public class StaffUI {
     /** The current user who is logged in */
     private User myUser;
 
-    /** The master calendar for main.AuctionCentral */
+    /** The master calendar for AuctionCentral */
     private Calendar myCalendar;
 
-    /** Menu option for logging out and exiting model.Staff UI */
+    /** Menu option for logging out and exiting Staff UI */
     private static final int EXIT = 3;
 
     /**
-     * The model.Staff UI.
+     * The Staff UI.
      * @param theUser The user who is logged in
      * @param theCalendar The calendar for the loaded list of all auctions
      */
@@ -41,7 +41,7 @@ public class StaffUI {
 
     /**
      * Prompts the user for what they would like to do.
-     *  View model.Calendar, Admin Functions, or Exit
+     *  View Calendar, Admin Functions, or Exit
      * @return the menu choice
      */
     private int getMenuChoice() {
@@ -61,7 +61,7 @@ public class StaffUI {
     }
 
     /**
-     * Prints the model.Staff menu choices.
+     * Prints the Staff menu choices.
      *  If this list is updated, the EXIT constant needs to be updated
      *  as well as the getMenuChoice() method's validation.
      */
@@ -76,14 +76,14 @@ public class StaffUI {
      * Displays the header of the UI.
      */
     private void displayHeader() {
-        System.out.println("main.AuctionCentral: the auctioneer for non-profit organizations.");
-        System.out.println(myUser.getName() + " logged in as model.Auction Central model.Staff Person\n");
+        System.out.println("AuctionCentral: the auctioneer for non-profit organizations.");
+        System.out.println(myUser.getName() + " logged in as model.Auction Central Staff Person\n");
         System.out.println(LocalDate.now().toString() + "  Total number of upcoming auctions: "
                 + myCalendar.getFutureAuctionTotal() + "\n");
     }
 
     /**
-     * Allows the staff member to view the model.Calendar.
+     * Allows the staff member to view the Calendar.
      */
     private void menuViewCalendar() {
         LocalDateTime startTime = LocalDateTime.now().plusDays(1).withHour(0).withMinute(0);
@@ -151,7 +151,7 @@ public class StaffUI {
     }
 
     /**
-     * Main entry point for the model.Staff UI.
+     * Main entry point for the Staff UI.
      */
     public void start() {
         int menuChoice;

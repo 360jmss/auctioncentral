@@ -8,7 +8,7 @@ import model.UserRepo;
 import static org.junit.Assert.*;
 
 /**
- * This is a JUnit test class for the UserRep
+ * This is a JUnit test class for the UserRepo
  * @author Simon DeMartini
  * @version Nov 13 2016
  */

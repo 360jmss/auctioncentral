@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 /**
- * The unit tests for model.Calendar.
+ * The unit tests for Calendar.
  * @author Miguel Barreto
  * @version 11 Nov, 2016
  */

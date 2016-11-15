@@ -7,7 +7,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 
 /**
- * This class is the starting point for the main.AuctionCentral program and is responsible for storing and saving the
+ * This class is the starting point for the AuctionCentral program and is responsible for storing and saving the
  * serialized objects.
  * @author Simon DeMartini
  * @version Nov 7 2016
@@ -38,7 +38,7 @@ public class AuctionCentral {
         myUsers = new UserRepo();
         myCalendar = new Calendar();
 
-        System.out.println("Welcome to main.AuctionCentral");
+        System.out.println("Welcome to AuctionCentral");
 
         //read in serialized objects
         readCalAndUsers();
@@ -55,7 +55,7 @@ public class AuctionCentral {
     }
 
     /**
-     * Read the model.UserRepo and model.Calendar files if they exist and assign to myUsers and myCalendar
+     * Read the UserRepo and Calendar files if they exist and assign to myUsers and myCalendar
      */
     private static void readCalAndUsers() {
         //read model.UserRepo
@@ -79,7 +79,7 @@ public class AuctionCentral {
     }
 
     /**
-     * Write the model.UserRepo and model.Calendar files if they exist and assign to myUsers and myCalendar
+     * Write the UserRepo and Calendar files if they exist and assign to myUsers and myCalendar
      */
     private static void writeCalAndUsers() {
 

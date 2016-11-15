@@ -12,15 +12,15 @@ import java.util.Scanner;
 
 
 /**
- * This is the model.Bidder UI.
+ * This is the Bidder UI.
  * @author Samantha Ong
  * @version 11/13/2016
  */
 public final class BidderUI {
-    /**The user for this ui*/
+    /** The user for this ui*/
     private User myUser;
 
-    /**model.Calendar for auctions.*/
+    /** Calendar for auctions.*/
     private Calendar myCalendar;
 
     /** Global scanner for user input. */
@@ -29,7 +29,7 @@ public final class BidderUI {
     private List<Auction> myAuctionList;
 
     /**
-     * The model.Bidder UI.
+     * The Bidder UI.
      * @param theUser the user
      * @param theCalendar the calendar
      */
@@ -40,7 +40,7 @@ public final class BidderUI {
     }
 
     /**
-     * Prints the view for model.Auction List view.
+     * Prints the view for Auction List view.
      */
     private void printAuctionListView() {
         displayHeader();
@@ -238,7 +238,7 @@ public final class BidderUI {
      * Displays the header of the UI.
      */
     private void displayHeader() {
-        System.out.println("main.AuctionCentral: the auctioneer for non-profit organizations.");
+        System.out.println("AuctionCentral: the auctioneer for non-profit organizations.");
         System.out.println(myUser.getName() + " logged in as model.Bidder");
         System.out.println("Todays Date: " + LocalDate.now().toString() + "\n");
     }
