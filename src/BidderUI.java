@@ -41,62 +41,86 @@ public final class BidderUI {
         for(int i = 1; i < myCalendar.getAuctions().size(); i++) {
             System.out.println(i + ". " + myAuctionList.get(i - 1).toString());
         }
+
+    }
+
+    private void printAuctionListMenu() {
         System.out.println("\nWhat would you like to do?");
         System.out.println("1. View an auction");
         System.out.println("2. Go back");
     }
-
     /**
      * Displays a list of upcoming auctions.
      */
     private void displayAuctionList() {
         printAuctionListView();
+        printAuctionListMenu();
         int menuChoice;
         do {
             menuChoice = getMenuChoice(2);
             if (menuChoice == 1) {
                 displayChooseAuctionView();
                 printAuctionListView();
+                printAuctionListMenu();
             }
         } while (menuChoice != 2);
+    }
+
+    /**
+     * print the choose auction view.
+     */
+    private void printChooseAuctionView() {
+        printAuctionListView();
+        System.out.println("\nWhich auction would you like to View?");
+        System.out.println("Enter 0 to go back.");
     }
 
     /**
      * Displays the View to choose an auction.
      */
     private void displayChooseAuctionView() {
-        displayHeader();
-        System.out.println("Which auction would you like to View?");
-        System.out.println("Enter 0 to go back.");
+        printChooseAuctionView();
         int menuChoice;
-        do {
-            menuChoice = getMenuChoice(myAuctionList.size());
-            if (menuChoice <= myAuctionList.size() && menuChoice > 0) {
-                displayViewAuction(myAuctionList.get(menuChoice - 1));
-            }
-        } while (menuChoice != 0);
+        menuChoice = getMenuChoice(myAuctionList.size());
+        if (menuChoice <= myAuctionList.size() && menuChoice > 0) {
+            displayViewAuction(myAuctionList.get(menuChoice - 1));
+            printChooseAuctionView();
+        }
     }
 
     /**
-     * Displays the view for viewing an auction.
+     * prints the auction view.
+     * @param theAuction the auction we are viewing.
      */
-    private void displayViewAuction(Auction theAuction) {
+    private void printViewAuction(Auction theAuction) {
         displayHeader();
         System.out.println(theAuction.toString());
         System.out.println("Items offered for sale:");
-        System.out.format("%8s%25s%12s%10s%10s","ID", "Item Name", "Condition", "Min Bid", "My Bid");
+        System.out.format("%9s%25s%12s%20s%20s\n","ID", "Item Name", "Condition", "Min Bid", "My Bid");
+        int i = 1;
         for (AuctionItem item : theAuction.getItems()) {
-            System.out.format("%8d%25s%12s%8.2f%8.2f\n", item.getUniqueID(), item.getName(),
+            System.out.format("%2d. %5d%25s%12s%20.2f%20.2f\n", i, item.getUniqueID(), item.getName(),
                     item.getCondition(), item.getMinBid(), item.getBid(myUser.getName()));
+            i++;
+
         }
         System.out.println("\n\nWhat would you like to do?");
         System.out.println("1. View an item");
         System.out.println("2. Go back");
+    }
+    /**
+     * Displays the view for viewing an auction.
+     * @param theAuction the auction we are viewing.
+     */
+    private void displayViewAuction(Auction theAuction) {
+        printViewAuction(theAuction);
+
         int menuChoice;
         do {
             menuChoice = getMenuChoice(2);
             if (menuChoice == 1) {
                 displayChooseItemView(theAuction.getItems());
+                printViewAuction(theAuction);
             }
         } while (menuChoice != 2);
 
@@ -118,46 +142,68 @@ public final class BidderUI {
     }
 
     /**
-     * Displays the view for bidding on an item.
+     * prints the view an item view.
      * @param theItem the item we are viewing.
      */
-    private void displayViewAnItemView(AuctionItem theItem) {
+    private void printViewAnItemView(AuctionItem theItem) {
         displayHeader();
-        System.out.println(theItem.toString());
+        System.out.format("%5s%25s%12s%20s%20s\n","ID", "Item Name", "Condition", "Min Bid", "My Bid");
+        System.out.format("%5d%25s%12s%20.2f%20.2f\n", theItem.getUniqueID(), theItem.getName(),
+                theItem.getCondition(), theItem.getMinBid(), theItem.getBid(myUser.getName()));
         if (theItem.getComment() != null) {
             System.out.println(theItem.getComment());
         }
         System.out.println("\nWhat would you like to do?");
         System.out.println("1. Place a bid on this item");
         System.out.println("2. Go back");
+    }
+
+    /**
+     * Displays the view for bidding on an item.
+     * @param theItem the item we are viewing.
+     */
+    private void displayViewAnItemView(AuctionItem theItem) {
+        printViewAnItemView(theItem);
         int menuChoice;
         do {
             menuChoice = getMenuChoice(2);
             if (menuChoice <= 1) {
                 displayBidOnItemView(theItem);
+                printViewAnItemView(theItem);
             }
         } while (menuChoice != 2);
 
     }
 
     /**
+     * prints the bid on item view.
+     * @param theItem the item we are bidding on.
+     */
+    private void printBidOnItemView(AuctionItem theItem) {
+        displayHeader();
+        System.out.format("%9s%25s%12s%20s%20s\n","ID", "Item Name", "Condition", "Min Bid", "My Bid");
+        System.out.format("%5d%25s%12s%20.2f%20.2f\n", theItem.getUniqueID(), theItem.getName(),
+                theItem.getCondition(), theItem.getMinBid(), theItem.getBid(myUser.getName()));
+        System.out.println("This items minimum bid: " + theItem.getMinBid());
+        System.out.println("\nPlease enter your bid: ");
+
+    }
+
+    /**
      * Displays the bid on item view.
+     *  @param theItem the item we are bidding on.
      */
     private void displayBidOnItemView(AuctionItem theItem) {
-        displayHeader();
-        System.out.println(theItem.toString());
-        System.out.println("This items minimum bid: " + theItem.getMinBid());
-        System.out.println("\nPlease enter your bid: (Please enter bids with decimal value, ie. 5.00");
-
+        printBidOnItemView(theItem);
         Double input;
         do  {
             System.out.print("> ");
             while (!S.hasNextDouble()) {
-                System.out.println("Invalid input, please enter valid bid with decimal value, ie 5.50");
+                System.out.println("Invalid input, please enter valid bid ie. 99, 12.0, 12.5");
                 S.next();
             }
             input = S.nextDouble();
-        } while(!S.hasNextDouble());
+        } while(input == null);
         theItem.addBid(myUser.getName(), input);
 
     }

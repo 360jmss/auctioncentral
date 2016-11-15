@@ -253,7 +253,7 @@ public class AuctionItem implements Serializable{
 
     @Override
     public String toString() {
-        return myUniqueID + myName + myCondition + myMinBid;
+        return myUniqueID + " " + myName + " " + myCondition + " " + myMinBid;
     }
 
 }
