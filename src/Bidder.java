@@ -145,4 +145,28 @@ public class Bidder extends User {
      * @param thePaymentInfo The payment information of a bidder.
      */
     public void setPaymentInfo(String thePaymentInfo) { myPaymentInfo = thePaymentInfo; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Bidder bidder = (Bidder) o;
+
+        if (myPhoneNumber != null ? !myPhoneNumber.equals(bidder.myPhoneNumber) : bidder.myPhoneNumber != null)
+            return false;
+        if (myAddress != null ? !myAddress.equals(bidder.myAddress) : bidder.myAddress != null) return false;
+        if (myEmail != null ? !myEmail.equals(bidder.myEmail) : bidder.myEmail != null) return false;
+        return myPaymentInfo != null ? myPaymentInfo.equals(bidder.myPaymentInfo) : bidder.myPaymentInfo == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = myPhoneNumber != null ? myPhoneNumber.hashCode() : 0;
+        result = 31 * result + (myAddress != null ? myAddress.hashCode() : 0);
+        result = 31 * result + (myEmail != null ? myEmail.hashCode() : 0);
+        result = 31 * result + (myPaymentInfo != null ? myPaymentInfo.hashCode() : 0);
+        return result;
+    }
 }

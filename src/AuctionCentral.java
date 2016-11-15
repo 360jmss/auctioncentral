@@ -153,8 +153,9 @@ public class AuctionCentral {
         myUsers.registerUser(new Bidder("Monica", "monica", "1", "There", "monica@email.com"));
         myUsers.registerUser(new Bidder("Rachel", "rachel", "32409237849", "Nowhere", "rachel@email.com"));
 
-        //24 future Auctions and contacts
-        for(int i = 0; i < 24; i++) {
+
+        //22 future standard Auctions and contacts
+        for(int i = 0; i < 22; i++) {
             Contact c = new Contact("John Doe the " + i,
                     "con" + i,
                     "253-54" + i,
@@ -165,5 +166,38 @@ public class AuctionCentral {
             myUsers.registerUser(c);
             myCalendar.addAuction(new Auction(LocalDateTime.now().plusDays(i), c));
         }
+
+        //2 Unique Auctions with items
+        Contact bill = new Contact("Bill Gates",
+                "billy",
+                "111-111-1111",
+                "bill@somewhere.edu",
+                "123 Main St",
+                "Bill Gates Foundation");
+        myUsers.registerUser(bill);
+        Auction billsAuction = new Auction(LocalDateTime.now().plusDays(11), bill);
+        billsAuction.addItem(new AuctionItem("Apple", "Fresh", 1, 50.00));
+        billsAuction.addItem(new AuctionItem("Orange", "Gross", 1, 4.73));
+        billsAuction.addItem(new AuctionItem("Banana", "Acceptable", 1, 11.00));
+        billsAuction.addItem(new AuctionItem("Grapes", "Pretty much just raisins", 1, 11.00));
+        myCalendar.addAuction(billsAuction);
+
+        Contact steve = new Contact("Steve Jobs",
+                "steve",
+                "222-222-2222",
+                "steve@somewhere.edu",
+                "123 Broadway St",
+                "Apples Foundation");
+        myUsers.registerUser(steve);
+        Auction stevesAuction = new Auction(LocalDateTime.now().plusDays(14), steve);
+        stevesAuction.addItem(new AuctionItem("Rock", "Fresh", 1, 10.00));
+        stevesAuction.addItem(new AuctionItem("Twig", "Crunchy", 1, 50.73));
+        stevesAuction.addItem(new AuctionItem("Boulder", "Large", 1, 11000.00));
+        stevesAuction.addItem(new AuctionItem("A big river", "Moist", 1, 11000000.00));
+        stevesAuction.addItem(new AuctionItem("Everything", "Big", 1, 78235982398740.00));
+
+        myCalendar.addAuction(stevesAuction);
+
+
     }
 }

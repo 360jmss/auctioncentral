@@ -50,4 +50,5 @@ public class Staff extends User {
     public void setUsername(String theUsername) {
         myUsername = theUsername;
     }
+
 }

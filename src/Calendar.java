@@ -122,7 +122,7 @@ public class Calendar implements Serializable {
     private boolean checkAuctionsByContact(Auction theAuction) {
         LocalDateTime pastCutoff = LocalDateTime.now().minusYears(1);
         for(Auction a : myAuctions) {
-            if(a.getContact() == theAuction.getContact()) {
+            if(a.getContact().equals(theAuction.getContact())) {
                 if(a.getStartTime().isAfter(pastCutoff)) return false;
             }
         }
@@ -150,7 +150,7 @@ public class Calendar implements Serializable {
     public Auction getContactsAuction(Contact theContact) {
         Auction auction = null;
         for( Auction a : myAuctions) {
-            if(a.getContact() == theContact) {
+            if(a.getContact().equals(theContact)) {
                 if(auction == null) {
                     auction = a;
                 } else if (a.getStartTime().isAfter(auction.getStartTime())) {
