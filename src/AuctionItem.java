@@ -166,7 +166,7 @@ public class AuctionItem implements Serializable{
      */
     public void addBid(String theBidderName,Double theBid) {
         myBidList.put(theBidderName, theBid);
-        if (myBidList.get(myHighestBidder) < theBid) {
+        if (myBidList.get(myHighestBidder) == null || myBidList.get(myHighestBidder) < theBid) {
             myHighestBidder = theBidderName;
         }
     }
