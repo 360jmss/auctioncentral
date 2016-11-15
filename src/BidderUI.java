@@ -192,7 +192,7 @@ public final class BidderUI {
         System.out.println(LocalDate.now().toString() + "\n");
     }
 
-    private void start() {
+    public void start() {
         int menuChoice;
         displayHeader();
         System.out.println("What would you like to do?");
