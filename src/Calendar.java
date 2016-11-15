@@ -18,16 +18,8 @@ public class Calendar implements Serializable {
      * The constructor for the Calendar.
      */
     Calendar() {
-        myAuctions = new ArrayList<Auction>();
+        myAuctions = new ArrayList<>();
     }
-
-    /**
-     * Overloaded constructor for the Calendar when passing in a list of Auctions.
-     * @param myAucList the auction list
-     */ /* TODO are we implementing this?
-    Calendar(List<Auction> myAucList) {
-        myAuctions = myAucList;
-    } */
 
     /**
      * Add an auction to the list of auctions.
@@ -128,7 +120,6 @@ public class Calendar implements Serializable {
      * @param theAuction the auction to test
      */
     private boolean checkAuctionsByContact(Auction theAuction) {
-        //TODO IS this one year from today or one year from the new auction start time?!
         LocalDateTime pastCutoff = LocalDateTime.now().minusYears(1);
         for(Auction a : myAuctions) {
             if(a.getContact() == theAuction.getContact()) {

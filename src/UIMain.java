@@ -15,7 +15,7 @@ public class UIMain {
     /** The master list of all users that can log in. */
     private UserRepo myRepo;
 
-    /** The master calendar for the Auction. */
+    /** The master calendar for AuctionCentral. */
     private Calendar myCalendar;
 
     /** Menu option for exiting the UI */
@@ -75,6 +75,12 @@ public class UIMain {
         System.out.println("4. Go Back");
     }
 
+    /**
+     * Prompts the user for their unique username
+     *  to log them in, then calls the respective
+     *  sub-user UI for that user or returns them
+     *  to the main menu if they fail to log in.
+     */
     private void menuLogin() {
         User loginUser;
         String username;
@@ -85,7 +91,7 @@ public class UIMain {
         //password = S.next();
         loginUser = myRepo.loginUser(username);
         if(loginUser != null) {
-            System.out.println("Login Successful. Welcome " + loginUser.getName() + "!");
+            System.out.println("Login Successful. Welcome " + loginUser.getName() + "!\n");
             if(loginUser instanceof Bidder) {
                 System.out.println("You are a Bidder");
                 //TODO call BidderUI
@@ -95,8 +101,10 @@ public class UIMain {
                 //TODO call ContactUI
             }
             else if(loginUser instanceof Staff) {
-                System.out.println("You are a Staff");
-                //TODO call StaffUI
+                /*
+                StaffUI ui = new StaffUI(loginUser, myCalendar);
+                ui.start();
+                */
             }
             else {
                 System.out.println("There seems to be an error. Returning...");
@@ -107,6 +115,11 @@ public class UIMain {
         }
     }
 
+    /**
+     * Prompts the user for what type of user they are,
+     *  then calls the appropriate sub-user register
+     *  method, then registers them if possible.
+     */
     private void menuRegister() {
         User newUser;
         int input;
@@ -143,6 +156,11 @@ public class UIMain {
         }
     }
 
+    /**
+     * Prompts the user to fill in the required field
+     *  for registering as a Bidder.
+     * @return the to-be registered User
+     */
     private User menuRegisterBidder() {
         Bidder newBidder;
         String name, username, phoneNumber, address, email;
@@ -160,6 +178,11 @@ public class UIMain {
         return newBidder;
     }
 
+    /**
+     * Prompts the user to fill in the required field
+     *  for registering as a Contact.
+     * @return the to-be registered User
+     */
     private User menuRegisterContact() {
         Contact newContact;
         String name, username, phoneNumber, email, address, organization;
@@ -179,6 +202,11 @@ public class UIMain {
         return newContact;
     }
 
+    /**
+     * Prompts the user to fill in the required field
+     *  for registering as a Staff.
+     * @return the to-be registered User
+     */
     private User menuRegisterStaff() {
         Staff newStaff;
         String name, username;
