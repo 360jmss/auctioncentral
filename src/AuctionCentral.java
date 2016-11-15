@@ -16,7 +16,7 @@ public class AuctionCentral {
     private static final File CALENDAR_FILE= new File("./cal.ser");
 
     /** A debugging mode where files are not saved if true. False by default */
-    private static final boolean DEBUG_FILE_MODE = true;
+    private static final boolean DEBUG_FILE_MODE = false;
 
     /** The Master UserRepo */
     private static UserRepo myUsers;
@@ -217,7 +217,7 @@ public class AuctionCentral {
                 "555 Main St",
                 "Past Auction more than past year");
         myUsers.registerUser(kevin);
-        Auction kevinAuction = new Auction(LocalDateTime.now().minusYears(1).plusDays(5), kevin);
+        Auction kevinAuction = new Auction(LocalDateTime.now().minusYears(1).minusDays(5), kevin);
         myCalendar.addAuction(kevinAuction);
 
     }
