@@ -198,5 +198,27 @@ public class AuctionCentral {
 
         myCalendar.addAuction(stevesAuction);
 
+        //past auction within past year
+        Contact joe = new Contact("Joe",
+                "joe",
+                "333-222-2222",
+                "joe@somewhere.edu",
+                "555 Broadway St",
+                "Past Auction within past year");
+        myUsers.registerUser(joe);
+        Auction joeAuction = new Auction(LocalDateTime.now().minusYears(1).plusDays(5), joe);
+        myCalendar.addAuction(joeAuction);
+
+        //past auction greater than past year
+        Contact kevin = new Contact("kevin",
+                "kevin",
+                "333-55-2222",
+                "kevin@somewhere.edu",
+                "555 Main St",
+                "Past Auction more than past year");
+        myUsers.registerUser(kevin);
+        Auction kevinAuction = new Auction(LocalDateTime.now().minusYears(1).plusDays(5), kevin);
+        myCalendar.addAuction(kevinAuction);
+
     }
 }
