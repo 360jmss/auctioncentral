@@ -19,6 +19,8 @@ public final class BidderUI {
     /** Global scanner for user input. */
     private static final Scanner S = new Scanner(System.in);
 
+    private List<Auction> myAuctionList;
+
     /**
      * The Bidder UI.
      * @param theUser the user
@@ -27,6 +29,7 @@ public final class BidderUI {
     public BidderUI(User theUser, Calendar theCalendar) {
         myUser = theUser;
         myCalendar = theCalendar;
+        myAuctionList = myCalendar.getAuctions(LocalDateTime.now());
     }
 
 
@@ -36,20 +39,41 @@ public final class BidderUI {
     private void displayAuctionList() {
         displayHeader();
         System.out.println("Below are the list of auctions:");
-        List<Auction> auctionList = myCalendar.getAuctions(LocalDateTime.now());
         for(int i = 1; i < myCalendar.getAuctions().size(); i++) {
-            System.out.println(i + ". " + auctionList.get(i - 1).toString());
+            System.out.println(i + ". " + myAuctionList.get(i - 1).toString());
         }
         System.out.println("\nWhat would you like to do?");
         System.out.println("1. View an auction");
         System.out.println("2. View my bids");
         System.out.println("3. Go back");
+        int menuChoice;
+        do {
+            menuChoice = getMenuChoice(3);
+            if (menuChoice == 1) {
+                displayChooseAuctionView();
+            } else if (menuChoice == 2) {
+                displayViewMyBids();
+            }
+        } while (menuChoice != 3);
+
+    }
+
+    private void displayChooseAuctionView() {
+        System.out.println("Which auction would you like to View?");
+        System.out.println("Enter 0 to go back.");
+        int menuChoice;
+        do {
+            menuChoice = getMenuChoice(myAuctionList.size());
+            if (menuChoice <= myAuctionList.size() && menuChoice > 0) {
+                displayViewAuction(myAuctionList.get(menuChoice - 1));
+            }
+        } while (menuChoice != 0);
     }
 
     /**
      * Displays the view for viewing an auction.
      */
-    private void displayBidOnAuction(Auction theAuction) {
+    private void displayViewAuction(Auction theAuction) {
         //TODO
         displayHeader();
         System.out.println(theAuction.toString());
@@ -60,17 +84,54 @@ public final class BidderUI {
                     item.getCondition(), item.getMinBid());
         }
         System.out.println("What would you like to do?");
-        System.out.println("1. Bid on an item");
+        System.out.println("1. View an item");
         System.out.println("2. Go back");
-        System.out.println("3. Exit AuctionCentral");
+        int menuChoice;
+        do {
+            menuChoice = getMenuChoice(2);
+            if (menuChoice == 1) {
+                displayChooseItemView(theAuction.getItems());
+            }
+        } while (menuChoice != 2);
+
+    }
+
+    private void displayChooseItemView(List<AuctionItem> theItemList) {
+        System.out.println("Which item would you like to view?");
+        System.out.println("Enter 0 to go back.");
+        int menuChoice;
+        do {
+            menuChoice = getMenuChoice(theItemList.size());
+            if (menuChoice <= theItemList.size() && menuChoice > 0) {
+                displayViewAnItemView(theItemList.get(menuChoice-1));
+            }
+        } while (menuChoice != 0);
     }
 
     /**
      * Displays the view for bidding on an item.
-     * @param theItem
+     * @param theItem the item we are viewing.
      */
-    private void displayBidOnAnItem(AuctionItem theItem) {
+    private void displayViewAnItemView(AuctionItem theItem) {
+        System.out.println(theItem.toString());
+        if (theItem.getComment() != null) {
+            System.out.println(theItem.getComment());
+        }
+        System.out.println("\nWhat would you like to do?");
+        System.out.println("1. Place a bid on this item");
+        System.out.println("2. Go back");
+        int menuChoice;
+        do {
+            menuChoice = getMenuChoice(2);
+            if (menuChoice <= 1) {
+                displayBidOnItemView();
+            }
+        } while (menuChoice != 2);
 
+    }
+
+    private void displayBidOnItemView() {
+        
     }
 
     /**
@@ -86,16 +147,16 @@ public final class BidderUI {
      *  Login, Register, or Exit
      * @return the menu choice
      */
-    private int getMenuChoice() {
+    private int getMenuChoice(int n) {
         int input;
         do {
             System.out.print("> ");
             while (!S.hasNextInt()) {
-                System.out.println("Invalid input, please enter only '1' or '2'");
+                System.out.println("Invalid input, please enter valid option numbers given above.");
                 S.next();
             }
             input = S.nextInt();
-        } while (!(input == 1 || input == 2));
+        } while (!(input <= n));
         S.nextLine();
         return input;
     }
@@ -116,7 +177,7 @@ public final class BidderUI {
         System.out.println("1. View upcoming auctions");
         System.out.println("2. Log out");
         do {
-            menuChoice = getMenuChoice();
+            menuChoice = getMenuChoice(2);
             if (menuChoice == 1) {
                 displayAuctionList();
             }
