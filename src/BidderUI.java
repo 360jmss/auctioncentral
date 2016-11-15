@@ -48,13 +48,11 @@ public final class BidderUI {
         System.out.println("3. Go back");
         int menuChoice;
         do {
-            menuChoice = getMenuChoice(3);
+            menuChoice = getMenuChoice(2);
             if (menuChoice == 1) {
                 displayChooseAuctionView();
-            } else if (menuChoice == 2) {
-                displayViewMyBids();
             }
-        } while (menuChoice != 3);
+        } while (menuChoice != 2);
 
     }
 
@@ -80,10 +78,10 @@ public final class BidderUI {
         displayHeader();
         System.out.println(theAuction.toString());
         System.out.println("Items offered for sale:");
-        System.out.format("%6s%25s%10s%16s","ID", "Item Name", "Condition", "Minimum Bid");
+        System.out.format("%8s%25s%12s%10s%10s","ID", "Item Name", "Condition", "Min Bid", "My Bid");
         for (AuctionItem item : theAuction.getItems()) {
-            System.out.format("%8d%25s%12s%8.2f", item.getUniqueID(), item.getName(),
-                    item.getCondition(), item.getMinBid());
+            System.out.format("%8d%25s%12s%8.2f%8.2f", item.getUniqueID(), item.getName(),
+                    item.getCondition(), item.getMinBid(), item.getBid(myUser.getName()));
         }
         System.out.println("\n\nWhat would you like to do?");
         System.out.println("1. View an item");
@@ -155,14 +153,6 @@ public final class BidderUI {
         } while(!S.hasNextDouble());
         theItem.addBid(myUser.getName(), input);
 
-    }
-
-    /**
-     * Displays the users bids.
-     */
-    private void displayViewMyBids() {
-        //TODO
-        displayHeader();
     }
 
     /**

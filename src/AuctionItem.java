@@ -140,7 +140,13 @@ public class AuctionItem implements Serializable{
      * @return the users bid.
      */
     public Double getBid(String theBidderName) {
-        return myBidList.get(theBidderName);
+        Double result;
+        if(myBidList.get(theBidderName) == null) {
+            result = 0.0;
+        } else {
+            result = myBidList.get(theBidderName);
+        }
+        return result;
     }
 
     /**
