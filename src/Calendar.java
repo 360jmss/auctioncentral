@@ -152,6 +152,25 @@ public class Calendar implements Serializable {
     }
 
     /**
+     * Return the most recent or future auction for a contact.
+     * @param theContact to find the auctions for
+     * @return the auction with the latest date associated with that contact, null if it does not exist.
+     */
+    public Auction getContactsAuction(Contact theContact) {
+        Auction auction = null;
+        for( Auction a : myAuctions) {
+            if(a.getContact() == theContact) {
+                if(auction == null) {
+                    auction = a;
+                } else if (a.getStartTime().isAfter(auction.getStartTime())) {
+                    auction = a;
+                }
+            }
+        }
+        return auction;
+    }
+
+    /**
      * Return the number of future auctions scheduled after today
      *  within a one month period.
      * @return the number of auctions

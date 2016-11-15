@@ -1,0 +1,212 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+/**
+ * This class represents the main view for the console UI.
+ * The starting point for the UI
+ * @author Miguel Barreto
+ * @version 13 Nov, 2016
+ */
+public class UIMain {
+
+    /** Global scanner for user input. */
+    private static final Scanner S = new Scanner(System.in);
+
+    /** The master list of all users that can log in. */
+    private UserRepo myRepo;
+
+    /** The master calendar for the Auction. */
+    private Calendar myCalendar;
+
+    /** Menu option for exiting the UI */
+    private static final int EXIT = 3;
+
+    /**
+     * The constructor for the UIMain
+     * @param theRepo The repo for the loaded map of all users
+     * @param theCalendar The calendar for the loaded list of all auctions
+     */
+    UIMain(UserRepo theRepo, Calendar theCalendar) {
+        myRepo = theRepo;
+        myCalendar = theCalendar;
+    }
+
+    /**
+     * Prompts the user for what they would like to do.
+     *  Login, Register, or Exit
+     * @return the menu choice
+     */
+    private int getMenuChoice() {
+        int input;
+        System.out.println("AuctionCentral: the auctioneer for non-profit organizations.\n");
+        printMenuChoices();
+        do {
+            System.out.print("> ");
+            while (!S.hasNextInt()) {
+                System.out.println("Invalid input, please enter only '1','2' or '3'");
+                S.next();
+            }
+            input = S.nextInt();
+        } while (!(input == 1 || input == 2 || input == 3));
+        S.nextLine();
+        return input;
+    }
+
+    /**
+     * Prints the main menu choices.
+     *  If this list is updated, the EXIT constant needs to be updated
+     *  as well as the getMenuChoice() method's validation.
+     */
+    private void printMenuChoices() {
+        System.out.println("What would you like to do? (Enter an Integer)");
+        System.out.println("1. Login");
+        System.out.println("2. Register");
+        System.out.println("3. Exit AuctionCentral\n");
+    }
+
+    /**
+     * Prints the registration user choices.
+     */
+    private void printRegisterChoices() {
+        System.out.println("What type of user are you?");
+        System.out.println("1. Bidder");
+        System.out.println("2. Non-Profit Contact");
+        System.out.println("3. AuctionCentral Staff");
+        System.out.println("4. Go Back");
+    }
+
+    private void menuLogin() {
+        User loginUser;
+        String username;
+        System.out.println("\nAuction Central - Login");
+        System.out.print("\tUsername: ");
+        username = S.next();
+        //System.out.println("\tPassword:");
+        //password = S.next();
+        loginUser = myRepo.loginUser(username);
+        if(loginUser != null) {
+            System.out.println("Login Successful. Welcome " + loginUser.getName() + "!");
+            if(loginUser instanceof Bidder) {
+                System.out.println("You are a Bidder");
+                //TODO call BidderUI
+            }
+            else if(loginUser instanceof Contact) {
+                System.out.println("You are a Contact");
+                //TODO call ContactUI
+            }
+            else if(loginUser instanceof Staff) {
+                System.out.println("You are a Staff");
+                //TODO call StaffUI
+            }
+            else {
+                System.out.println("There seems to be an error. Returning...");
+            }
+        }
+        else {
+            System.out.println("Login failed. Returning... ");
+        }
+    }
+
+    private void menuRegister() {
+        User newUser;
+        int input;
+        System.out.println("\nAuction Central - Register");
+        printRegisterChoices();
+        do {
+            System.out.print("> ");
+            while (!S.hasNextInt()) {
+                System.out.println("Invalid input, please enter only '1', '2', '3', or '4'");
+                S.next();
+            }
+            input = S.nextInt();
+        } while (!(input == 1 || input == 2 || input == 3 || input == 4));
+        S.nextLine();
+        if (input == 1) {
+            System.out.println("\nRegister as Bidder...");
+            newUser = menuRegisterBidder();
+        }
+        else if (input == 2 ) {
+            System.out.println("\nRegister as Contact...");
+            newUser = menuRegisterContact();
+        }
+        else if (input == 3 ) {
+            System.out.println("\nRegister as Staff...");
+            newUser = menuRegisterStaff();
+        }
+        else
+            return;
+        if(myRepo.registerUser(newUser)) {
+            System.out.println("Registration successful. Returning...");
+        }
+        else {
+            System.out.println("Registration failed. Returning... ");
+        }
+    }
+
+    private User menuRegisterBidder() {
+        Bidder newBidder;
+        String name, username, phoneNumber, address, email;
+        System.out.println("\tEnter your Full Name: ");
+        name = S.nextLine();
+        System.out.println("\tEnter your Username: ");
+        username = S.nextLine();
+        System.out.println("\tEnter your Phone Number: ");
+        phoneNumber = S.nextLine();
+        System.out.println("\tEnter your Address: ");
+        address = S.nextLine();
+        System.out.println("\tEnter your Email: ");
+        email = S.nextLine();
+        newBidder = new Bidder(name,username,phoneNumber,address,email);
+        return newBidder;
+    }
+
+    private User menuRegisterContact() {
+        Contact newContact;
+        String name, username, phoneNumber, email, address, organization;
+        System.out.println("\tEnter your Full Name: ");
+        name = S.nextLine();
+        System.out.println("\tEnter your Username: ");
+        username = S.nextLine();
+        System.out.println("\tEnter your Business' Name: ");
+        organization = S.nextLine();
+        System.out.println("\tEnter your Business' Phone Number: ");
+        phoneNumber = S.nextLine();
+        System.out.println("\tEnter your Business' Email: ");
+        email = S.nextLine();
+        System.out.println("\tEnter your Business' Address: ");
+        address = S.nextLine();
+        newContact = new Contact(name,username,phoneNumber,email,address,organization);
+        return newContact;
+    }
+
+    private User menuRegisterStaff() {
+        Staff newStaff;
+        String name, username;
+        System.out.println("\tEnter your Full Name: ");
+        name = S.nextLine();
+        System.out.println("\tEnter your Username: ");
+        username = S.nextLine();
+        newStaff = new Staff(name,username);
+        return newStaff;
+    }
+
+    /**
+     * Main UI for Auction Central. Entry point for all the UI.
+     */
+    public void start() {
+        int menuChoice;
+        System.out.println("Hello! Welcome to Auction Central! \n");
+        do {
+            menuChoice = getMenuChoice();
+            if (menuChoice == 1) {
+                menuLogin();
+            }
+            else if (menuChoice == 2 ) {
+                menuRegister();
+            }
+        } while (menuChoice != EXIT);
+        S.close();
+        System.out.println("\nExiting program. Thank you for using Auction Central.");
+    }
+
+}

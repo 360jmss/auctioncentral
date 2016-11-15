@@ -275,4 +275,22 @@ public class TestCalendar {
         assertEquals(7, calendar.getFutureAuctionTotal());
     }
 
+    @org.junit.Test
+    public void testContactsAuctionNoAuction() throws Exception {
+        assertNull(calendar.getContactsAuction(jd));
+    }
+
+    @org.junit.Test
+    public void testContactsAuctionOneAuction() throws Exception {
+        calendar.addAuction(futureJD2);
+        assertEquals(futureJD2, calendar.getContactsAuction(jd));
+    }
+
+    @org.junit.Test
+    public void testContactsAuctionMultipleAuctions() throws Exception {
+        calendar.addAuction(futureJD2);
+        calendar.addAuction(futureJD3);
+        assertEquals(futureJD3, calendar.getContactsAuction(jd));
+    }
+
 }
