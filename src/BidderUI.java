@@ -256,7 +256,6 @@ public final class BidderUI {
                 displayStartMenu();
             }
         } while (menuChoice != 2);
-        S.close();
         System.out.println("\nLogging out...");
     }
 
