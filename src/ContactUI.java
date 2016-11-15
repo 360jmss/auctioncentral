@@ -235,9 +235,9 @@ public class ContactUI {
     }
 
     /**
-     * donor name description comment
+     *
+     * @param theItem
      */
-
     private void successfulItemAdd(AuctionItem theItem) {
         System.out.println("Your item was successfully added to your auction!");
         System.out.println("Would you like to enter the the name of the donor of this item? Y or N:");
@@ -246,7 +246,9 @@ public class ContactUI {
         System.out.println();
 
         if (answer == "Y") {
-
+            System.out.println("Please enter a donor name for your item: ");
+            String donor = sc.nextLine();
+            theItem.setDonorName(donor);
         }
 
         System.out.println();
@@ -255,7 +257,9 @@ public class ContactUI {
         System.out.println();
 
         if (answer == "Y") {
-
+            System.out.println("Please enter a description for your item: ");
+            String description = sc.nextLine();
+            theItem.setDescription(description);
         }
 
         System.out.println();
@@ -264,8 +268,12 @@ public class ContactUI {
         System.out.println();
 
         if (answer == "Y") {
-
+            System.out.println("Please enter a comment for your item: ");
+            String comment = sc.nextLine();
+            theItem.setComment(comment);
         }
+
+        myAuction.addItem(theItem);
 
         System.out.println();
         System.out.println("You are now being returned to the main menu.");
@@ -273,7 +281,15 @@ public class ContactUI {
         displayMenu();
     }
 
+    /**
+     *
+     */
     private void failedItemAdd() {
+        System.out.println("Your item was NOT successfully added to your auction.");
+        System.out.println("This is because the name of the item matched the name of another item that is already");
+        System.out.println("in the auction item list.");
+        System.out.println("You are being returned to the main menu.");
+
         displayMenu();
     }
 }
