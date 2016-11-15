@@ -94,11 +94,13 @@ public class UIMain {
             System.out.println("Login Successful. Welcome " + loginUser.getName() + "!\n");
             if(loginUser instanceof Bidder) {
                 System.out.println("You are a Bidder");
-                //TODO call BidderUI
+                BidderUI ui = new BidderUI(loginUser, myCalendar);
+                ui.start();
             }
             else if(loginUser instanceof Contact) {
                 System.out.println("You are a Contact");
-                //TODO call ContactUI
+                ContactUI ui = new ContactUI((Contact) loginUser, myCalendar);
+                ui.start();
             }
             else if(loginUser instanceof Staff) {
                 /*

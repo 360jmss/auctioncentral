@@ -38,7 +38,6 @@ public class ContactUI {
         myUser = theUser;
         myCalendar = theCalendar;
         myAuction = myCalendar.getContactsAuction(myUser);
-        displayMenu();
     }
 
     /**
@@ -61,6 +60,7 @@ public class ContactUI {
             displayAddItems();
         }
         sc.close();
+        System.out.println("\nLogging out...");
     }
 
     /**
@@ -290,6 +290,10 @@ public class ContactUI {
         System.out.println("in the auction item list.");
         System.out.println("You are being returned to the main menu.");
 
+        displayMenu();
+    }
+
+    public void start() {
         displayMenu();
     }
 }
