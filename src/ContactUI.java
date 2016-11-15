@@ -51,7 +51,7 @@ public class ContactUI {
         System.out.println("3. Exit Auction Central");
         System.out.println();
         System.out.print("> ");
-        String choice = sc.next();
+        String choice = sc.nextLine();
         System.out.println();
 
         if (choice.equals("1")) {
@@ -85,7 +85,7 @@ public class ContactUI {
         System.out.println("You are about to submit an auction request.");
         System.out.println("If you want to go back to the main menu, enter '0'. Otherwise, enter '1'.");
         System.out.print("> ");
-        String choice = sc.next();
+        String choice = sc.nextLine();
         System.out.println();
 
         if (choice.equals("0")) {
@@ -124,7 +124,7 @@ public class ContactUI {
         System.out.println("Your auction was successfully added to the calendar!");
         System.out.println("Would you like to enter the estimated number of items for your auction? Y or N:");
         System.out.print("> ");
-        String answer = sc.next();
+        String answer = sc.nextLine();
         System.out.println();
 
         if (answer.equals("Y")) {
@@ -133,7 +133,7 @@ public class ContactUI {
 
         System.out.println();
         System.out.println("Would you like to enter a comment for your auction? Y or N:");
-        answer = sc.next();
+        answer = sc.nextLine();
         System.out.println();
 
         if (answer.equals("Y")) {
@@ -168,6 +168,7 @@ public class ContactUI {
     private void enterEstItems() {
         System.out.println("Please enter the estimated number of items in your auction: ");
         int number = sc.nextInt();
+        sc.nextLine();
         myAuction.setEstItems(number);
     }
 
@@ -195,7 +196,7 @@ public class ContactUI {
         System.out.println("You are about to add an item to your auction.");
         System.out.println("If you want to go back to the main menu, enter '0'. Otherwise, enter '1'.");
         System.out.print("> ");
-        String choice = sc.next();
+        String choice = sc.nextLine();
         System.out.println();
 
         if (choice.equals("0")) {
@@ -219,10 +220,12 @@ public class ContactUI {
 
         System.out.println("Please enter the size of your item: ");
         int size = sc.nextInt();
+        sc.nextLine();
         System.out.println();
 
         System.out.println("Please enter the minimum bid of your item: ");
         double minBid = sc.nextDouble();
+        sc.nextLine();
         System.out.println();
 
         AuctionItem newItem = new AuctionItem(name, condition, size, minBid);
@@ -242,7 +245,7 @@ public class ContactUI {
         System.out.println("Your item was successfully added to your auction!");
         System.out.println("Would you like to enter the the name of the donor of this item? Y or N:");
         System.out.print("> ");
-        String answer = sc.next();
+        String answer = sc.nextLine();
         System.out.println();
 
         if (answer.equals("Y")) {
@@ -253,7 +256,7 @@ public class ContactUI {
 
         System.out.println();
         System.out.println("Would you like to enter a description for this item? Y or N:");
-        answer = sc.next();
+        answer = sc.nextLine();
         System.out.println();
 
         if (answer.equals("Y")) {
@@ -264,7 +267,7 @@ public class ContactUI {
 
         System.out.println();
         System.out.println("Would you like to enter a comment for this item? Y or N:");
-        answer = sc.next();
+        answer = sc.nextLine();
         System.out.println();
 
         if (answer.equals("Y")) {
