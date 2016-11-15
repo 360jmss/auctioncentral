@@ -80,12 +80,12 @@ public final class BidderUI {
         displayHeader();
         System.out.println(theAuction.toString());
         System.out.println("Items offered for sale:");
-        System.out.format("%6s%25s%10d%16s","ID", "Item Name", "Condition", "Minimum Bid");
+        System.out.format("%6s%25s%10s%16s","ID", "Item Name", "Condition", "Minimum Bid");
         for (AuctionItem item : theAuction.getItems()) {
-            System.out.format("%8s%25s%12d%8s", item.getUniqueID(), item.getName(),
+            System.out.format("%8d%25s%12s%8.2f", item.getUniqueID(), item.getName(),
                     item.getCondition(), item.getMinBid());
         }
-        System.out.println("What would you like to do?");
+        System.out.println("\n\nWhat would you like to do?");
         System.out.println("1. View an item");
         System.out.println("2. Go back");
         int menuChoice;
