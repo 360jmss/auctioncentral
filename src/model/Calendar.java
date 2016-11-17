@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents a model.Calendar, which manages and schedules the auctions.
+ * This class represents a Calendar, which manages and schedules the auctions.
  * @author Miguel Barreto
  * @version 11 Nov, 2016
  */
@@ -25,7 +25,7 @@ public class Calendar implements Serializable {
 
     /**
      * Add an auction to the list of auctions.
-     * @param auction a valid and complete model.Auction
+     * @param auction a valid and complete Auction
      */
     public void addAuction(Auction auction) {
         myAuctions.add(auction);
