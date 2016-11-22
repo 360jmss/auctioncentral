@@ -60,10 +60,7 @@ public class Staff extends User {
 
         Staff staff = (Staff) o;
 
-        if (this.myUsername != null ? !this.myUsername.equals(staff.myUsername) : staff.myUsername != null)
-            return false;
-        return this.myName != null ? !this.myName.equals(staff.myName) : staff.myName != null;
-
+        return this.myUsername != null ? this.myUsername.equals(staff.myUsername) : staff.myUsername != null;
     }
 
     @Override

@@ -153,16 +153,7 @@ public class Bidder extends User {
 
         Bidder bidder = (Bidder) o;
 
-        if (this.myUsername != null ? !this.myUsername.equals(bidder.myUsername) : bidder.myUsername != null)
-            return false;
-        if (this.myName != null ? !this.myName.equals(bidder.myName) : bidder.myName != null)
-            return false;
-        if (myPhoneNumber != null ? !myPhoneNumber.equals(bidder.myPhoneNumber) : bidder.myPhoneNumber != null)
-            return false;
-        if (myAddress != null ? !myAddress.equals(bidder.myAddress) : bidder.myAddress != null) return false;
-        if (myEmail != null ? !myEmail.equals(bidder.myEmail) : bidder.myEmail != null) return false;
-        return myPaymentInfo != null ? myPaymentInfo.equals(bidder.myPaymentInfo) : bidder.myPaymentInfo == null;
-
+        return this.myUsername != null ? this.myUsername.equals(bidder.myUsername) : bidder.myUsername != null;
     }
 
     @Override
