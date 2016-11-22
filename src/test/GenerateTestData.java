@@ -17,6 +17,8 @@ public class GenerateTestData {
     private static Calendar myCalendar;
 
     public GenerateTestData() {
+        myUsers = new UserRepo();
+        myCalendar = new Calendar();
         createTestData();
     }
 
