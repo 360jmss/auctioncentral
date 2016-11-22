@@ -241,7 +241,7 @@ public final class BidderUI {
      */
     private void displayHeader() {
         System.out.println("AuctionCentral: the auctioneer for non-profit organizations.");
-        System.out.println(myUser.getName() + " logged in as model.Bidder");
+        System.out.println(myUser.getName() + " logged in as Bidder");
         System.out.println("Todays Date: " + LocalDate.now().toString() + "\n");
     }
 
