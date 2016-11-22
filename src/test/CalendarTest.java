@@ -49,7 +49,7 @@ public class CalendarTest {
                 "253-867-5309",
                 "contact@somewhere.edu",
                 "123 Main St",
-                "Veridian Dynamics");
+                "Veridian Dynamics" + id);
     }
 
     @org.junit.Test

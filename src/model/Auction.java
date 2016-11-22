@@ -147,23 +147,21 @@ public class Auction implements Serializable {
 
     /**
      * Validates whether or not an item is already in the system for this auction.
+     * Revised by Samantha Ong
+     * @author Jessica
      * @param theItem The item to be validated.
      * @return True if the item is not already in the system, false otherwise.
      */
     public boolean validateItem(AuctionItem theItem) {
-        int check = 0;
         boolean validate = true;
 
         for (int i = 0; i < myItems.size(); i++) {
             if (theItem.getName().equals(myItems.get(i).getName())) {
-                check++;
+                validate = false;
             }
-        }
-
-        if (check > 0) {
-            validate = false;
         }
 
         return validate;
     }
+
 }
