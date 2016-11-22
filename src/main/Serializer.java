@@ -14,6 +14,12 @@ public class Serializer {
     /** The file to write/read */
     private File myFile;
 
+    /** THe UserRepo */
+    private UserRepo myUsers;
+
+    /** The Calendar */
+    private Calendar myCalendar;
+
     /**
      * Create a serializable object with the location of a config file.
      * @param theFile a file location

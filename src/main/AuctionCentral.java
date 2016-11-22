@@ -20,8 +20,11 @@ public class AuctionCentral {
     /** The file location for the users repo when serialized."*/
     private static final File CALENDAR_FILE= new File("./cal.ser");
 
-    /** A debugging mode where files are not saved if true. False by default */
-    private static final boolean DEBUG_FILE_MODE = true;
+    /** A flag to decide whether to read files or generate test data */
+    private static final boolean READ_FILE_MODE = false;
+
+    /** A flag to decide whether to save files or not */
+    private static final boolean SAVE_FILE_MODE = false;
 
     /**
      * Start the program.
@@ -35,10 +38,12 @@ public class AuctionCentral {
         Serializer calSer = new Serializer(CALENDAR_FILE);
 
         //read in serialized objects
-        if(!DEBUG_FILE_MODE) {
+        if(READ_FILE_MODE) {
+            System.out.println("Reading data from disk...");
             myCalendar = (Calendar) calSer.read();
             myUsers = (UserRepo) userSer.read();
-        } else {
+        } else { //generate sample data
+            System.out.println("Generating test data...");
             GenerateTestData gen = new GenerateTestData();
             myUsers = gen.getUserRepo();
             myCalendar = gen.getCalendar();
@@ -50,11 +55,12 @@ public class AuctionCentral {
         ui.start();
 
         //save serialized objects when UI is done
+        if(SAVE_FILE_MODE) {
             calSer.write(myCalendar);
             userSer.write(myUsers);
-
-
+            System.out.println("Files saved.");
+        } else {
+            System.out.println("No files saved.");
+        }
     }
-
-
 }
