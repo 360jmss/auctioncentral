@@ -92,6 +92,7 @@ public class Calendar implements Serializable {
     /**
      *  Helper method to check if the auction to be scheduled is between one week and month.
      *  @param theAuction the auction to test
+     *  @author Simon DeMartini
      */
     private boolean checkBetweenWeekAndMonth(Auction theAuction) {
         LocalDate weekOut = LocalDate.now().plusWeeks(1).minusDays(1);
@@ -103,6 +104,7 @@ public class Calendar implements Serializable {
     /**
      *  Helper method to check if there is an auction already schedule for that day.
      *  @param theAuction the auction to test
+     *  @author Simon DeMartini
      */
     private boolean checkAuctionTotalPerDate(Auction theAuction) {
         int num = 0;
@@ -120,6 +122,7 @@ public class Calendar implements Serializable {
      * Helper method to determine if an auction has already been scheduled in the past year by a contact, and to make
      * sure only one future auction per contact.
      * @param theAuction the auction to test
+     * @author Simon DeMartini
      */
     private boolean checkAuctionsByContact(Auction theAuction) {
         LocalDateTime pastCutoff = LocalDateTime.now().minusYears(1);
@@ -134,6 +137,7 @@ public class Calendar implements Serializable {
     /**
      * Return the number of future auctions scheduled after today.
      * @return the number of auctions
+     * @author Simon DeMarini
      */
     public int getFutureAuctionTotal() {
         LocalDate today = LocalDate.now();
@@ -148,6 +152,7 @@ public class Calendar implements Serializable {
      * Return the most recent or future auction for a contact.
      * @param theContact to find the auctions for
      * @return the auction with the latest date associated with that contact, null if it does not exist.
+     * @author Simon DeMartini
      */
     public Auction getContactsAuction(Contact theContact) {
         Auction auction = null;
