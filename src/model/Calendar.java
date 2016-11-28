@@ -101,10 +101,17 @@ public class Calendar implements Serializable {
      *  @return true if the model.Auction meets the above requirements, false otherwise
      */
     public boolean validateAuction(Auction theAuction) {
-        return checkAuctionsByContact(theAuction) &&
+        return isAuctionAllowedForContact(theAuction) &&
                 checkBetweenWeekAndMonth(theAuction) &&
-                checkAuctionTotalPerDate(theAuction) &&
-                (getFutureAuctionTotal() < AUCS_TOT);
+                isAuctionTooMuchForOneDay(theAuction) &&
+                isAuctionTotalLessThanMax();
+    }
+
+    /**
+     * Helper method to check if there are less the the max number of auctions scheduled.
+     */
+    public boolean isAuctionTotalLessThanMax() {
+        return getFutureAuctionTotal() < AUCS_TOT;
     }
 
     /**
@@ -112,7 +119,7 @@ public class Calendar implements Serializable {
      *  @param theAuction the auction to test
      *  @author Simon DeMartini
      */
-    private boolean checkBetweenWeekAndMonth(Auction theAuction) {
+    public boolean checkBetweenWeekAndMonth(Auction theAuction) {
         LocalDate weekOut = LocalDate.now().plusWeeks(1).minusDays(1);
         LocalDate monthOut = LocalDate.now().plusMonths(1).plusDays(1);
         return theAuction.getStartTime().toLocalDate().isAfter(weekOut) &&
@@ -124,7 +131,7 @@ public class Calendar implements Serializable {
      *  @param theAuction the auction to test
      *  @author Simon DeMartini
      */
-    private boolean checkAuctionTotalPerDate(Auction theAuction) {
+    public boolean isAuctionTooMuchForOneDay(Auction theAuction) {
         int num = 0;
         for(Auction a : myAuctions) {
             if(a.getStartTime().toLocalDate().equals(theAuction.getStartTime().toLocalDate())) {
@@ -142,7 +149,7 @@ public class Calendar implements Serializable {
      * @param theAuction the auction to test
      * @author Simon DeMartini
      */
-    private boolean checkAuctionsByContact(Auction theAuction) {
+    public boolean isAuctionAllowedForContact(Auction theAuction) {
         LocalDateTime pastCutoff = LocalDateTime.now().minusYears(1);
         for(Auction a : myAuctions) {
             if(a.getContact().equals(theAuction.getContact())) {
