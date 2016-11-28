@@ -38,6 +38,18 @@ public class Calendar implements Serializable {
     }
 
     /**
+     * Cancel and remove an auction from the calendar, if it is allowed.
+     * @param auction a valid and complete Auction
+     */
+    public void cancelAuction(Auction auction) {
+        if(auction.isCancelable()) {
+            myAuctions.remove(auction);
+        } else {
+            throw new IllegalArgumentException("This auction is not allowed to be cancelled at this time");
+        }
+    }
+
+    /**
      * Get the list of all auctions
      * @return a list of Auctions
      */

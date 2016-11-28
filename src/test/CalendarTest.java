@@ -317,4 +317,32 @@ public class CalendarTest {
         assertEquals(2, calendar.getAuctionTotalOnDay(futureJD2.getStartTime().toLocalDate()));
     }
 
+    @org.junit.Test
+    public void testCancelAuctionLessThan2Days() throws Exception {
+        Auction tomAuction = new Auction(LocalDateTime.now().plusDays(1), jd);
+        calendar.addAuction(tomAuction);
+        try {
+            calendar.cancelAuction(tomAuction);
+            fail("IllegalArgumentException should be thrown");
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage(), is("This auction is not allowed to be cancelled at this time"));
+        }
+    }
+
+    @org.junit.Test
+    public void testCancelAuctionExactly2Days() throws Exception {
+        Auction auction2 = new Auction(LocalDateTime.now().plusDays(2), jd);
+        calendar.addAuction(auction2);
+        calendar.cancelAuction(auction2);
+        assertFalse(calendar.getAuctions().contains(auction2));
+    }
+
+    @org.junit.Test
+    public void testCancelAuctionMoreThan2Days() throws Exception {
+        Auction auction3 = new Auction(LocalDateTime.now().plusDays(3), jd);
+        calendar.addAuction(auction3);
+        calendar.cancelAuction(auction3);
+        assertFalse(calendar.getAuctions().contains(auction3));
+    }
+
 }
