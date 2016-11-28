@@ -27,6 +27,8 @@ public class Auction implements Serializable {
     /** The contact person for the model.Auction. */
     private Contact myContact;
 
+    private static final long DAYS_CANNOT_CANCEL = 2;
+
 
     /**
      * The constructor for the auction. All fields are required. Set any optional fields with setters.
@@ -162,6 +164,20 @@ public class Auction implements Serializable {
         }
 
         return validate;
+    }
+
+    /**
+     * Validates whether or not an item, auction, or bid can be cancelled.
+     * Created by Jessica Sills on November 27th 2016.
+     * @return Whether or not something can be cancelled.
+     */
+    public boolean isCancelable() {
+        LocalDateTime today = LocalDateTime.now();
+        if (today.isAfter(myStartTime.minusDays(DAYS_CANNOT_CANCEL))) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

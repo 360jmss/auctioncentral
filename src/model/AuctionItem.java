@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.Collection;
 
 /**
  * This class represents an model.AuctionItem and holds necessary information
@@ -201,18 +200,11 @@ public class AuctionItem implements Serializable{
             // If the about to be cancelled bid is currently the highest:
             if (isHighestBid(myBidList.get(theBidderName))) {
                 myBidList.remove(theBidderName);
-                String tempHighBidder;
-                // Convert the key set to an array so I can get a list of bidders.
-                String[] bidders = new String[myBidList.keySet().size()];
-                Object[] temp = myBidList.keySet().toArray();
-                for (int i = 0; i < bidders.length; i++) {
-                    bidders[i] = (String) temp[i];
-                }
                 // Look for the next highest bidder.
-                tempHighBidder = bidders[0];
-                for (int i = 1; i < bidders.length; i++) {
-                    if (myBidList.get(bidders[i]) > myBidList.get(tempHighBidder)) {
-                        tempHighBidder = bidders[i];
+                String tempHighBidder = (String) myBidList.keySet().toArray()[0];
+                for(String name : myBidList.keySet()) {
+                    if (myBidList.get(name) > myBidList.get(tempHighBidder)) {
+                        tempHighBidder = name;
                     }
                 }
                 myHighestBidder = tempHighBidder;
