@@ -27,6 +27,7 @@ public class Auction implements Serializable {
     /** The contact person for the model.Auction. */
     private Contact myContact;
 
+    /** How many days before an auction that auctions, bids, and items can be cancelled.*/
     private static final long DAYS_CANNOT_CANCEL = 2;
 
 
