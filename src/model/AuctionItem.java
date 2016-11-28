@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Collection;
 
 /**
  * This class represents an model.AuctionItem and holds necessary information
@@ -34,7 +35,7 @@ public class AuctionItem implements Serializable{
     /**The comment for auction central staff*/
     private String myComment;
 
-    /**The list of bids on this AucitonItem*/
+    /**The list of bids on this AuctionItem*/
     private HashMap<String, Double> myBidList;
 
     /**The highest bidder.*/
@@ -181,13 +182,45 @@ public class AuctionItem implements Serializable{
      * @param theBid the bid value.
      */
     public void addBid(String theBidderName,Double theBid) {
-        if(isValidBidPrice(theBid)) {
+        if (isValidBidPrice(theBid)) {
             myBidList.put(theBidderName, theBid);
-            if(isHighestBid(theBid)) {
+            if (isHighestBid(theBid)) {
                 myHighestBidder = theBidderName;
             }
         }
 
+    }
+
+    /**
+     * Cancels a bid by removing it from the list of bidders.
+     * Created by Jessica Sills on November 27th, 2016.
+     * @param theBidderName the name of the bidder.
+     */
+    public void cancelBid(String theBidderName) {
+        if (myBidList.containsKey(theBidderName)) {
+            // If the about to be cancelled bid is currently the highest:
+            if (isHighestBid(myBidList.get(theBidderName))) {
+                myBidList.remove(theBidderName);
+                String tempHighBidder;
+                // Convert the key set to an array so I can get a list of bidders.
+                String[] bidders = new String[myBidList.keySet().size()];
+                Object[] temp = myBidList.keySet().toArray();
+                for (int i = 0; i < bidders.length; i++) {
+                    bidders[i] = (String) temp[i];
+                }
+                // Look for the next highest bidder.
+                tempHighBidder = bidders[0];
+                for (int i = 1; i < bidders.length; i++) {
+                    if (myBidList.get(bidders[i]) > myBidList.get(tempHighBidder)) {
+                        tempHighBidder = bidders[i];
+                    }
+                }
+                myHighestBidder = tempHighBidder;
+            // Otherwise:
+            } else {
+                myBidList.remove(theBidderName);
+            }
+        }
     }
 
     /**
