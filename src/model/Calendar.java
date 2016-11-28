@@ -89,6 +89,15 @@ public class Calendar implements Serializable {
     }
 
     /**
+     * Sets the maximum number of auctions allowed by the system.
+     *  Intended to only be used by staff members.
+     * @param theAuctionTotal the new maximum number of auctions
+     */
+    public void setAuctionTotal(int theAuctionTotal) {
+        AUCS_TOT = theAuctionTotal;
+    }
+
+    /**
      * Check to see if an auction can fit in the model.Calendar with the correct rules.
      *  - Maximum of one future auction for a non-profit
      *  - No auctions withing past year
