@@ -9,6 +9,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses ({
+        //Unit Tests
         CalendarTest.class,
         AuctionTest.class,
         BidderTest.class,
@@ -16,7 +17,9 @@ import org.junit.runners.Suite;
         ContactTest.class,
         AuctionItemTest.class,
         UserRepoTest.class,
-        //TestAuctionCentral.class
+        //Acceptance Tests
+        CancelAuctionRequestAcceptanceTest.class,
+        SubmitAuctionRequestAcceptanceTest.class,
 })
 
  /**
