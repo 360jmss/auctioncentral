@@ -1,6 +1,7 @@
 package main;
 
 import console_ui.MainUI;
+import gui.MainGUI;
 import model.*;
 import test.GenerateTestData;
 
@@ -51,7 +52,7 @@ public class AuctionCentral {
 
         //start the UI
         System.out.println("Welcome to AuctionCentral");
-        MainUI ui = new MainUI(myUsers, myCalendar);
+        MainGUI ui = new MainGUI(myUsers, myCalendar);
         ui.start();
 
         //save serialized objects when UI is done
