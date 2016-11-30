@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 /**
  * This is a JUnit test class for the Auction
- * Revised by Samnantha Ong
+ * Revised by Samantha Ong
  * @author Simon DeMartini
  * @version Nov 21 2016
  */
