@@ -74,6 +74,8 @@ public class AuctionCentral {
      * @param theUsers the usersrepo to save
      */
     public static void exit(Calendar theCalendar, UserRepo theUsers) {
+        //TODO Save on exit
+
         //save serialized objects when UI is done
         if(SAVE_FILE_MODE) {
             calSer.write(theCalendar);
