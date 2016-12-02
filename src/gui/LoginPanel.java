@@ -28,14 +28,18 @@ public class LoginPanel extends JPanel {
     private JButton myLoginButton;
 
     public LoginPanel(UserRepo theRepo) {
+        //assign fields
         myRepo = theRepo;
 
+        //settings for panel
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
+        //welcome text
         myIntroText = new JLabel("Welcome to AuctionCentral. Please log in \n");
         myIntroText.setPreferredSize(new Dimension(150, 50));
         myIntroText.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //create a text area and button to login
         JPanel loginGroup = new JPanel();
         LoginListener listener = new LoginListener();
         myUsernameField = new JTextField(20);
@@ -47,6 +51,7 @@ public class LoginPanel extends JPanel {
         loginGroup.add(myLoginButton, BorderLayout.EAST);
         loginGroup.setPreferredSize(new Dimension(200, 25));
 
+        //add to panel
         add(Box.createVerticalGlue());
         add(myIntroText);
         add(loginGroup);

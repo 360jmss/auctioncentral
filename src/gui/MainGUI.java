@@ -78,6 +78,8 @@ public class MainGUI implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+
+        //login
         if(arg instanceof User){
             myStatusPanel.updateUser((User) arg);
         }
