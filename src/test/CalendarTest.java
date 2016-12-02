@@ -331,7 +331,8 @@ public class CalendarTest {
 
     @org.junit.Test
     public void testCancelAuctionExactly2Days() throws Exception {
-        Auction auction2 = new Auction(LocalDateTime.now().plusDays(2), jd);
+        //add a second to compensate for the time difference between creating this auction and cancelling it
+        Auction auction2 = new Auction(LocalDateTime.now().plusDays(2).plusSeconds(1), jd);
         calendar.addAuction(auction2);
         calendar.cancelAuction(auction2);
         assertFalse(calendar.getAuctions().contains(auction2));

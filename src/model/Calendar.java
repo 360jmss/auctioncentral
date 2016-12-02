@@ -42,6 +42,7 @@ public class Calendar implements Serializable {
      * @param auction a valid and complete Auction
      */
     public void cancelAuction(Auction auction) {
+        //TODO Return boolean instead of exception?
         if(auction.isCancelable()) {
             myAuctions.remove(auction);
         } else {
