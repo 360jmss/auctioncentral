@@ -1,16 +1,20 @@
 package gui;
 
 import model.Calendar;
+import model.User;
 import model.UserRepo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This is the main starting point for the GUI
  * Created by Simon DeMartini on 11/28/16.
  */
-public class MainGUI {
+public class MainGUI implements Observer {
 
     /** The minimum width of the GUI */
     public static final int DEFAULT_WINDOW_WIDTH = 700;
@@ -28,7 +32,10 @@ public class MainGUI {
     private JFrame myFrame;
 
     /** The main chooser for the views */
-    private JPanel myViews, myStatusPanel, myLoginPanel;
+    private JPanel myViews, myLoginPanel;
+
+    /** The status panel */
+    private StatusPanel myStatusPanel;
 
 
     /**
@@ -42,7 +49,7 @@ public class MainGUI {
         myFrame = new JFrame();
         myViews = new JPanel(new CardLayout());
         myStatusPanel = new StatusPanel();
-        myLoginPanel = new LoginPanel();
+        myLoginPanel = new LoginPanel(myRepo);
     }
 
     /**
@@ -61,12 +68,18 @@ public class MainGUI {
         myFrame.add(myStatusPanel, BorderLayout.NORTH);
         myFrame.add(myViews, BorderLayout.CENTER);
 
+        //add observers
+        myRepo.addObserver(this);
+
         //show frame, and pack it
         myFrame.setVisible(true);
         myFrame.pack();
     }
 
-    private void setupFrame() {
-
+    @Override
+    public void update(Observable o, Object arg) {
+        if(arg instanceof User){
+            myStatusPanel.updateUser((User) arg);
+        }
     }
 }

@@ -35,13 +35,13 @@ public class StatusPanel extends JPanel {
         add(myUser);
     }
 
-    public void update(User theUser) {
+    public void updateUser(User theUser) {
         //Set user type
         String type;
         if(theUser instanceof Staff) {
             type = "Staff";
         } else if (theUser instanceof Contact) {
-            type = "Non-Profit Contact";
+            type = "Contact";
         } else if (theUser instanceof Bidder) {
             type = "Bidder";
         } else {
@@ -49,7 +49,7 @@ public class StatusPanel extends JPanel {
         }
 
         //update labels
-        myUser.setText(type + " / " + theUser.getName());
+        myUser.setText(theUser.getName() + " / " + type);
         myDate.setText(LocalDate.now().toString());
     }
 
