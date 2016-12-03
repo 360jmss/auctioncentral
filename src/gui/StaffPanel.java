@@ -12,16 +12,16 @@ public class StaffPanel extends UserPanel  {
     private JLabel myLabel;
 
     /** Constructor for the panel */
-    StaffPanel(Calendar theCalendar) {
+    StaffPanel(User theUser, Calendar theCalendar) {
         myCalendar = theCalendar;
-        myUser = null;
+        myUser = theUser;
 
         myLabel = new JLabel("NO STAFF YET");
         add(myLabel, BorderLayout.CENTER);
+        setUser(myUser);
     }
 
     public void setUser(User theUser) {
-        super.setUser(theUser);
         myLabel.setText("...and the staff member is " + myUser.getName() + "!");
     }
 }

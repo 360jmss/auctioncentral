@@ -12,16 +12,16 @@ public class BidderPanel extends UserPanel  {
     private JLabel myLabel;
 
     /** Constructor for the panel */
-    BidderPanel(Calendar theCalendar) {
+    BidderPanel(User theUser, Calendar theCalendar) {
         myCalendar = theCalendar;
-        myUser = null;
+        myUser = theUser;
 
         myLabel = new JLabel("NO BIDDER YET");
         add(myLabel, BorderLayout.CENTER);
+        setUser(theUser);
     }
 
     public void setUser(User theUser) {
-        super.setUser(theUser);
         myLabel.setText("...and the bidder is " + myUser.getName() + "!");
     }
 }
