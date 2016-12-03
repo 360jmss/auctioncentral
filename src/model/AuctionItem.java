@@ -194,24 +194,28 @@ public class AuctionItem implements Serializable{
      * Cancels a bid by removing it from the list of bidders.
      * Created by Jessica Sills on November 27th, 2016.
      * @param theBidderName the name of the bidder.
+     * @return 0 if the bid was successfully removed, 1 if otherwise.
      */
-    public void cancelBid(String theBidderName) {
+    public int cancelBid(String theBidderName) {
         if (myBidList.containsKey(theBidderName)) {
             // If the about to be cancelled bid is currently the highest:
             if (isHighestBid(myBidList.get(theBidderName))) {
                 myBidList.remove(theBidderName);
                 // Look for the next highest bidder.
                 String tempHighBidder = (String) myBidList.keySet().toArray()[0];
-                for(String name : myBidList.keySet()) {
+                for (String name : myBidList.keySet()) {
                     if (myBidList.get(name) > myBidList.get(tempHighBidder)) {
                         tempHighBidder = name;
                     }
                 }
                 myHighestBidder = tempHighBidder;
-            // Otherwise:
+                // Otherwise:
             } else {
                 myBidList.remove(theBidderName);
             }
+            return 0; // The bid was successfully removed.
+        } else {
+            return 1; // The bid was not successfully removed because it did not exist in myBidList.
         }
     }
 
