@@ -12,16 +12,16 @@ public class ContactPanel extends UserPanel  {
     private JLabel myLabel;
 
     /** Constructor for the panel */
-    ContactPanel(Calendar theCalendar) {
+    ContactPanel(User theUser, Calendar theCalendar) {
         myCalendar = theCalendar;
-        myUser = null;
+        myUser = theUser;
 
         myLabel = new JLabel("NO CONTACT YET");
         add(myLabel, BorderLayout.CENTER);
+        setUser(myUser);
     }
 
     public void setUser(User theUser) {
-        super.setUser(theUser);
         myLabel.setText("...and the contact is " + myUser.getName() + "!");
     }
 }

@@ -19,23 +19,14 @@ public class MainGUI implements Observer {
     /** The minimum width of the GUI */
     private static final int DEFAULT_WINDOW_WIDTH = 700;
 
-    /** The minimum width of the GUI */
+    /** The minimum height of the GUI */
     private static final int DEFAULT_WINDOW_HEIGHT = 500;
-
-    /** The String to access the bidder view */
-    private static final String BIDDER_PANEL = "bp";
-
-    /** The String to access the bidder view */
-    private static final String CONTACT_PANEL = "cp";
-
-    /** The String to access the bidder view */
-    private static final String STAFF_PANEL = "sp";
-
-    /** The String to access the bidder view */
-    private static final String LOGIN_PANEL = "lp";
 
     /** The master list of all users that can log in. */
     private UserRepo myRepo;
+
+    /** The master calendar. */
+    private Calendar myCalendar;
 
     /** The Main window frame */
     private JFrame myFrame;
@@ -52,24 +43,21 @@ public class MainGUI implements Observer {
     /** The bidder panel */
     private UserPanel myBidderPanel, myStaffPanel, myContactPanel;
 
-    /** Te card Layout */
-    private CardLayout myCards;
-
     /**
-     * The constructor for the console_ui.MainUI
+     * The constructor for the MainGUI
      * @param theRepo The repo for the loaded map of all users
      * @param theCalendar The calendar for the loaded list of all auctions
      */
     public MainGUI(UserRepo theRepo, Calendar theCalendar) {
         myRepo = theRepo;
+        myCalendar = theCalendar;
         myFrame = new JFrame();
-        myCards = new CardLayout();
-        myMainPanel = new JPanel(myCards);
         myStatusPanel = new StatusPanel();
         myLoginPanel = new LoginPanel(myRepo);
-        myBidderPanel = new BidderPanel(theCalendar);
-        myStaffPanel = new StaffPanel(theCalendar);
-        myContactPanel = new ContactPanel(theCalendar);
+        myBidderPanel = null;
+        myStaffPanel = null;
+        myContactPanel = null;
+        myMainPanel = myLoginPanel;
     }
 
     /**
@@ -80,12 +68,6 @@ public class MainGUI implements Observer {
         myFrame.setTitle("AuctionCentral");
         myFrame.setLocationRelativeTo(null); //center on startup
         myFrame.setMinimumSize(new Dimension(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
-
-        //setup card layout for user views
-        myMainPanel.add(myLoginPanel, LOGIN_PANEL);
-        myMainPanel.add(myBidderPanel, BIDDER_PANEL);
-        myMainPanel.add(myStaffPanel, STAFF_PANEL);
-        myMainPanel.add(myContactPanel, CONTACT_PANEL);
 
 
         //add elements
@@ -105,8 +87,8 @@ public class MainGUI implements Observer {
      * Logout and return to login screen
      */
     private void logout() {
-        myCards.show(myMainPanel, LOGIN_PANEL);
-        myLoginPanel.reset();
+        myLoginPanel = new LoginPanel(myRepo);
+        swapMainPanel(myLoginPanel);
     }
 
     /**
@@ -116,15 +98,24 @@ public class MainGUI implements Observer {
     private void login(User theUser) {
         myStatusPanel.updateUser(theUser);
         if(theUser instanceof Staff) {
-            myCards.show(myMainPanel, STAFF_PANEL);
-            myStaffPanel.setUser(theUser);
+            myStaffPanel = new StaffPanel(theUser, myCalendar);
+            swapMainPanel(myStaffPanel);
         } else if (theUser instanceof Contact) {
-            myCards.show(myMainPanel, CONTACT_PANEL);
-            myContactPanel.setUser(theUser);
+            myContactPanel = new ContactPanel(theUser, myCalendar);
+            swapMainPanel(myContactPanel);
         } else if (theUser instanceof Bidder) {
-            myCards.show(myMainPanel, BIDDER_PANEL);
-            myBidderPanel.setUser(theUser);
+            myBidderPanel = new BidderPanel(theUser, myCalendar);
+            swapMainPanel(myBidderPanel);
         }
+    }
+
+    /**
+     * Swap out the main panel
+     */
+    private void swapMainPanel(JPanel panel) {
+        myFrame.remove(myMainPanel);
+        myMainPanel = panel;
+        myFrame.add(myMainPanel);
     }
 
     /**

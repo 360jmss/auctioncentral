@@ -14,7 +14,7 @@ public class BidderPanel extends UserPanel  {
     private ActionsPanel myActions;
 
     /** Constructor for the panel */
-    BidderPanel(Calendar theCalendar) {
+    BidderPanel(User theUser, Calendar theCalendar) {
         myCalendar = theCalendar;
         myUser = null;
         myActions = new ActionsPanel();
@@ -46,6 +46,5 @@ public class BidderPanel extends UserPanel  {
             add(new Button("View Auctions"));
             add(new Button("Edit My Information"));
         }
-
     }
 }

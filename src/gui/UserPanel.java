@@ -13,8 +13,4 @@ public abstract class UserPanel extends JPanel {
     /** The master calendar for AuctionCentral. */
     protected Calendar myCalendar;
 
-    /** Set the correct logged in user */
-    public void setUser(User theUser) {
-        myUser = theUser;
-    }
 }
