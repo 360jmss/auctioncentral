@@ -20,7 +20,7 @@ public class Calendar implements Serializable {
     private static final int AUCS_PER_DAY = 2;
 
     /** Maximum number of auctions allowed. Can be changed by staff. */
-    private static int myAuctionTotal = 25;
+    private static int myAuctionMax = 25;
 
     /**
      * The constructor for the model.Calendar.
@@ -92,10 +92,19 @@ public class Calendar implements Serializable {
     /**
      * Sets the maximum number of auctions allowed by the system.
      *  Intended to only be used by staff members.
-     * @param theAuctionTotal the new maximum number of auctions
+     * @param theAuctionMax the new maximum number of auctions allowed
      */
-    public void setAuctionTotal(int theAuctionTotal) {
-        myAuctionTotal = theAuctionTotal;
+    public void setAuctionMax(int theAuctionMax) {
+        myAuctionMax = theAuctionMax;
+    }
+
+    /**
+     * Gets the maximum number of auctions allowed by the system.
+     *  Intended to only be used by staff members.
+     * @return the current maximum number of auctions allowed
+     */
+    public int getAuctionMax() {
+        return myAuctionMax;
     }
 
     /**
@@ -127,8 +136,9 @@ public class Calendar implements Serializable {
     /**
      * Helper method to check if there are less the the max number of auctions scheduled.
      */
-    private boolean isAuctionTotalLessThanMax() {
-        return getFutureAuctionTotal() < myAuctionTotal;
+
+    public boolean isAuctionTotalLessThanMax() {
+        return getFutureAuctionTotal() < myAuctionMax;
     }
 
     /**
