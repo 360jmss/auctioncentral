@@ -157,13 +157,11 @@ public class Auction implements Serializable {
      */
     public boolean validateItem(AuctionItem theItem) {
         boolean validate = true;
-
         for (int i = 0; i < myItems.size(); i++) {
             if (theItem.getName().equals(myItems.get(i).getName())) {
                 validate = false;
             }
         }
-
         return validate;
     }
 
@@ -219,6 +217,4 @@ public class Auction implements Serializable {
         }
         return isValid;
     }
-
-
 }
