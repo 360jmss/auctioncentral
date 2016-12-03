@@ -25,7 +25,7 @@ public class AuctionCentral {
     private static final boolean READ_FILE_MODE = false;
 
     /** A flag to decide whether to save files or not */
-    private static final boolean SAVE_FILE_MODE = false;
+    private static final boolean SAVE_FILE_MODE = true;
 
     /** The serializers */
     private static Serializer userSer, calSer;
@@ -57,15 +57,6 @@ public class AuctionCentral {
         System.out.println("Welcome to AuctionCentral");
         MainGUI ui = new MainGUI(myUsers, myCalendar);
         ui.start();
-
-        //save serialized objects when UI is done
-        if(SAVE_FILE_MODE) {
-            calSer.write(myCalendar);
-            userSer.write(myUsers);
-            System.out.println("Files saved.");
-        } else {
-            System.out.println("No files saved.");
-        }
     }
 
     /**
@@ -73,9 +64,7 @@ public class AuctionCentral {
      * @param theCalendar the calendar to save
      * @param theUsers the usersrepo to save
      */
-    public static void exit(Calendar theCalendar, UserRepo theUsers) {
-        //TODO Save on exit
-
+    public static void saveData(Calendar theCalendar, UserRepo theUsers) {
         //save serialized objects when UI is done
         if(SAVE_FILE_MODE) {
             calSer.write(theCalendar);
