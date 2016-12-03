@@ -1,9 +1,7 @@
 package gui;
 
 import model.*;
-import sun.rmi.runtime.Log;
 
-import javax.smartcardio.Card;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -163,7 +161,7 @@ public class MainGUI implements Observer {
             myLogoutButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    myUser.setText("Not logged in");
+                    myUser.setText("Successfully logged out");
                     myLogoutButton.setEnabled(false);
                     logout();
                 }
