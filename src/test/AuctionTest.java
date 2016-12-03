@@ -19,6 +19,8 @@ public class AuctionTest {
 
     private Auction aJan5;
     private Contact jd;
+    private Auction aJan2;
+    private Contact sd;
 
     @org.junit.Before
     public void setUp() throws Exception {
@@ -29,10 +31,22 @@ public class AuctionTest {
                 "123 Main St",
                 "Veridian Dynamics");
 
+        sd = new Contact("Sam Doe",
+                "johndoe",
+                "253-867-5309",
+                "contact@somewhere.edu",
+                "123 Main St",
+                "Veridian Dynamics");
+
         aJan5 = new Auction(LocalDateTime.of(2017, Month.JANUARY, 5, 9, 30), jd);
         aJan5.setComment("Sample model.Auction");
         aJan5.setEstItems(5);
         aJan5.addItem(new AuctionItem("apple", "1", 1, 10.0));
+
+        aJan2 = new Auction(LocalDateTime.of(2017, Month.JANUARY, 2, 9, 30), sd);
+        aJan2.setComment("Sample model.Auction for Sam's other tests");
+        aJan2.addItem(new AuctionItem("apple", "1", 1, 10.0));
+        aJan2.addItem(new AuctionItem("cheese", "1", 1, 10.0));
     }
 
     @org.junit.Test
@@ -47,20 +61,52 @@ public class AuctionTest {
         assertEquals("2017-01-05 Veridian Dynamics", aJan5.toString());
     }
 
-    /**
-     * @author Samantha Ong
+    /*
+     * By Samantha Ong
      */
     @org.junit.Test
     public void testValidateItemOnEquals() {
         assertTrue(aJan5.validateItem(new AuctionItem("chocolates", "1", 1, 10.0)));
     }
 
-    /**
-     * @author Samantha Ong
+    /*
+     * By Samantha Ong
      */
     @org.junit.Test
     public void testValidateItemOnNotEquals() {
-        assertFalse(aJan5.validateItem(new AuctionItem("apple", "1", 1, 10.0)));
+        assertFalse(aJan2.validateItem(new AuctionItem("apple", "1", 1, 10.0)));
+    }
+
+    /*
+     * By Sam
+     */
+    @org.junit.Test
+    public void testIsValidItemIndexOnLessThanZero() {
+        assertFalse(aJan2.isValidItemIndex(-1));
+    }
+
+    /*
+     * By Sam
+     */
+    @org.junit.Test
+    public void testIsValidItemIndexOnEqualToZero() {
+        assertTrue(aJan2.isValidItemIndex(0));
+    }
+
+    /*
+     * By Sam
+     */
+    @org.junit.Test
+    public void testIsValidItemIndexOnLessThanListSize() {
+        assertTrue(aJan2.isValidItemIndex(1));
+    }
+
+    /*
+     * By Sam
+     */
+    @org.junit.Test
+    public void testIsValidItemIndexOnGreaterThanListSize() {
+        assertFalse(aJan2.isValidItemIndex(2));
     }
 
 }

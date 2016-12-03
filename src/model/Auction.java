@@ -157,13 +157,11 @@ public class Auction implements Serializable {
      */
     public boolean validateItem(AuctionItem theItem) {
         boolean validate = true;
-
         for (int i = 0; i < myItems.size(); i++) {
             if (theItem.getName().equals(myItems.get(i).getName())) {
                 validate = false;
             }
         }
-
         return validate;
     }
 
@@ -181,4 +179,42 @@ public class Auction implements Serializable {
         }
     }
 
+    /**
+     * Removes an item from our auction list.
+     * Created by Samantha Ong on December 1st 2016.
+     * @param theItemIndex if we want to remove based on the item position.
+     * @return 0 if item was successfully removed;
+     *          1 if item is not cancelable;
+     *          2 if item index is out of bounds.
+     */
+    public int removeItem(int theItemIndex) {
+        int removed = 0;
+        LocalDateTime today = LocalDateTime.now();
+        if(isCancelable()) {
+            if(isValidItemIndex(theItemIndex)) {
+                myItems.remove(theItemIndex);
+            } else {
+                removed = 2;
+            }
+
+        } else {
+            removed = 1;
+        }
+        return removed;
+
+    }
+
+    /**
+     * Checks if the item index passed is a valid item index.
+     * @param theItemIndex the item index passed in.
+     * @return true if valid; false otherwise.
+     */
+    public boolean isValidItemIndex(int theItemIndex) {
+        boolean isValid = false;
+        if(theItemIndex < myItems.size() &&
+                theItemIndex >= 0) {
+            isValid = true;
+        }
+        return isValid;
+    }
 }

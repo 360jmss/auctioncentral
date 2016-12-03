@@ -11,17 +11,39 @@ public class BidderPanel extends UserPanel  {
     /** The label for showing info */
     private JLabel myLabel;
 
+    private ActionsPanel myActions;
+
     /** Constructor for the panel */
     BidderPanel(User theUser, Calendar theCalendar) {
         myCalendar = theCalendar;
         myUser = theUser;
+        myActions = new ActionsPanel();
+        myLabel = new JLabel("Hi " + myUser.getName() + ", what would you like to do?");
 
-        myLabel = new JLabel("NO BIDDER YET");
-        add(myLabel, BorderLayout.CENTER);
-        setUser(theUser);
+        setLayout(new BorderLayout());
+        add(myLabel, BorderLayout.NORTH);
+        JPanel south = new JPanel();
+        south.add(myActions);
+        add(south, BorderLayout.SOUTH);
     }
 
     public void setUser(User theUser) {
-        myLabel.setText("...and the bidder is " + myUser.getName() + "!");
+        myLabel.setText("Hi " + myUser.getName() + ", what would you like to do?");
+    }
+
+
+
+    class ActionsPanel extends JPanel {
+
+        ActionsPanel() {
+            super();
+            setUp();
+        }
+
+        private void setUp() {
+            setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+            add(new Button("View Auctions"));
+            add(new Button("Edit My Information"));
+        }
     }
 }
