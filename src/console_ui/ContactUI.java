@@ -95,7 +95,7 @@ public class ContactUI {
 
         Auction newAuction = new Auction(dateTime, myUser);
 
-        if (myCalendar.validateAuction(newAuction)) {
+        if (myCalendar.validateAuction(newAuction) == 0) {
             myAuction = newAuction;
             successfulAuctionRequest();
         } else {

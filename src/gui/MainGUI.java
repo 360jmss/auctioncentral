@@ -19,19 +19,19 @@ public class MainGUI implements Observer {
     /** The minimum width of the GUI */
     private static final int DEFAULT_WINDOW_WIDTH = 700;
 
-    /** The minimum width of the GUI */
+    /** The minimum height of the GUI */
     private static final int DEFAULT_WINDOW_HEIGHT = 500;
 
     /** The String to access the bidder view */
     private static final String BIDDER_PANEL = "bp";
 
-    /** The String to access the bidder view */
+    /** The String to access the contact view */
     private static final String CONTACT_PANEL = "cp";
 
-    /** The String to access the bidder view */
+    /** The String to access the staff view */
     private static final String STAFF_PANEL = "sp";
 
-    /** The String to access the bidder view */
+    /** The String to access the login view */
     private static final String LOGIN_PANEL = "lp";
 
     /** The master list of all users that can log in. */
@@ -56,7 +56,7 @@ public class MainGUI implements Observer {
     private CardLayout myCards;
 
     /**
-     * The constructor for the console_ui.MainUI
+     * The constructor for the MainGUI
      * @param theRepo The repo for the loaded map of all users
      * @param theCalendar The calendar for the loaded list of all auctions
      */

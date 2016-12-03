@@ -108,32 +108,47 @@ public class Calendar implements Serializable {
      *  - model.Auction must be one week from the day it is scheduled
      *  @author Simon DeMartini
      *  @param theAuction a valid and complete model.Auction
-     *  @return true if the model.Auction meets the above requirements, false otherwise
+     *  @return 0 if the auction meets the above requirements, otherwise
+     *          1 if the contact has too many auctions
+     *          2 if it is less than one week from today
+     *          3 if it is more than one month from today
+     *          4 if there are too many auctions scheduled that day
+     *          5 if there are too many auctions scheduled total
      */
-    public boolean validateAuction(Auction theAuction) {
-        return isAuctionAllowedForContact(theAuction) &&
-                checkBetweenWeekAndMonth(theAuction) &&
-                isAuctionTooMuchForOneDay(theAuction) &&
-                isAuctionTotalLessThanMax();
+    public int validateAuction(Auction theAuction) {
+        if(!isAuctionAllowedForContact(theAuction)) return 1;
+        if(!isMoreThanOneWeekOut(theAuction)) return 2;
+        if(!isLessThanOneMonthOut(theAuction)) return 3;
+        if(!isAuctionNotTooMuchForOneDay(theAuction)) return 4;
+        if(!isAuctionTotalLessThanMax()) return 5;
+        return 0;
     }
 
     /**
      * Helper method to check if there are less the the max number of auctions scheduled.
      */
-    public boolean isAuctionTotalLessThanMax() {
+    private boolean isAuctionTotalLessThanMax() {
         return getFutureAuctionTotal() < myAuctionTotal;
     }
 
     /**
-     *  Helper method to check if the auction to be scheduled is between one week and month.
+     *  Helper method to check if the auction to be scheduled is less than one week from today.
      *  @param theAuction the auction to test
      *  @author Simon DeMartini
      */
-    public boolean checkBetweenWeekAndMonth(Auction theAuction) {
+    private boolean isMoreThanOneWeekOut(Auction theAuction) {
         LocalDate weekOut = LocalDate.now().plusWeeks(1).minusDays(1);
+        return theAuction.getStartTime().toLocalDate().isAfter(weekOut);
+    }
+
+    /**
+     *  Helper method to check if the auction to be scheduled is max one month out.
+     *  @param theAuction the auction to test
+     *  @author Simon DeMartini
+     */
+    private boolean isLessThanOneMonthOut(Auction theAuction) {
         LocalDate monthOut = LocalDate.now().plusMonths(1).plusDays(1);
-        return theAuction.getStartTime().toLocalDate().isAfter(weekOut) &&
-                theAuction.getStartTime().toLocalDate().isBefore(monthOut);
+        return theAuction.getStartTime().toLocalDate().isBefore(monthOut);
     }
 
     /**
@@ -141,7 +156,7 @@ public class Calendar implements Serializable {
      *  @param theAuction the auction to test
      *  @author Simon DeMartini
      */
-    public boolean isAuctionTooMuchForOneDay(Auction theAuction) {
+    private boolean isAuctionNotTooMuchForOneDay(Auction theAuction) {
         int num = 0;
         for(Auction a : myAuctions) {
             if(a.getStartTime().toLocalDate().equals(theAuction.getStartTime().toLocalDate())) {
@@ -159,7 +174,7 @@ public class Calendar implements Serializable {
      * @param theAuction the auction to test
      * @author Simon DeMartini
      */
-    public boolean isAuctionAllowedForContact(Auction theAuction) {
+    private boolean isAuctionAllowedForContact(Auction theAuction) {
         LocalDateTime pastCutoff = LocalDateTime.now().minusYears(1);
         for(Auction a : myAuctions) {
             if(a.getContact().equals(theAuction.getContact())) {
