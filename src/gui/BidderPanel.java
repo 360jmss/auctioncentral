@@ -12,7 +12,7 @@ public class BidderPanel extends UserPanel  {
     private JLabel myLabel;
 
     /** Constructor for the panel */
-    public BidderPanel(Calendar theCalendar) {
+    BidderPanel(Calendar theCalendar) {
         myCalendar = theCalendar;
         myUser = null;
 

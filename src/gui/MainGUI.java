@@ -19,10 +19,10 @@ import java.util.Observer;
 public class MainGUI implements Observer {
 
     /** The minimum width of the GUI */
-    public static final int DEFAULT_WINDOW_WIDTH = 700;
+    private static final int DEFAULT_WINDOW_WIDTH = 700;
 
     /** The minimum width of the GUI */
-    public static final int DEFAULT_WINDOW_HEIGHT = 500;
+    private static final int DEFAULT_WINDOW_HEIGHT = 500;
 
     /** The String to access the bidder view */
     private static final String BIDDER_PANEL = "bp";
@@ -38,9 +38,6 @@ public class MainGUI implements Observer {
 
     /** The master list of all users that can log in. */
     private UserRepo myRepo;
-
-    /** The master calendar for AuctionCentral. */
-    private Calendar myCalendar;
 
     /** The Main window frame */
     private JFrame myFrame;
@@ -60,7 +57,6 @@ public class MainGUI implements Observer {
     /** Te card Layout */
     private CardLayout myCards;
 
-
     /**
      * The constructor for the console_ui.MainUI
      * @param theRepo The repo for the loaded map of all users
@@ -68,15 +64,14 @@ public class MainGUI implements Observer {
      */
     public MainGUI(UserRepo theRepo, Calendar theCalendar) {
         myRepo = theRepo;
-        myCalendar = theCalendar;
         myFrame = new JFrame();
         myCards = new CardLayout();
         myMainPanel = new JPanel(myCards);
         myStatusPanel = new StatusPanel();
         myLoginPanel = new LoginPanel(myRepo);
-        myBidderPanel = new BidderPanel(myCalendar);
-        myStaffPanel = new StaffPanel(myCalendar);
-        myContactPanel = new ContactPanel(myCalendar);
+        myBidderPanel = new BidderPanel(theCalendar);
+        myStaffPanel = new StaffPanel(theCalendar);
+        myContactPanel = new ContactPanel(theCalendar);
     }
 
     /**
@@ -187,7 +182,7 @@ public class MainGUI implements Observer {
             add(myLogoutButton);
         }
 
-        public void updateUser(User theUser) {
+        private void updateUser(User theUser) {
             //Set user type
             String type;
             if(theUser instanceof Staff) {

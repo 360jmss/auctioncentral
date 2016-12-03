@@ -12,7 +12,7 @@ public class StaffPanel extends UserPanel  {
     private JLabel myLabel;
 
     /** Constructor for the panel */
-    public StaffPanel(Calendar theCalendar) {
+    StaffPanel(Calendar theCalendar) {
         myCalendar = theCalendar;
         myUser = null;
 

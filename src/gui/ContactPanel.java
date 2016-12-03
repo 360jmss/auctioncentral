@@ -12,7 +12,7 @@ public class ContactPanel extends UserPanel  {
     private JLabel myLabel;
 
     /** Constructor for the panel */
-    public ContactPanel(Calendar theCalendar) {
+    ContactPanel(Calendar theCalendar) {
         myCalendar = theCalendar;
         myUser = null;
 

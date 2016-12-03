@@ -11,9 +11,10 @@ import java.awt.event.ActionListener;
 import java.util.Observer;
 
 /**
- * Created by simon on 11/29/16.
+ * Handles the logging in process for users
+ * Created by Simon DeMartini on 11/29/16.
  */
-public class LoginPanel extends JPanel {
+class LoginPanel extends JPanel {
 
     /** The user repo */
     private UserRepo myRepo;
@@ -24,10 +25,7 @@ public class LoginPanel extends JPanel {
     /** The username field */
     private JTextField myUsernameField;
 
-    /** The button to login */
-    private JButton myLoginButton;
-
-    public LoginPanel(UserRepo theRepo) {
+    LoginPanel(UserRepo theRepo) {
         //assign fields
         myRepo = theRepo;
 
@@ -45,7 +43,7 @@ public class LoginPanel extends JPanel {
         myUsernameField = new JTextField(20);
         myUsernameField.setPreferredSize(new Dimension(150, 28));
         myUsernameField.addActionListener(listener);
-        myLoginButton = new JButton("Login");
+        JButton myLoginButton = new JButton("Login");
         myLoginButton.addActionListener(listener);
         loginGroup.add(myUsernameField, BorderLayout.WEST);
         loginGroup.add(myLoginButton, BorderLayout.EAST);
