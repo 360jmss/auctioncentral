@@ -16,19 +16,18 @@ public class BidderPanel extends UserPanel  {
     /** Constructor for the panel */
     BidderPanel(User theUser, Calendar theCalendar) {
         myCalendar = theCalendar;
-        myUser = null;
+        myUser = theUser;
         myActions = new ActionsPanel();
-        myLabel = new JLabel("NO BIDDER YET");
+        myLabel = new JLabel("Hi " + myUser.getName() + ", what would you like to do?");
+
         setLayout(new BorderLayout());
         add(myLabel, BorderLayout.NORTH);
         JPanel south = new JPanel();
-        south.setBackground(Color.BLACK);
         south.add(myActions);
         add(south, BorderLayout.SOUTH);
     }
 
     public void setUser(User theUser) {
-        super.setUser(theUser);
         myLabel.setText("Hi " + myUser.getName() + ", what would you like to do?");
     }
 
