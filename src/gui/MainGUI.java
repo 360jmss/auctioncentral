@@ -1,5 +1,6 @@
 package gui;
 
+import main.AuctionCentral;
 import model.*;
 
 import javax.swing.*;
@@ -138,15 +139,14 @@ public class MainGUI implements Observer {
      */
     private class StatusPanel extends JPanel {
 
-        private JLabel myDate, myUser, myTagline;
+        private JLabel myDate, myUser;
 
-        private JButton myLogoutButton;
+        private JButton myLogoutButton, mySaveButton;
 
         StatusPanel() {
             myDate = new JLabel(LocalDate.now().toString());
             myUser = new JLabel("Not logged in");
-            myTagline = new JLabel("We are the best auctioneers");
-            myTagline.setAlignmentX(Component.CENTER_ALIGNMENT);
+
             myLogoutButton = new JButton("Logout");
             myLogoutButton.setEnabled(false);
             myLogoutButton.addActionListener(new ActionListener() {
@@ -158,12 +158,22 @@ public class MainGUI implements Observer {
                 }
             });
 
+            mySaveButton = new JButton("Save");
+            mySaveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    AuctionCentral.saveData(myCalendar, myRepo);
+                }
+            });
+
             //settings
             setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
             setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
             setBackground(Color.LIGHT_GRAY);
 
             //add components
+            add(mySaveButton);
+            add(Box.createRigidArea(new Dimension(10, 10)));
             add(myDate);
             add(Box.createHorizontalGlue());
             add(myUser);
