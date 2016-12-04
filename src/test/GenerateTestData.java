@@ -88,7 +88,7 @@ public class GenerateTestData {
                 "333-222-2222",
                 "joe@somewhere.edu",
                 "555 Broadway St",
-                "Past model.Auction within past year");
+                "Past Auction within past year");
         myUsers.registerUser(joe);
         Auction joeAuction = new Auction(LocalDateTime.now().minusYears(1).plusDays(5), joe);
         myCalendar.addAuction(joeAuction);
@@ -99,7 +99,7 @@ public class GenerateTestData {
                 "333-55-2222",
                 "kevin@somewhere.edu",
                 "555 Main St",
-                "Past model.Auction more than past year");
+                "Past Auction more than past year");
         myUsers.registerUser(kevin);
         Auction kevinAuction = new Auction(LocalDateTime.now().minusYears(1).minusDays(5), kevin);
         myCalendar.addAuction(kevinAuction);
