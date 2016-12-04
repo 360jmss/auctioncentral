@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class BidderPanel extends UserPanel  {
 
@@ -24,6 +25,9 @@ public class BidderPanel extends UserPanel  {
 
     private JPanel centerOfBidderPanel;
 
+    /** The list of auctions, items, and such */
+    private JList<Auction> auctionsList;
+
 
     /** Constructor for the panel */
     BidderPanel(User theUser, Calendar theCalendar) {
@@ -33,6 +37,7 @@ public class BidderPanel extends UserPanel  {
         myLabel = new JLabel("Hi " + myUser.getName() + ", what would you like to do?");
         southOfBidderPanel = new JPanel();
         centerOfBidderPanel = new JPanel();
+        centerOfBidderPanel.setLayout(new BorderLayout());
         itemsPanel = makeItemsPanel();
 
 
@@ -40,7 +45,7 @@ public class BidderPanel extends UserPanel  {
         add(myLabel, BorderLayout.NORTH);
         southOfBidderPanel.add(actionButtons);
         add(southOfBidderPanel, BorderLayout.SOUTH);
-        add(centerOfBidderPanel, BorderLayout.LINE_START);
+        add(centerOfBidderPanel, BorderLayout.CENTER);
     }
 
 
@@ -50,11 +55,13 @@ public class BidderPanel extends UserPanel  {
      * @return The created panel
      */
     private JPanel makeItemsPanel() {
-        final JPanel p = new JPanel(new GridLayout(myCalendar.getAuctions().size(), 1));
+        Auction[] auctions = myCalendar.getAuctions().toArray(new Auction[0]);
+        auctionsList = new JList<>(auctions);
 
-        for (final Auction item : myCalendar.getAuctions()) {
-            addAuction(item, p);
-        }
+        final JScrollPane sp = new JScrollPane(auctionsList);
+        final JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());
+        p.add(sp, BorderLayout.CENTER);
 
         return p;
     }
