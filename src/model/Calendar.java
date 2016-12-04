@@ -5,13 +5,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * This class represents a Calendar, which manages and schedules the auctions.
  * @author Miguel Barreto
  * @version 11 Nov, 2016
  */
-public class Calendar implements Serializable {
+public class Calendar extends Observable implements Serializable {
 
     /** A list of all Auctions. */
     private List<Auction> myAuctions;
@@ -35,6 +36,8 @@ public class Calendar implements Serializable {
      */
     public void addAuction(Auction auction) {
         myAuctions.add(auction);
+        setChanged();
+        notifyObservers("Auction Added");
     }
 
     /**
@@ -45,6 +48,8 @@ public class Calendar implements Serializable {
         //TODO Return boolean instead of exception?
         if(auction.isCancelable()) {
             myAuctions.remove(auction);
+            setChanged();
+            notifyObservers("Auction Cancelled");
         } else {
             throw new IllegalArgumentException("This auction is not allowed to be cancelled at this time");
         }
