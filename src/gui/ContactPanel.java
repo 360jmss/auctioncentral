@@ -24,4 +24,7 @@ public class ContactPanel extends UserPanel  {
     public void setUser(User theUser) {
         myLabel.setText("...and the contact is " + myUser.getName() + "!");
     }
+
+
+
 }
