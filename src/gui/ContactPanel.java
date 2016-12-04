@@ -304,4 +304,7 @@ public class ContactPanel extends UserPanel  {
             myInitialButtons.setVisible(true);
         }
     }
+
+
+
 }
