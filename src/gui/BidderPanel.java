@@ -154,8 +154,7 @@ public class BidderPanel extends UserPanel  {
      * @return The created panel
      */
     private JPanel makeAuctionItemListPanel() {
-        AuctionItem[] items =
-                new AuctionItem[myCalendar.getAuctions().get(myAuctionIndex).getItems().size()];
+        AuctionItem[] items = new AuctionItem[myCalendar.getAuctions().get(myAuctionIndex).getItems().size()];
         items = myCalendar.getAuctions().get(myAuctionIndex).getItems().toArray(items);
         itemList = new JList<>(items);
 
@@ -168,9 +167,7 @@ public class BidderPanel extends UserPanel  {
         final JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
         p.add(sp, BorderLayout.CENTER);
-        for (AuctionItem i: items) {
-            System.out.println(i);
-        }
+
         return p;
     }
 

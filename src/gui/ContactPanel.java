@@ -61,6 +61,9 @@ public class ContactPanel extends UserPanel implements Observer {
         myUser = (Contact) theUser;
         myAuction = myCalendar.getContactsAuction(myUser);
 
+        //add observer
+        myCalendar.addObserver(this);
+
         //Initialize the first page that a contact person will see and add it to the panel.
         myInitialButtons = new JPanel();
         myInitialActions = new InitialActionsPanel();
