@@ -47,7 +47,7 @@ public class RemoveInventoryItemFromAuctionAcceptanceTest {
         Auction auction = new Auction(LocalDateTime.now().plusDays(2), jd);
         auction.addItem(new AuctionItem("apple", "1", 1, 50.00));
         calendar.addAuction(auction);
-        assertEquals(1, calendar.getAuctions().get(0).removeItem(0));
+        assertEquals(0, calendar.getAuctions().get(0).removeItem(0));
 
     }
 
