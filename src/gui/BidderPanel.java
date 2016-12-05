@@ -130,7 +130,7 @@ public class BidderPanel extends UserPanel  {
 
             int firstIndex = lsm.getLeadSelectionIndex();
             myAuctionIndex = firstIndex;
-            myAuctionItemListPanel = makeAuctionItemListPanel();
+            //myAuctionItemListPanel = makeAuctionItemListPanel();
             System.out.println("The auction index is: " + myAuctionIndex);
         }
     }
@@ -171,6 +171,15 @@ public class BidderPanel extends UserPanel  {
         return p;
     }
 
+
+    /**
+     * Update the auction Item list panel
+     */
+    private void updateAuctionItemListPanel() {
+        AuctionItem[] items = new AuctionItem[myCalendar.getAuctions().get(myAuctionIndex).getItems().size()];
+        items = myCalendar.getAuctions().get(myAuctionIndex).getItems().toArray(items);
+        itemList.setListData(items);
+    }
 
     /**
      * JPanel for the buttons.
@@ -242,8 +251,7 @@ public class BidderPanel extends UserPanel  {
                 viewItems.setVisible(false);
                 bidOnItem.setVisible(true);
                 auctionListPanel.setVisible(false);
-                //creating a new panel every time does not delete the old listeners
-                myAuctionItemListPanel = makeAuctionItemListPanel();
+                updateAuctionItemListPanel();
                 centerOfBidderPanel.add(myAuctionItemListPanel);
             }
         }
