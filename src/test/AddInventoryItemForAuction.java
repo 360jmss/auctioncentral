@@ -21,42 +21,42 @@ public class AddInventoryItemForAuction {
 
     @Test
     public void testAddInventoryItemWithName() {
-        //Constructor requires a name.
+        //Constructor requires a name. Handled in UI.
     }
 
     @Test
     public void testAddInventoryItemNoName() {
-        //Constructor requires a name.
+        //Constructor requires a name. Handled in UI.
     }
 
     @Test
     public void testAddInventoryItemWithCondition() {
-        //Constructor requires a condition.
+        //Constructor requires a condition. Handled in UI.
     }
 
     @Test
     public void testAddInventoryItemNoCondition() {
-        //Constructor requires a condition.
+        //Constructor requires a condition. Handled in UI.
     }
 
     @Test
     public void testAddInventoryItemWithSize() {
-        //Constructor requires a size.
+        //Constructor requires a size. Handled in UI.
     }
 
     @Test
     public void testAddInventoryItemNoSize() {
-        //Constructor requires a size.
+        //Constructor requires a size. Handled in UI.
     }
 
     @Test
     public void testAddInventoryItemWithMinBid() {
-        //Constructor requires a minimum bid.
+        //Constructor requires a minimum bid. Handled in UI.
     }
 
     @Test
     public void testAddInventoryItemNoMinBid() {
-        //Constructor requires a minimum bid.
+        //Constructor requires a minimum bid. Handled in UI.
     }
 
 
