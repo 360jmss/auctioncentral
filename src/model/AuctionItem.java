@@ -181,14 +181,17 @@ public class AuctionItem implements Serializable{
      * Adds a bid to the list of bidder.
      * @param theBidderName the name of the bidder.
      * @param theBid the bid value.
+     * @return true if it is a valid bid, false otherwise.
      */
-    public void addBid(String theBidderName,Double theBid) {
+    public boolean addBid(String theBidderName,Double theBid) {
         if (isValidBidPrice(theBid)) {
             myBidList.put(theBidderName, theBid);
             if (isHighestBid(theBid)) {
                 myHighestBidder = theBidderName;
             }
         }
+
+        return isValidBidPrice(theBid);
 
     }
 
@@ -286,13 +289,6 @@ public class AuctionItem implements Serializable{
 
     @Override
     public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        // Send all output to the Appendable object sb
-//        Formatter formatter = new Formatter(sb, Locale.US);
-//
-//        // Explicit argument indices may be used to re-order output.
-//        formatter.format("%5d%45s%30s%50.2f\n", getUniqueID(), getName(), getCondition(), getMinBid());
-//        return sb.toString();
         return String.format("%5d%45s%30s%50.2f\n", getUniqueID(), getName(), getCondition(), getMinBid());
     }
 
