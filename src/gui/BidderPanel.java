@@ -51,11 +51,9 @@ public class BidderPanel extends UserPanel  {
      */
     private JPanel makeItemsPanel() {
         final JPanel p = new JPanel(new GridLayout(myCalendar.getAuctions().size(), 1));
-
         for (final Auction item : myCalendar.getAuctions()) {
             addAuction(item, p);
         }
-
         return p;
     }
 
