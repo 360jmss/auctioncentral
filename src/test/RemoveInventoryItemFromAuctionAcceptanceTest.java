@@ -32,8 +32,6 @@ public class RemoveInventoryItemFromAuctionAcceptanceTest {
                 "contact@somewhere.edu",
                 "123 Main St",
                 "Veridian Dynamics");
-
-
     }
 
     @Test
@@ -61,6 +59,23 @@ public class RemoveInventoryItemFromAuctionAcceptanceTest {
         assertEquals(0, calendar.getAuctions().get(0).removeItem(0));
     }
 
+    @Test
+    public void testRemoveItemNotOnInventoryList() {
+        //Handled in UI.
+    }
 
+    @Test
+    public void testRemoveItemOnInventoryList() {
+        //Handled in UI.
+    }
 
+    @Test
+    public void testContactRegisteredUnderNonProfit() {
+        //Handled in UI.
+    }
+
+    @Test
+    public void testContactNotRegisteredUnderNonProfit() {
+        //Handled in UI.
+    }
 }
