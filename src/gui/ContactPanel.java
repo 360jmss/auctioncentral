@@ -138,8 +138,9 @@ public class ContactPanel extends UserPanel implements Observer {
         if (!myViewAuctionButtons.isEnabled()) {
             myViewAuctionButtons.setEnabled(true);
             myViewAuctionButtons.setVisible(true);
+            myItemListPanel.setEnabled(true);
             myItemListPanel.setVisible(true);
-            add(myItemListPanel, BorderLayout.CENTER);
+//            add(myItemListPanel, BorderLayout.CENTER);
         //Otherwise, this is the first time this method was called and the buttons need to be added to the panel.
         } else {
             myViewAuctionButtons.add(myViewAuctionActions);
@@ -166,6 +167,16 @@ public class ContactPanel extends UserPanel implements Observer {
             mySubmitAuctionButtons.setVisible(true);
             add(mySubmitAuctionButtons, BorderLayout.SOUTH);
         }
+        createSubmitAuctionForm();
+    }
+
+    private void createSubmitAuctionForm() {
+        //Required.
+        JTextField auctionDate = new JTextField(20);
+        JTextField auctionTime = new JTextField(20);
+        //Optional.
+        JTextField approximateItems = new JTextField(20);
+        JTextField comment = new JTextField(20);
     }
 
     /**
@@ -216,17 +227,15 @@ public class ContactPanel extends UserPanel implements Observer {
 
     /**
      * confirmCancelItem first confirms whether a user wants to cancel an item, then performs the cancel if they do.
-     *
-     * @param itemIndex The location of the item in the list.
      */
-    private void confirmCancelItem(int itemIndex) {
+    private void confirmCancelItem() {
         int dialogOption = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel this item?",
                 "Warning", JOptionPane.YES_NO_OPTION);
         if (dialogOption == 0) {
             if (myAuction.isCancelable()) {
-                myAuction.removeItem(itemIndex);
+                myAuction.removeItem(myItemIndex);
             } else {
-                JOptionPane.showMessageDialog(null, "You cannot cancel your auction because it is less than 2 days " +
+                JOptionPane.showMessageDialog(null, "You cannot cancel this item because it is less than 2 days " +
                         "before the auction start time.");
             }
         }
@@ -263,7 +272,7 @@ public class ContactPanel extends UserPanel implements Observer {
      */
     private JPanel createAuctionItemPanel() {
 
-        final JPanel p = new JPanel();
+        JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
 
         if (myAuction == null || myAuction.getItems().isEmpty()) {
@@ -279,7 +288,7 @@ public class ContactPanel extends UserPanel implements Observer {
             );
             listSelectionModel.setSelectionMode(listSelectionModel.SINGLE_SELECTION);
 
-            final JScrollPane sp = new JScrollPane(auctionItemList);
+            JScrollPane sp = new JScrollPane(auctionItemList);
             p.add(sp, BorderLayout.CENTER);
         }
 
@@ -295,8 +304,7 @@ public class ContactPanel extends UserPanel implements Observer {
 
             int firstIndex = lsm.getLeadSelectionIndex();
             myItemIndex = firstIndex;
-            myItemListPanel = createAuctionItemPanel();
-            System.out.println("The auction index is: " + myItemIndex);
+            System.out.println("The item index is: " + myItemIndex);
         }
     }
 
@@ -393,7 +401,7 @@ public class ContactPanel extends UserPanel implements Observer {
             addItem.addActionListener(add);
             add(addItem);
 
-            JButton cancelItem = new JButton("Cancel an Item");
+            JButton cancelItem = new JButton("Cancel Selected Item");
             CancelItemListener cancel = new CancelItemListener();
             cancelItem.addActionListener(cancel);
             add(cancelItem);
@@ -519,7 +527,7 @@ public class ContactPanel extends UserPanel implements Observer {
         public void actionPerformed(ActionEvent actionEvent) {
             myInitialButtons.setVisible(false);
             myInitialButtons.setEnabled(false);
-
+            confirmCancelItem();
         }
     }
 
