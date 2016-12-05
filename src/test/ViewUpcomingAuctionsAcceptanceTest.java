@@ -10,11 +10,13 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.assertEquals;
 
 /**
- * This is a JUnit test class for retrieving the number of auctions in the system
+ * This is a JUnit test class for the User Story for viewing upcoming auctions in the system.
+ *  BR: Retrieving the number of auctions in the system
+ *  BR: Verifying the date of auctions in the system.
  * @author Miguel Barreto
  * @version December 4 2016
  */
-public class NumberOfAuctionsAcceptanceTest {
+public class ViewUpcomingAuctionsAcceptanceTest {
 
     private Calendar calendar;
     private Contact jd;
@@ -49,6 +51,11 @@ public class NumberOfAuctionsAcceptanceTest {
         calendar.addAuction(futureJD);
         calendar.addAuction(new Auction(LocalDateTime.now().plusWeeks(3), jd));
         assertEquals(2, calendar.getAuctionTotalOnDay(futureJD.getStartTime().toLocalDate()));
+    }
+
+    @org.junit.Test
+    public void testActionsDisplayed() {
+        //Cannot be tested, implemented by UI
     }
 
 }
