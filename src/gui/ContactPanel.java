@@ -10,6 +10,12 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * This class is the GUI for a contact from an organization.
+ *
+ * @author Jessica Sills
+ * @version December 4 2016
+ */
 public class ContactPanel extends UserPanel implements Observer {
 
     /** The current user; a contact person. */
@@ -123,6 +129,9 @@ public class ContactPanel extends UserPanel implements Observer {
         myLabel.setText("Hi " + myUser.getName() + ", what would you like to do?");
     }
 
+    /**
+     * viewUpcomingAuction changes the view of the GUI to the list of items in the contact's current auction.
+     */
     private void viewUpcomingAuction() {
         //If these buttons have already been added to the panel and this method was called, then they are not
         //enabled and simply need to be re-enabled and set to visible.
@@ -141,6 +150,10 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * viewAuctionRequest changes the view of the GUI to a form that the user can fill out to submit an auction. It is
+     * not available to users who already have an auction in the system.
+     */
     private void viewAuctionRequest() {
         //If these buttons have already been added to the panel and this method was called, then they are not
         //enabled and simply need to be re-enabled and set to visible.
@@ -155,6 +168,10 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * viewEditInfo changes the view of the GUI to the user's information, including whether or not they have an
+     * upcoming auction.
+     */
     private void viewEditInfo() {
         //If these buttons have already been added to the panel and this method was called, then they are not
         //enabled and simply need to be re-enabled and set to visible.
@@ -173,8 +190,10 @@ public class ContactPanel extends UserPanel implements Observer {
     }
 
     /**
+     * createUserInfoPanel creates a list of the information that is saved about the user.
      *
-     * @return The panel
+     * @return The panel containing the user's contact information and the date of their upcoming auction, if they have
+     * one.
      */
     private JPanel createUserInfoPanel() {
         JPanel displayInfo = new JPanel();
@@ -195,6 +214,11 @@ public class ContactPanel extends UserPanel implements Observer {
         return displayInfo;
     }
 
+    /**
+     * confirmCancelItem first confirms whether a user wants to cancel an item, then performs the cancel if they do.
+     *
+     * @param itemIndex The location of the item in the list.
+     */
     private void confirmCancelItem(int itemIndex) {
         int dialogOption = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel this item?",
                 "Warning", JOptionPane.YES_NO_OPTION);
@@ -208,6 +232,10 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * confirmCancelAuction first confirms whether a user wants to cancel an auction, then performs the cancel if they
+     * do and takes them back to their home page.
+     */
     private void confirmCancelAuction() {
         int dialogOption = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel this auction?",
                 "Warning", JOptionPane.YES_NO_OPTION);
@@ -228,6 +256,11 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * createAuctionItemPanel creates a scrollable, selectable list of items in an auction.
+     *
+     * @return The panel that contains a list of items.
+     */
     private JPanel createAuctionItemPanel() {
 
         final JPanel p = new JPanel();
@@ -268,9 +301,10 @@ public class ContactPanel extends UserPanel implements Observer {
     }
 
     /**
-     * Handle the observables
-     * @param o what called this
-     * @param arg what the observable sends
+     * Handle the observables.
+     *
+     * @param o What called this
+     * @param arg What the observable sends
      */
     @Override
     public void update(Observable o, Object arg) {
@@ -297,17 +331,28 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a panel that contains the first button options that the user will see.
+     */
     class InitialActionsPanel extends JPanel {
 
+        /** A button that takes the user to the upcoming auction. */
         private JButton upcomingAuction;
 
+        /** A button that takes the user to an auction request form. */
         private JButton auctionRequest;
 
+        /**
+         * Calls the super constructor and then calls setup.
+         */
         InitialActionsPanel() {
             super();
             setUp();
         }
 
+        /**
+         * Creates the first three buttons a user will see and then adds them to the panel.
+         */
         private void setUp() {
             upcomingAuction = new JButton("View Upcoming Auction");
             UpcomingAuctionListener upcoming = new UpcomingAuctionListener();
@@ -326,13 +371,22 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a panel that contains the button options that are associated with the auction and auction items.
+     */
     class ViewAuctionPanel extends JPanel {
 
+        /**
+         * Calls the super constructor and then calls setup.
+         */
         ViewAuctionPanel() {
             super();
             setUp();
         }
 
+        /**
+         * Creates the buttons associated with a auction and auction items and then adds them to the panel.
+         */
         private void setUp() {
             JButton addItem = new JButton("Add an Item");
             AddItemListener add = new AddItemListener();
@@ -356,13 +410,22 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a panel that contains the button options that are associated submitting an auction request.
+     */
     class SubmitAuctionPanel extends JPanel {
 
+        /**
+         * Calls the super constructor and then calls setup.
+         */
         SubmitAuctionPanel() {
             super();
             setUp();
         }
 
+        /**
+         * Creates the buttons associated with submitting an auction request and then adds them to the panel.
+         */
         private void setUp() {
             JButton submitAuction = new JButton("Submit Auction");
             SubmitAuctionListener submit = new SubmitAuctionListener();
@@ -376,13 +439,22 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a panel that contains the button options that are associated editing a user's info.
+     */
     class EditInfoPanel extends JPanel {
 
+        /**
+         * Calls the super constructor and then calls setup.
+         */
         EditInfoPanel() {
             super();
             setUp();
         }
 
+        /**
+         * Creates the buttons associated with editing a user's info and then adds them to the panel.
+         */
         private void setUp() {
             JButton goBack = new JButton("Go Back");
             GoBackHomeListener homeFromEdit = new GoBackHomeListener();
@@ -391,6 +463,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a listener for the upcoming auction button.
+     */
     private class UpcomingAuctionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -400,6 +475,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a listener for the auction request button.
+     */
     private class AuctionRequestListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -409,6 +487,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a listener for the edit info button.
+     */
     private class EditInfoListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -418,6 +499,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a listener for the add an item button.
+     */
     private class AddItemListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -427,6 +511,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a listener for the cancel an item button.
+     */
     private class CancelItemListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -436,6 +523,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a listener for the cancel this auction button.
+     */
     private class CancelAuctionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -445,6 +535,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a listener for the submit auction request button.
+     */
     private class SubmitAuctionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
@@ -454,6 +547,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a listener for the go back button.
+     */
     private class GoBackHomeListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
