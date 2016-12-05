@@ -242,6 +242,7 @@ public class BidderPanel extends UserPanel  {
                 viewItems.setVisible(false);
                 bidOnItem.setVisible(true);
                 auctionListPanel.setVisible(false);
+                //creating a new panel every time does not delete the old listeners
                 myAuctionItemListPanel = makeAuctionItemListPanel();
                 centerOfBidderPanel.add(myAuctionItemListPanel);
             }
