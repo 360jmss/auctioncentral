@@ -1,28 +1,33 @@
 package gui;
 
 import model.*;
-
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-//use isEnabled and setEnabled
-//notifyObservers(send in whatever is changed);
-
 public class ContactPanel extends UserPanel implements Observer {
 
+    /** The current user; a contact person. */
     private Contact myUser;
 
+    /** The contact's auction; null if they have no auction. */
     private Auction myAuction;
 
+    /** The index at which the list selector is at. */
+    private int myItemIndex;
+
+    /** The list of items in an auction. */
     private JList<AuctionItem> auctionItemList;
 
     /** The label for showing info. */
     private JLabel myLabel;
 
+    /** A label for a contact's upcoming label. */
     private JLabel myUpcomingAuctionLabel;
 
     /** Panel to hold the initial user action buttons. */
@@ -37,8 +42,10 @@ public class ContactPanel extends UserPanel implements Observer {
     /** Panel to hold the edit options for the contact; currently just 'go back'. */
     private JPanel myEditButtons;
 
+    /** Panel to hold a contact's information. */
     private JPanel myInfoHolder;
 
+    /** Panel to hold all of the items in an auction. */
     private JPanel myItemListPanel;
 
     /** Initial actions for the user; View auction, Submit auction request, Cancel auction request, Edit info */
@@ -53,6 +60,9 @@ public class ContactPanel extends UserPanel implements Observer {
     /** Edit info actions for the user. */
     private EditInfoPanel myEditActions;
 
+    /** The list selection model */
+    private ListSelectionModel listSelectionModel;
+
     /** Constructor for the panel */
     ContactPanel(User theUser, Calendar theCalendar) {
         setLayout(new BorderLayout());
@@ -61,8 +71,11 @@ public class ContactPanel extends UserPanel implements Observer {
         myUser = (Contact) theUser;
         myAuction = myCalendar.getContactsAuction(myUser);
 
-        //add observer
+        //Add observers.
         myCalendar.addObserver(this);
+        if (myAuction != null) {
+            myAuction.addObserver(this);
+        }
 
         //Initialize the first page that a contact person will see and add it to the panel.
         myInitialButtons = new JPanel();
@@ -149,7 +162,7 @@ public class ContactPanel extends UserPanel implements Observer {
             myEditButtons.setEnabled(true);
             myEditButtons.setVisible(true);
             myInfoHolder.setVisible(true);
-            //Otherwise, this is the first time this method was called and the buttons need to be added to the panel.
+        //Otherwise, this is the first time this method was called and the buttons need to be added to the panel.
         } else {
             myEditButtons.add(myEditActions);
             myEditButtons.setVisible(true);
@@ -159,6 +172,10 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     *
+     * @return The panel
+     */
     private JPanel createUserInfoPanel() {
         JPanel displayInfo = new JPanel();
 
@@ -178,23 +195,17 @@ public class ContactPanel extends UserPanel implements Observer {
         return displayInfo;
     }
 
-    private JPanel createAuctionItemPanel() {
-
-        final JPanel p = new JPanel();
-        p.setLayout(new BorderLayout());
-
-        if (myAuction.getItems().isEmpty()) {
-            JLabel empty = new JLabel("You have no items yet.");
-            p.add(empty, BorderLayout.NORTH);
-        } else {
-            AuctionItem[] auctionItems = myAuction.getItems().toArray(new AuctionItem[0]);
-            auctionItemList = new JList<>(auctionItems);
-
-            final JScrollPane sp = new JScrollPane(auctionItemList);
-            p.add(sp, BorderLayout.CENTER);
+    private void confirmCancelItem(int itemIndex) {
+        int dialogOption = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel this item?",
+                "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogOption == 0) {
+            if (myAuction.isCancelable()) {
+                myAuction.removeItem(itemIndex);
+            } else {
+                JOptionPane.showMessageDialog(null, "You cannot cancel your auction because it is less than 2 days " +
+                        "before the auction start time.");
+            }
         }
-
-        return p;
     }
 
     private void confirmCancelAuction() {
@@ -209,10 +220,50 @@ public class ContactPanel extends UserPanel implements Observer {
                 myInfoHolder.setVisible(false);
                 myItemListPanel.setVisible(false);
                 myInitialButtons.setVisible(true);
+                JOptionPane.showMessageDialog(null, "You have successfully cancelled your auction.");
             } else {
                 JOptionPane.showMessageDialog(null, "You cannot cancel your auction because it is less than 2 days " +
                         "before the auction start time.");
             }
+        }
+    }
+
+    private JPanel createAuctionItemPanel() {
+
+        final JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());
+
+        if (myAuction == null || myAuction.getItems().isEmpty()) {
+            JLabel empty = new JLabel("You have no items yet.");
+            p.add(empty, BorderLayout.NORTH);
+        } else {
+            AuctionItem[] auctionItems = myAuction.getItems().toArray(new AuctionItem[0]);
+            auctionItemList = new JList<>(auctionItems);
+
+            listSelectionModel = auctionItemList.getSelectionModel();
+            listSelectionModel.addListSelectionListener(
+                    new ItemListSelectionHandler()
+            );
+            listSelectionModel.setSelectionMode(listSelectionModel.SINGLE_SELECTION);
+
+            final JScrollPane sp = new JScrollPane(auctionItemList);
+            p.add(sp, BorderLayout.CENTER);
+        }
+
+        return p;
+    }
+
+    /**
+     * The Item List Selection Handler.
+     */
+    class ItemListSelectionHandler implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) {
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+
+            int firstIndex = lsm.getLeadSelectionIndex();
+            myItemIndex = firstIndex;
+            myItemListPanel = createAuctionItemPanel();
+            System.out.println("The auction index is: " + myItemIndex);
         }
     }
 
@@ -229,6 +280,7 @@ public class ContactPanel extends UserPanel implements Observer {
             myUpcomingAuctionLabel.setText("Your upcoming auction: " + myAuction.toString());
             myInitialActions.upcomingAuction.setEnabled(true);
             myInitialActions.auctionRequest.setEnabled(false);
+            myAuction.addObserver(this);
         //Auction cancelled.
         } else if(arg.equals("Auction Cancelled")) {
             myLabel.setText("Hi " + myUser.getName() + "! You have no upcoming auction." +
@@ -237,12 +289,11 @@ public class ContactPanel extends UserPanel implements Observer {
             myInitialActions.upcomingAuction.setEnabled(false);
             myInitialActions.auctionRequest.setEnabled(true);
         //Item added.
-        } else if(arg == "Item Added") {
+        } else if(arg.equals("Item Added")) {
             myItemListPanel = createAuctionItemPanel();
         //Item removed.
-        } else if(arg == "Item Removed") {
+        } else if(arg.equals("Item Removed")) {
             myItemListPanel = createAuctionItemPanel();
-        //
         }
     }
 
