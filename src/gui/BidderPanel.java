@@ -48,6 +48,9 @@ public class BidderPanel extends UserPanel  {
     /**The bid on item panel */
     private JPanel myBidOnItemPanel;
 
+    /**The bid by user*/
+    private Double myBid;
+
 
     /** Constructor for the panel */
     BidderPanel(User theUser, Calendar theCalendar) {
@@ -61,6 +64,7 @@ public class BidderPanel extends UserPanel  {
         auctionListPanel = makeAuctionListPanel();
         myAuctionItemListPanel = makeAuctionItemListPanel();
         myBidOnItemPanel = null;
+        myBid = 0.00;
 
         setLayout(new BorderLayout());
         add(myLabel, BorderLayout.NORTH);
@@ -94,15 +98,18 @@ public class BidderPanel extends UserPanel  {
 
     private JPanel makeAboutItemPanel() {
         StringBuilder sb = new StringBuilder();
+        AuctionItem i = myCalendar.getAuctions().get(myAuctionIndex).getItems().get(myAuctionItemIndex);
+        sb.append("Item Unique ID: " + i.getUniqueID() + "\n");
         sb.append("Item Name: "
-                + myCalendar.getAuctions().get(myAuctionIndex).getItems().get(myAuctionItemIndex).getName() + "\n");
+                + i.getName() + "\n");
         sb.append("Item Condition: "
-                + myCalendar.getAuctions().get(myAuctionIndex).getItems().get(myAuctionItemIndex).getCondition() + "\n");
-        sb.append("Item Minimum Bid: "
-                + myCalendar.getAuctions().get(myAuctionIndex).getItems().get(myAuctionItemIndex).getMinBid() + "\n");
+                + i.getCondition() + "\n");
+        sb.append("Item Size: " + i.getSize());
+        sb.append(String.format("Item Minimum Bid: %.2f\n", i.getMinBid()));
+
 
         JPanel p = new JPanel();
-        JTextArea aboutItem = new JTextArea(sb.toString());
+        JTextArea aboutItem = new JTextArea(sb.toString(), 50, 60);
         aboutItem.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(aboutItem);
 
@@ -202,12 +209,18 @@ public class BidderPanel extends UserPanel  {
 
         private JTextField textField;
 
+        /**place bid button*/
+        private JButton placeBid;
+
         ActionButtons() {
             super();
             viewAuctions = new JButton("View Auctions");
             viewItems = new JButton("View Auction Items");
             bidOnItem = new JButton("Bid on Selected Item");
             goBack = new JButton("Go Back");
+            placeBid = new JButton("Place Bid");
+            newBid = new JLabel("New Bid: ");
+            textField = new JTextField(20);
             setUp();
         }
 
@@ -216,15 +229,15 @@ public class BidderPanel extends UserPanel  {
             viewItems.addActionListener(new ViewItemsListener());
             goBack.addActionListener(new GoBackListener());
             bidOnItem.addActionListener(new BidOnItemListener());
-
-            newBid = new JLabel("New Bid: ");
-            textField = new JTextField(20);
+            textField.addActionListener(new PlaceBidActionListener());
+            placeBid.addActionListener(new PlaceBidActionListener());
 
             add(newBid);
             add(textField);
             add(viewAuctions);
             add(viewItems);
             add(bidOnItem);
+            add(placeBid);
             add(goBack);
 
             viewItems.setVisible(false);
@@ -232,8 +245,35 @@ public class BidderPanel extends UserPanel  {
             goBack.setVisible(false);
             newBid.setVisible(false);
             textField.setVisible(false);
+            placeBid.setVisible(false);
         }
 
+        class TextFieldActionListener implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                myBid = Double.parseDouble(textField.getText());
+                System.out.println("Current bid updated: $" + myBid);
+            }
+        }
+
+        class PlaceBidActionListener implements  ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Double text = Double.parseDouble(textField.getText());
+                Auction a = myCalendar.getAuctions().get(myAuctionIndex);
+                AuctionItem i = a.getItems().get(myAuctionItemIndex);
+                boolean addedSuccessfully = i.addBid(myUser.getName(), text);
+                if(addedSuccessfully) {
+                    myBid = text;
+                    System.out.println("Current bid updated: $" + myBid);
+                    System.out.println("Added bid: " + i.getBid(myUser.getName()));
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            String.format("Error: Please enter bid higher than miniminum bid: $%.2f", i.getMinBid()),
+                            "Error Massage", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
 
         class ViewAuctionsListener implements ActionListener {
             @Override
@@ -256,6 +296,13 @@ public class BidderPanel extends UserPanel  {
             }
         }
 
+        class PlaceBidListener implements  ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent acitonEvent) {
+
+            }
+        }
+
         class GoBackListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -263,10 +310,20 @@ public class BidderPanel extends UserPanel  {
                     viewItems.setVisible(false);
                     viewAuctions.setVisible(true);
                     goBack.setVisible(false);
+                    auctionListPanel.setVisible(false);
                 } else if(bidOnItem.isVisible()) { //item list panel
                     bidOnItem.setVisible(false);
                     viewItems.setVisible(true);
                     auctionListPanel.setVisible(true);
+                    myAuctionItemListPanel.setVisible(false);
+                } else if(placeBid.isVisible()) { //about item panel
+                    bidOnItem.setVisible(true);
+                    viewItems.setVisible(false);
+                    placeBid.setVisible(false);
+                    textField.setVisible(false);
+                    myAuctionItemListPanel.setVisible(true);
+                    myBidOnItemPanel.setVisible(false);
+                    newBid.setVisible(false);
                 }
             }
         }
@@ -279,6 +336,8 @@ public class BidderPanel extends UserPanel  {
                 myAuctionItemListPanel.setVisible(false);
                 newBid.setVisible(true);
                 textField.setVisible(true);
+                placeBid.setVisible(true);
+                bidOnItem.setVisible(false);
             }
         }
     }
