@@ -4,6 +4,7 @@ import model.Calendar;
 import model.User;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -44,7 +45,8 @@ public class StaffPanel extends UserPanel  {
 
         //Login Message
         JLabel loginLabel = new JLabel("Successfully logged in. Welcome " + myUser.getName()
-                + ". Total number of upcoming auctions: " + myCalendar.getFutureAuctionTotal());
+                + ". Total number of upcoming auctions: " + myCalendar.getFutureAuctionTotal(), SwingConstants.CENTER);
+        loginLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(loginLabel, BorderLayout.PAGE_START);
 
         //Calendar Table
@@ -61,6 +63,7 @@ public class StaffPanel extends UserPanel  {
         maxPanel.setLayout(new BoxLayout(maxPanel, BoxLayout.Y_AXIS));
         maxLabel = new JLabel("Set the maximum number of auctions allowed by the system. Currently: "
                 + myCalendar.getAuctionMax());
+        maxLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         setupSpinnerPanel();
         add(maxPanel, BorderLayout.PAGE_END);
     }
@@ -111,12 +114,30 @@ public class StaffPanel extends UserPanel  {
         }
         JTable calendarThisMonthTable = new JTable(dataThisMonth, dayNames);
         JTable calendarNextMonthTable = new JTable(dataNextMonth, dayNames);
+
+        Dimension calSize = new Dimension(500, 96);
+        thisMonth.setAlignmentX(Component.CENTER_ALIGNMENT);
+        calendarPanel.add(Box.createVerticalGlue());
         calendarPanel.add(thisMonth);
-        calendarPanel.add(new JScrollPane(calendarThisMonthTable));
+        calendarThisMonthTable.setPreferredScrollableViewportSize(calSize);
+        JScrollPane thisMonthSP = new JScrollPane(calendarThisMonthTable);
+        thisMonthSP.setAlignmentX(Component.CENTER_ALIGNMENT);
+        thisMonthSP.setMaximumSize(calSize);
+        calendarPanel.add(thisMonthSP);
+
+        calendarPanel.add(Box.createRigidArea(new Dimension( 20, 20)));
+        nextMonth.setAlignmentX(Component.CENTER_ALIGNMENT);
         calendarPanel.add(nextMonth);
-        calendarPanel.add(new JScrollPane(calendarNextMonthTable));
+        calendarNextMonthTable.setFillsViewportHeight(true);
+        calendarNextMonthTable.setPreferredScrollableViewportSize(calSize);
+        JScrollPane nextMonthSP = new JScrollPane(calendarNextMonthTable);
+        nextMonthSP.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nextMonthSP.setMaximumSize(calSize);
+        calendarPanel.add(nextMonthSP);
+        calendarPanel.add(Box.createVerticalGlue());
+
 //        calendarPanel.add(Box.createVerticalGlue());
-        calendarPanel.setPreferredSize(new Dimension(100, 100));
+        //calendarPanel.setPreferredSize(new Dimension(100, 100));
     }
 
     /** Sets up the content of the Max Auction Panel */
