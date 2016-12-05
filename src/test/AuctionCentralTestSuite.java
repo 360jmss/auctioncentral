@@ -20,6 +20,8 @@ import org.junit.runners.Suite;
         //Acceptance Tests
         CancelAuctionRequestAcceptanceTest.class,
         SubmitAuctionRequestAcceptanceTest.class,
+        RemoveInventoryItemFromAuctionAcceptanceTest.class,
+        AddInventoryItemForAuction.class,
 })
 
  /**
