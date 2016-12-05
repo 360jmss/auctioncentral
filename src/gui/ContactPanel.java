@@ -6,12 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static javax.swing.SwingConstants.*;
+import java.util.Observable;
+import java.util.Observer;
 
 //use isEnabled and setEnabled
+//notifyObservers(send in whatever is changed);
 
-public class ContactPanel extends UserPanel  {
+public class ContactPanel extends UserPanel implements Observer {
 
     private Contact myUser;
 
@@ -125,7 +126,35 @@ public class ContactPanel extends UserPanel  {
         }
     }
 
+    /**
+     * Handle the observables
+     * @param o what called this
+     * @param arg what the observable sends
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        //Auction added.
+        if(arg == "Auction Added"){
+            myLabel.setText("Hi " + myUser.getName() + ", what would you like to do?");
+            myInitialActions.upcomingAuction.setEnabled(true);
+        //Auction cancelled.
+        } else if(arg == "Auction Cancelled") {
+            myLabel.setText("Hi " + myUser.getName() + "! You have no upcoming auction." +
+                    " What would you like to do?");
+            myInitialActions.upcomingAuction.setEnabled(false);
+        //Item added.
+        } else if(arg == "Item Added") {
+
+        //Item removed.
+        } else if(arg == "Item Removed") {
+
+        //
+        }
+    }
+
     class InitialActionsPanel extends JPanel {
+
+        private JButton upcomingAuction;
 
         InitialActionsPanel() {
             super();
@@ -133,7 +162,7 @@ public class ContactPanel extends UserPanel  {
         }
 
         private void setUp() {
-            JButton upcomingAuction = new JButton("View Upcoming Auction");
+            upcomingAuction = new JButton("View Upcoming Auction");
             UpcomingAuctionListener upcoming = new UpcomingAuctionListener();
             upcomingAuction.addActionListener(upcoming);
             add(upcomingAuction);
@@ -305,6 +334,21 @@ public class ContactPanel extends UserPanel  {
         }
     }
 
+    /*
+    Potential way you could have one GoBackHomeListener
+    then just add this one listener to all your "Go Back" buttons
 
+    private class GoBackHomeFromEditListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            //set everything you want to be hidden
+            myEditButtons.setVisible(false);
+            myEditButtons.setEnabled(false);
+            mySubmitAuctionButtons...
 
+            //show only what you need
+            myInitialButtons.setVisible(true);
+        }
+    }
+    */
 }

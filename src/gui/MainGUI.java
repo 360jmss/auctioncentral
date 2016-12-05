@@ -70,14 +70,12 @@ public class MainGUI implements Observer {
         myFrame.setLocationRelativeTo(null); //center on startup
         myFrame.setMinimumSize(new Dimension(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
 
-
         //add elements
         myFrame.add(myStatusPanel, BorderLayout.NORTH);
         myFrame.add(myMainPanel, BorderLayout.CENTER);
 
         //add observers
         myRepo.addObserver(this);
-
 
         //show frame, and pack it
         myFrame.setVisible(true);
