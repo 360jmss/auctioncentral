@@ -18,23 +18,25 @@ public class BidderPanel extends UserPanel  {
     private JLabel myLabel;
 
     /** action buttons for the user*/
-    private ActionButtons actionButtons;
+    private ActionButtons myActionButtons;
 
     /** panel south of the bidderpanel*/
-    private JPanel southOfBidderPanel;
+    private JPanel mySouthOfBidderPanel;
 
-    private JPanel auctionListPanel;
+    /**the auction list panel*/
+    private JPanel myAuctionListPanel;
 
-    private JPanel centerOfBidderPanel;
+    /**the center of bidder panel*/
+    private JPanel myCenterOfBidderPanel;
 
     /** The list of auctions */
-    private JList<Auction> auctionsList;
+    private JList<Auction> myAuctionsList;
 
     /**The list of items. */
-    private JList<AuctionItem> itemList;
+    private JList<AuctionItem> myItemList;
 
     /**The list selection model */
-    private ListSelectionModel listSelectionModel;
+    private ListSelectionModel myListSelectionModel;
 
     /**Current auction index */
     private int myAuctionIndex;
@@ -56,21 +58,21 @@ public class BidderPanel extends UserPanel  {
     BidderPanel(User theUser, Calendar theCalendar) {
         myCalendar = theCalendar;
         myUser = theUser;
-        actionButtons = new ActionButtons();
+        myActionButtons = new ActionButtons();
         myLabel = new JLabel("Hi " + myUser.getName() + ", what would you like to do?");
-        southOfBidderPanel = new JPanel();
-        centerOfBidderPanel = new JPanel();
-        centerOfBidderPanel.setLayout(new BorderLayout());
-        auctionListPanel = makeAuctionListPanel();
+        mySouthOfBidderPanel = new JPanel();
+        myCenterOfBidderPanel = new JPanel();
+        myCenterOfBidderPanel.setLayout(new BorderLayout());
+        myAuctionListPanel = makeAuctionListPanel();
         myAuctionItemListPanel = makeAuctionItemListPanel();
         myBidOnItemPanel = null;
         myBid = 0.00;
 
         setLayout(new BorderLayout());
         add(myLabel, BorderLayout.NORTH);
-        southOfBidderPanel.add(actionButtons);
-        add(southOfBidderPanel, BorderLayout.SOUTH);
-        add(centerOfBidderPanel, BorderLayout.CENTER);
+        mySouthOfBidderPanel.add(myActionButtons);
+        add(mySouthOfBidderPanel, BorderLayout.SOUTH);
+        add(myCenterOfBidderPanel, BorderLayout.CENTER);
     }
 
 
@@ -81,14 +83,14 @@ public class BidderPanel extends UserPanel  {
      */
     private JPanel makeAuctionListPanel() {
         Auction[] auctions = myCalendar.getAuctions().toArray(new Auction[0]);
-        auctionsList = new JList<>(auctions);
+        myAuctionsList = new JList<>(auctions);
 
-        listSelectionModel = auctionsList.getSelectionModel();
-        listSelectionModel.addListSelectionListener(
+        myListSelectionModel = myAuctionsList.getSelectionModel();
+        myListSelectionModel.addListSelectionListener(
                 new AuctionListSelectionHandler()
         );
-        listSelectionModel.setSelectionMode(listSelectionModel.SINGLE_SELECTION);
-        final JScrollPane sp = new JScrollPane(auctionsList);
+        myListSelectionModel.setSelectionMode(myListSelectionModel.SINGLE_SELECTION);
+        final JScrollPane sp = new JScrollPane(myAuctionsList);
         final JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
         p.add(sp, BorderLayout.CENTER);
@@ -96,6 +98,11 @@ public class BidderPanel extends UserPanel  {
         return p;
     }
 
+    /**
+     * Creates the about item panel.
+     *
+     * @return the about item panel made.
+     */
     private JPanel makeAboutItemPanel() {
         StringBuilder sb = new StringBuilder();
         AuctionItem i = myCalendar.getAuctions().get(myAuctionIndex).getItems().get(myAuctionItemIndex);
@@ -114,17 +121,6 @@ public class BidderPanel extends UserPanel  {
         JScrollPane scrollPane = new JScrollPane(aboutItem);
 
         p.add(scrollPane);
-        return p;
-    }
-
-    private JPanel makeBidTextFieldPanel() {
-        JPanel p = new JPanel();
-        JLabel newBid = new JLabel("New Bid: ");
-        JTextField textField = new JTextField(20);
-
-        p.add(newBid);
-        p.add(textField);
-
         return p;
     }
 
@@ -163,14 +159,14 @@ public class BidderPanel extends UserPanel  {
     private JPanel makeAuctionItemListPanel() {
         AuctionItem[] items = new AuctionItem[myCalendar.getAuctions().get(myAuctionIndex).getItems().size()];
         items = myCalendar.getAuctions().get(myAuctionIndex).getItems().toArray(items);
-        itemList = new JList<>(items);
+        myItemList = new JList<>(items);
 
-        listSelectionModel = itemList.getSelectionModel();
-        listSelectionModel.addListSelectionListener(
+        myListSelectionModel = myItemList.getSelectionModel();
+        myListSelectionModel.addListSelectionListener(
                 new AuctionItemListSelectionHandler()
         );
-        listSelectionModel.setSelectionMode(listSelectionModel.SINGLE_SELECTION);
-        final JScrollPane sp = new JScrollPane(itemList);
+        myListSelectionModel.setSelectionMode(myListSelectionModel.SINGLE_SELECTION);
+        final JScrollPane sp = new JScrollPane(myItemList);
         final JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
         p.add(sp, BorderLayout.CENTER);
@@ -185,7 +181,7 @@ public class BidderPanel extends UserPanel  {
     private void updateAuctionItemListPanel() {
         AuctionItem[] items = new AuctionItem[myCalendar.getAuctions().get(myAuctionIndex).getItems().size()];
         items = myCalendar.getAuctions().get(myAuctionIndex).getItems().toArray(items);
-        itemList.setListData(items);
+        myItemList.setListData(items);
     }
 
     /**
@@ -194,72 +190,75 @@ public class BidderPanel extends UserPanel  {
     class ActionButtons extends JPanel {
 
         /**view auctions button*/
-        private JButton viewAuctions;
+        private JButton myViewAuctionsButton;
 
         /**view items in the auction button*/
-        private JButton viewItems;
+        private JButton myViewItemsButton;
 
         /**Bid on an item button*/
-        private JButton bidOnItem;
+        private JButton myBidOnItemButton;
 
         /**go back button*/
-        private JButton goBack;
+        private JButton myGoBackButton;
 
-        private JLabel newBid;
+        /**the new bid label*/
+        private JLabel myNewBidLabel;
 
-        private JTextField textField;
+        /**the bid text field*/
+        private JTextField myBidTextField;
 
         /**place bid button*/
-        private JButton placeBid;
+        private JButton myPlaceBidButton;
 
+        /**
+         * Action Button constructor.
+         */
         ActionButtons() {
             super();
-            viewAuctions = new JButton("View Auctions");
-            viewItems = new JButton("View Auction Items");
-            bidOnItem = new JButton("Bid on Selected Item");
-            goBack = new JButton("Go Back");
-            placeBid = new JButton("Place Bid");
-            newBid = new JLabel("New Bid: ");
-            textField = new JTextField(20);
+            myViewAuctionsButton = new JButton("View Auctions");
+            myViewItemsButton = new JButton("View Auction Items");
+            myBidOnItemButton = new JButton("Bid on Selected Item");
+            myGoBackButton = new JButton("Go Back");
+            myPlaceBidButton = new JButton("Place Bid");
+            myNewBidLabel = new JLabel("New Bid: ");
+            myBidTextField = new JTextField(20);
             setUp();
         }
 
+        /**
+         * Sets up the Action button with listeners, adds to panel, visibility.
+         */
         private void setUp() {
-            viewAuctions.addActionListener(new ViewAuctionsListener());
-            viewItems.addActionListener(new ViewItemsListener());
-            goBack.addActionListener(new GoBackListener());
-            bidOnItem.addActionListener(new BidOnItemListener());
-            textField.addActionListener(new PlaceBidActionListener());
-            placeBid.addActionListener(new PlaceBidActionListener());
+            myViewAuctionsButton.addActionListener(new ViewAuctionsListener());
+            myViewItemsButton.addActionListener(new ViewItemsListener());
+            myGoBackButton.addActionListener(new GoBackListener());
+            myBidOnItemButton.addActionListener(new BidOnItemListener());
+            myBidTextField.addActionListener(new PlaceBidActionListener());
+            myPlaceBidButton.addActionListener(new PlaceBidActionListener());
 
-            add(newBid);
-            add(textField);
-            add(viewAuctions);
-            add(viewItems);
-            add(bidOnItem);
-            add(placeBid);
-            add(goBack);
+            add(myNewBidLabel);
+            add(myBidTextField);
+            add(myViewAuctionsButton);
+            add(myViewItemsButton);
+            add(myBidOnItemButton);
+            add(myPlaceBidButton);
+            add(myGoBackButton);
 
-            viewItems.setVisible(false);
-            bidOnItem.setVisible(false);
-            goBack.setVisible(false);
-            newBid.setVisible(false);
-            textField.setVisible(false);
-            placeBid.setVisible(false);
+            myViewItemsButton.setVisible(false);
+            myBidOnItemButton.setVisible(false);
+            myGoBackButton.setVisible(false);
+            myNewBidLabel.setVisible(false);
+            myBidTextField.setVisible(false);
+            myPlaceBidButton.setVisible(false);
         }
 
-        class TextFieldActionListener implements ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                myBid = Double.parseDouble(textField.getText());
-                System.out.println("Current bid updated: $" + myBid);
-            }
-        }
-
+        /**
+         * Listener for placing a bid button action.
+         */
         class PlaceBidActionListener implements  ActionListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                Double text = Double.parseDouble(textField.getText());
+                Double text = Double.parseDouble(myBidTextField.getText());
                 Auction a = myCalendar.getAuctions().get(myAuctionIndex);
                 AuctionItem i = a.getItems().get(myAuctionItemIndex);
                 boolean addedSuccessfully = i.addBid(myUser.getName(), text);
@@ -275,69 +274,74 @@ public class BidderPanel extends UserPanel  {
             }
         }
 
+        /**
+         * Listener for viewing auctions button.
+         */
         class ViewAuctionsListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewAuctions.setVisible(false);
-                viewItems.setVisible(true);
-                goBack.setVisible(true);
-                centerOfBidderPanel.add(auctionListPanel);
+                myViewAuctionsButton.setVisible(false);
+                myViewItemsButton.setVisible(true);
+                myGoBackButton.setVisible(true);
+                myCenterOfBidderPanel.add(myAuctionListPanel);
             }
         }
 
+        /**
+         * Listener for view item button.
+         */
         class ViewItemsListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                viewItems.setVisible(false);
-                bidOnItem.setVisible(true);
-                auctionListPanel.setVisible(false);
+                myViewItemsButton.setVisible(false);
+                myBidOnItemButton.setVisible(true);
+                myAuctionListPanel.setVisible(false);
                 updateAuctionItemListPanel();
-                centerOfBidderPanel.add(myAuctionItemListPanel);
+                myCenterOfBidderPanel.add(myAuctionItemListPanel);
             }
         }
 
-        class PlaceBidListener implements  ActionListener {
-            @Override
-            public void actionPerformed(ActionEvent acitonEvent) {
-
-            }
-        }
-
+        /**
+         * Listener for go back button.
+         */
         class GoBackListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(viewItems.isVisible()) { //auction list panel
-                    viewItems.setVisible(false);
-                    viewAuctions.setVisible(true);
-                    goBack.setVisible(false);
-                    auctionListPanel.setVisible(false);
-                } else if(bidOnItem.isVisible()) { //item list panel
-                    bidOnItem.setVisible(false);
-                    viewItems.setVisible(true);
-                    auctionListPanel.setVisible(true);
+                if(myViewItemsButton.isVisible()) { //auction list panel
+                    myViewItemsButton.setVisible(false);
+                    myViewAuctionsButton.setVisible(true);
+                    myGoBackButton.setVisible(false);
+                    myAuctionListPanel.setVisible(false);
+                } else if(myBidOnItemButton.isVisible()) { //item list panel
+                    myBidOnItemButton.setVisible(false);
+                    myViewItemsButton.setVisible(true);
+                    myAuctionListPanel.setVisible(true);
                     myAuctionItemListPanel.setVisible(false);
-                } else if(placeBid.isVisible()) { //about item panel
-                    bidOnItem.setVisible(true);
-                    viewItems.setVisible(false);
-                    placeBid.setVisible(false);
-                    textField.setVisible(false);
+                } else if(myPlaceBidButton.isVisible()) { //about item panel
+                    myBidOnItemButton.setVisible(true);
+                    myViewItemsButton.setVisible(false);
+                    myPlaceBidButton.setVisible(false);
+                    myBidTextField.setVisible(false);
                     myAuctionItemListPanel.setVisible(true);
                     myBidOnItemPanel.setVisible(false);
-                    newBid.setVisible(false);
+                    myNewBidLabel.setVisible(false);
                 }
             }
         }
 
+        /**
+         * Listener for Bid on item button.
+         */
         class BidOnItemListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 myBidOnItemPanel = makeAboutItemPanel();
-                centerOfBidderPanel.add(myBidOnItemPanel);
+                myCenterOfBidderPanel.add(myBidOnItemPanel);
                 myAuctionItemListPanel.setVisible(false);
-                newBid.setVisible(true);
-                textField.setVisible(true);
-                placeBid.setVisible(true);
-                bidOnItem.setVisible(false);
+                myNewBidLabel.setVisible(true);
+                myBidTextField.setVisible(true);
+                myPlaceBidButton.setVisible(true);
+                myBidOnItemButton.setVisible(false);
             }
         }
     }
