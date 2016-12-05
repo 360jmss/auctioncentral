@@ -123,8 +123,6 @@ public class ContactPanel extends UserPanel implements Observer {
             add(myItemListPanel, BorderLayout.CENTER);
             add(myViewAuctionButtons, BorderLayout.SOUTH);
         }
-
-
     }
 
     private void viewAuctionRequest() {
@@ -196,6 +194,25 @@ public class ContactPanel extends UserPanel implements Observer {
         return p;
     }
 
+    private void confirmCancelAuction() {
+        int dialogOption = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel this auction?",
+                "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogOption == 0) {
+            if (myAuction.isCancelable()) {
+                myCalendar.cancelAuction(myAuction);
+                myViewAuctionButtons.setVisible(false);
+                mySubmitAuctionButtons.setVisible(false);
+                myEditButtons.setVisible(false);
+                myInfoHolder.setVisible(false);
+                myItemListPanel.setVisible(false);
+                myInitialButtons.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "You cannot cancel your auction because it is less than 2 days " +
+                        "before the auction start time.");
+            }
+        }
+    }
+
     /**
      * Handle the observables
      * @param o what called this
@@ -204,13 +221,13 @@ public class ContactPanel extends UserPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         //Auction added.
-        if(arg == "Auction Added"){
+        if(arg.equals("Auction Added")){
             myLabel.setText("Hi " + myUser.getName() + ", what would you like to do?");
             myUpcomingAuctionLabel.setText("Your upcoming auction: " + myAuction.toString());
             myInitialActions.upcomingAuction.setEnabled(true);
             myInitialActions.auctionRequest.setEnabled(false);
         //Auction cancelled.
-        } else if(arg == "Auction Cancelled") {
+        } else if(arg.equals("Auction Cancelled")) {
             myLabel.setText("Hi " + myUser.getName() + "! You have no upcoming auction." +
                     " What would you like to do?");
             myUpcomingAuctionLabel.setText("You have no upcoming auction yet!");
@@ -218,10 +235,10 @@ public class ContactPanel extends UserPanel implements Observer {
             myInitialActions.auctionRequest.setEnabled(true);
         //Item added.
         } else if(arg == "Item Added") {
-
+            myItemListPanel = createAuctionItemPanel();
         //Item removed.
         } else if(arg == "Item Removed") {
-
+            myItemListPanel = createAuctionItemPanel();
         //
         }
     }
@@ -370,7 +387,7 @@ public class ContactPanel extends UserPanel implements Observer {
         public void actionPerformed(ActionEvent actionEvent) {
             myInitialButtons.setVisible(false);
             myInitialButtons.setEnabled(false);
-
+            confirmCancelAuction();
         }
     }
 
