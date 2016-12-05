@@ -334,6 +334,21 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /*
+    Potential way you could have one GoBackHomeListener
+    then just add this one listener to all your "Go Back" buttons
 
+    private class GoBackHomeFromEditListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            //set everything you want to be hidden
+            myEditButtons.setVisible(false);
+            myEditButtons.setEnabled(false);
+            mySubmitAuctionButtons...
 
+            //show only what you need
+            myInitialButtons.setVisible(true);
+        }
+    }
+    */
 }
