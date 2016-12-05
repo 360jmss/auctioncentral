@@ -51,6 +51,15 @@ public class GenerateTestData {
             myCalendar.addAuction(new Auction(LocalDateTime.now().plusDays(i), c));
         }
 
+        //One auction-less contact
+        Contact tom = new Contact("Tom Sawyer",
+                "tom",
+                "555-555-5555",
+                "tom@somewhere.com",
+                "555 Alder St",
+                "HuckFinn Company");
+        myUsers.registerUser(tom);
+
         //2 Unique Auctions with items
         Contact bill = new Contact("Bill Gates",
                 "billy",

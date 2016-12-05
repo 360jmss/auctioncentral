@@ -1,7 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Formatter;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * This class represents an model.AuctionItem and holds necessary information
@@ -284,7 +286,14 @@ public class AuctionItem implements Serializable{
 
     @Override
     public String toString() {
-        return "ID " + myUniqueID + ": " + myName + " (" + myCondition + ") Min Bid: $" + myMinBid;
+//        StringBuilder sb = new StringBuilder();
+//        // Send all output to the Appendable object sb
+//        Formatter formatter = new Formatter(sb, Locale.US);
+//
+//        // Explicit argument indices may be used to re-order output.
+//        formatter.format("%5d%45s%30s%50.2f\n", getUniqueID(), getName(), getCondition(), getMinBid());
+//        return sb.toString();
+        return String.format("%5d%45s%30s%50.2f\n", getUniqueID(), getName(), getCondition(), getMinBid());
     }
 
 }

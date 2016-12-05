@@ -47,7 +47,7 @@ public class CancelAuctionRequestAcceptanceTest {
         Auction auction2 = new Auction(LocalDateTime.now().plusDays(2).plusSeconds(1), jd);
         calendar.addAuction(auction2);
         calendar.cancelAuction(auction2);
-        assertFalse(calendar.getAuctions().contains(auction2));
+        assertTrue(auction2.isCancelable());
     }
 
     @org.junit.Test
@@ -55,7 +55,7 @@ public class CancelAuctionRequestAcceptanceTest {
         Auction auction3 = new Auction(LocalDateTime.now().plusDays(3), jd);
         calendar.addAuction(auction3);
         calendar.cancelAuction(auction3);
-        assertFalse(calendar.getAuctions().contains(auction3));
+        assertTrue(auction3.isCancelable());
     }
 
 }
