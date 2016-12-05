@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * This class represents an auction, and holds its necessary information and related AuctionItems.
  * @author Simon DeMartini
  * @version Nov 7 2016
  */
-public class Auction implements Serializable {
+public class Auction extends Observable implements Serializable {
 
     /** The start time of the auction.*/
     private LocalDateTime myStartTime;
@@ -50,6 +51,8 @@ public class Auction implements Serializable {
      */
     public void addItem(AuctionItem item) {
         myItems.add(item);
+        setChanged();
+        notifyObservers("Item Added");
     }
 
     /**
@@ -196,6 +199,8 @@ public class Auction implements Serializable {
             } else {
                 removed = 2;
             }
+            setChanged();
+            notifyObservers("Item Removed");
 
         } else {
             removed = 1;
