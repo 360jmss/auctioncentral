@@ -66,6 +66,7 @@ public class MainGUI implements Observer {
      */
     public void start() {
         //setup frame
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setTitle("AuctionCentral");
         myFrame.setLocationRelativeTo(null); //center on startup
         myFrame.setMinimumSize(new Dimension(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
