@@ -58,6 +58,8 @@ public class ContactPanel extends UserPanel implements Observer {
 
     private JPanel myAuctionFormPanel;
 
+    private JPanel myAddItemFormPanel;
+
     private JTextField myAuctionDate;
 
     private JTextField myApproximateItems;
@@ -130,6 +132,9 @@ public class ContactPanel extends UserPanel implements Observer {
         //Initialize auction request form panel.
         myAuctionFormPanel = createSubmitAuctionForm();
 
+        //Initialize add item form panel.
+//        myAddItemFormPanel = createAddItemForm();
+
         //Initialize information holder for displaying user's information.
         myInfoHolder = createUserInfoPanel();
 
@@ -169,11 +174,15 @@ public class ContactPanel extends UserPanel implements Observer {
         if (!mySubmitAuctionButtons.isEnabled()) {
             mySubmitAuctionButtons.setEnabled(true);
             mySubmitAuctionButtons.setVisible(true);
+            myAuctionFormPanel.setEnabled(true);
+            myAuctionFormPanel.setVisible(true);
         //Otherwise, this is the first time this method was called and the buttons need to be added to the panel.
         } else {
             mySubmitAuctionButtons.add(mySubmitAuctionActions);
             mySubmitAuctionButtons.setVisible(true);
             add(mySubmitAuctionButtons, BorderLayout.SOUTH);
+            myAuctionFormPanel.setVisible(true);
+            add(myAuctionFormPanel, BorderLayout.CENTER);
         }
     }
 
@@ -198,6 +207,23 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+//    private void viewAddItemForm() {
+//        //If these buttons have already been added to the panel and this method was called, then they are not
+//        //enabled and simply need to be re-enabled and set to visible.
+//        if (!myAddItemButtons.isEnabled()) {
+//            myAddItemButtons.setEnabled(true);
+//            myAddItemButtons.setVisible(true);
+//            myAddItemFormPanel.setVisible(true);
+//        //Otherwise, this is the first time this method was called and the buttons need to be added to the panel.
+//        } else {
+//            myAddItemButtons.add(myAddItemActions);
+//            myAddItemButtons.setVisible(true);
+//            add(myAddItemButtons, BorderLayout.SOUTH);
+//            myAddItemFormPanel.setVisible(true);
+//            add(myAddItemFormPanel, BorderLayout.CENTER);
+//        }
+//    }
+
     private JPanel createSubmitAuctionForm() {
         //Required fields.
         JLabel auctionDateIndicator = new JLabel("Please enter the auction date and time (YYYY-MM-DD HH:mm): ");
@@ -220,16 +246,31 @@ public class ContactPanel extends UserPanel implements Observer {
         auctionFormPanel.add(myComment);
 
         return auctionFormPanel;
-
-//        String date = auctionDate.getText();
-//        if (date == null) {
-//
-//        }
-//
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//        LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-
     }
+
+//    private JPanel createAddItemForm() {
+//        //Required fields.
+//        JLabel itemNameIndicator = new JLabel("Please enter the auction date and time (YYYY-MM-DD HH:mm): ");
+//        myAuctionDate = new JTextField(20);
+//
+//        //Optional fields.
+//        JLabel approxItemsIndicator = new JLabel("If applicable, please enter the approximate number of items: ");
+//        myApproximateItems = new JTextField(20);
+//        JLabel commentIndicator = new JLabel("If applicable, please enter a comment for this auction: ");
+//        myComment = new JTextField(20);
+//
+//        JPanel auctionFormPanel = new JPanel();
+//        auctionFormPanel.setLayout(new GridLayout(0,2));
+//
+//        auctionFormPanel.add(auctionDateIndicator);
+//        auctionFormPanel.add(myAuctionDate);
+//        auctionFormPanel.add(approxItemsIndicator);
+//        auctionFormPanel.add(myApproximateItems);
+//        auctionFormPanel.add(commentIndicator);
+//        auctionFormPanel.add(myComment);
+//
+//        return auctionFormPanel;
+//    }
 
     /**
      * createUserInfoPanel creates a list of the information that is saved about the user.
@@ -294,6 +335,67 @@ public class ContactPanel extends UserPanel implements Observer {
             } else {
                 JOptionPane.showMessageDialog(null, "You cannot cancel your auction because it is less than 2 days " +
                         "before the auction start time.");
+            }
+        }
+    }
+
+    private void confirmSubmitAuction() {
+
+        String date = myAuctionDate.getText();
+        String approxItems = myApproximateItems.getText();
+        String comment = myComment.getText();
+
+        if (date.equals("")) {
+            JOptionPane.showMessageDialog(null, "Auction date and time is a required field. Please enter an auction " +
+                            "date and start time.",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+
+            Auction newAuction = new Auction(dateTime, myUser);
+
+            if (myCalendar.validateAuction(newAuction) == 0) {
+                myAuction = newAuction;
+
+                JOptionPane.showMessageDialog(null, "Your auction has been approved! You are being returned to the " +
+                        "home page where you can view your auction and add items to it.");
+
+                myCalendar.addAuction(myAuction);
+
+                myViewAuctionButtons.setVisible(false);
+                mySubmitAuctionButtons.setVisible(false);
+                myEditButtons.setVisible(false);
+                myInfoHolder.setVisible(false);
+                myItemListPanel.setVisible(false);
+                myAuctionFormPanel.setVisible(false);
+                myInitialButtons.setVisible(true);
+            } else if (myCalendar.validateAuction(newAuction) == 1) {
+                JOptionPane.showMessageDialog(null, "Your auction has been denied because you already have an " +
+                        "upcoming auction or you already had one within the past year.");
+            } else if (myCalendar.validateAuction(newAuction) == 2) {
+                JOptionPane.showMessageDialog(null, "Your auction has been denied because you cannot schedule an " +
+                        "auction on a date that is less than one week from today's date. Please try a different date" +
+                        "and time.");
+            } else if (myCalendar.validateAuction(newAuction) == 3) {
+                JOptionPane.showMessageDialog(null, "Your auction has been denied because you cannot schedule an " +
+                        "auction on a date that is more than one month from today's date. Please try a different " +
+                        "date and time.");
+            } else if (myCalendar.validateAuction(newAuction) == 4) {
+                JOptionPane.showMessageDialog(null, "Your auction has been denied because AuctionCentral already has " +
+                        "the max number of auctions scheduled for the day you chose. Please try a different day.");
+            } else if (myCalendar.validateAuction(newAuction) == 5) {
+                JOptionPane.showMessageDialog(null, "Your auction has been denied because AuctionCentral already has " +
+                        "the max number of total auctions scheduled. Please try again later.");
+            }
+
+            if (!approxItems.equals("")) {
+                int ai = Integer.parseInt(approxItems);
+                myAuction.setEstItems(ai);
+            }
+
+            if (!comment.equals("")) {
+                myAuction.setComment(comment);
             }
         }
     }
@@ -598,7 +700,7 @@ public class ContactPanel extends UserPanel implements Observer {
         public void actionPerformed(ActionEvent actionEvent) {
             myInitialButtons.setVisible(false);
             myInitialButtons.setEnabled(false);
-
+            confirmSubmitAuction();
         }
     }
 
@@ -613,6 +715,8 @@ public class ContactPanel extends UserPanel implements Observer {
             myEditButtons.setVisible(false);
             myInfoHolder.setVisible(false);
             myItemListPanel.setVisible(false);
+            myAuctionFormPanel.setVisible(false);
+//            myAddItemFormPanel.setVisible(false);
             myInitialButtons.setVisible(true);
         }
     }
