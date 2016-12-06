@@ -148,7 +148,9 @@ public class Auction extends Observable implements Serializable {
      * Gets the String representation of an auction containing the date and the organization name
      */
     public String toString() {
-        return this.getStartTime().toLocalDate().toString() + " " + this.getContact().getOrganization();
+        return String.format("%20s%30s",
+                this.getStartTime().toLocalDate().toString(),
+                this.getContact().getOrganization());
     }
 
     /**

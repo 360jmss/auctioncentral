@@ -69,6 +69,8 @@ public class BidderPanel extends UserPanel  {
         myAuctionItemListPanel = makeAuctionItemListPanel();
         myBidOnItemPanel = null;
         myBid = 0.00;
+        //myLabel.setFont(new Font("monospaced", Font.PLAIN, 12));
+
 
         setLayout(new BorderLayout());
         add(myLabel, BorderLayout.NORTH);
@@ -87,13 +89,16 @@ public class BidderPanel extends UserPanel  {
         Auction[] auctions =  new Auction[myCalendar.getAuctions(LocalDateTime.now()).size()];
         auctions = myCalendar.getAuctions(LocalDateTime.now()).toArray(auctions);
         myAuctionsList = new JList<>(auctions);
-
+        myAuctionsList.setFont(new Font("monospaced", Font.PLAIN, 12));
         myListSelectionModel = myAuctionsList.getSelectionModel();
         myListSelectionModel.addListSelectionListener(
                 new AuctionListSelectionHandler()
         );
         myListSelectionModel.setSelectionMode(myListSelectionModel.SINGLE_SELECTION);
         final JScrollPane sp = new JScrollPane(myAuctionsList);
+        JLabel columnHeaderView = new JLabel(String.format("%20s%30s", "Date", "Auction Name"));
+        columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, 12));
+        sp.setColumnHeaderView(columnHeaderView);
         final JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
         p.add(sp, BorderLayout.CENTER);
@@ -111,15 +116,16 @@ public class BidderPanel extends UserPanel  {
                 new AuctionItem[myCalendar.getAuctions(LocalDateTime.now()).get(myAuctionIndex).getItems().size()];
         items = myCalendar.getAuctions(LocalDateTime.now()).get(myAuctionIndex).getItems().toArray(items);
         myItemList = new JList<>(items);
-        //myItemList.setFont(new Font("monospaced", Font.PLAIN, 12));
+        myItemList.setFont(new Font("monospaced", Font.PLAIN, 12));
         myListSelectionModel = myItemList.getSelectionModel();
         myListSelectionModel.addListSelectionListener(
                 new AuctionItemListSelectionHandler()
         );
         myListSelectionModel.setSelectionMode(myListSelectionModel.SINGLE_SELECTION);
         final JScrollPane sp = new JScrollPane(myItemList);
-        JLabel label = new JLabel();
-        sp.setColumnHeaderView(new JLabel(String.format("%5s%45s%30s%50s", "ID", "Name", "Condition", "Minimum Bid")));
+        JLabel columnHeaderView = new JLabel(String.format("%5s%20s%20s%20s", "ID", "Name", "Condition", "Minimum Bid"));
+        columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, 12));
+        sp.setColumnHeaderView(columnHeaderView);
         final JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
         p.add(sp, BorderLayout.CENTER);
@@ -150,7 +156,8 @@ public class BidderPanel extends UserPanel  {
 
 
         JPanel p = new JPanel();
-        JTextArea aboutItem = new JTextArea(sb.toString(), 50, 60);
+        JTextArea aboutItem = new JTextArea(sb.toString(), 50, 95);
+        aboutItem.setFont(new Font("monospaced", Font.PLAIN, 12));
         aboutItem.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(aboutItem);
 
@@ -238,7 +245,6 @@ public class BidderPanel extends UserPanel  {
             myGoBackButton = new JButton("Go Back");
             myPlaceBidButton = new JButton("Place Bid");
             myNewBidLabel = new JLabel("New Bid: ");
-
             myBidTextField = new JTextField(20);
             setUp();
         }
