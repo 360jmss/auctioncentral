@@ -152,7 +152,7 @@ public class BidderPanel extends UserPanel  {
                 + i.getName() + "\n");
         sb.append("Item Condition: "
                 + i.getCondition() + "\n");
-        sb.append("Item Size: " + i.getSize() + "\n");
+        sb.append("Item Size: " + i.getSizeString() + "\n");
         sb.append(String.format("Item Minimum Bid: %.2f\n", i.getMinBid()));
         if(i.getBid(myUser.getName()) != null) {
             sb.append(String.format("My bid: %.2f", i.getBid(myUser.getName())));
