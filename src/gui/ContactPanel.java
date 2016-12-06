@@ -394,6 +394,10 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * If the user tries to submit an auction request by clicking the Submit Auction button, this function will make
+     * checks to ensure that they entered the correct information, then add the auction to a calendar if they did.
+     */
     private void confirmSubmitAuction() {
 
         String date = myAuctionDate.getText();
@@ -455,6 +459,10 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * If the user tries to add an item by clicking the Add This Item button, this function will make checks to
+     * ensure that they entered the correct information, then add the item to the auction if they did.
+     */
     private void confirmAddItem() {
         String name = myItemName.getText();
         String minBid = myMinimumBid.getText();
@@ -559,6 +567,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * The item condition drop down menu selection handler.
+     */
     class ItemConditionSelectionHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JComboBox cb = (JComboBox)e.getSource();
@@ -566,6 +577,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * The item size drop down menu selection handler.
+     */
     class ItemSizeSelectionHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             JComboBox cb = (JComboBox)e.getSource();
@@ -659,6 +673,8 @@ public class ContactPanel extends UserPanel implements Observer {
 
         private JButton addItem;
 
+        private JButton cancelItem;
+
         /**
          * Calls the super constructor and then calls setup.
          */
@@ -676,7 +692,7 @@ public class ContactPanel extends UserPanel implements Observer {
             addItem.addActionListener(add);
             add(addItem);
 
-            JButton cancelItem = new JButton("Cancel Selected Item");
+            cancelItem = new JButton("Cancel Selected Item");
             CancelItemListener cancel = new CancelItemListener();
             cancelItem.addActionListener(cancel);
             add(cancelItem);
@@ -847,7 +863,10 @@ public class ContactPanel extends UserPanel implements Observer {
         public void actionPerformed(ActionEvent actionEvent) {
             myInitialButtons.setVisible(false);
             myInitialButtons.setEnabled(false);
-            confirmCancelItem();
+            //iselectionempty
+            if (auctionItemList != null && auctionItemList.isSelectionEmpty()) {
+                confirmCancelItem();
+            }
         }
     }
 
