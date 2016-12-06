@@ -124,7 +124,8 @@ public class BidderPanel extends UserPanel  {
         );
         myListSelectionModel.setSelectionMode(myListSelectionModel.SINGLE_SELECTION);
         final JScrollPane sp = new JScrollPane(myItemList);
-        JLabel columnHeaderView = new JLabel(String.format("%5s%20s%20s%20s", "ID", "Name", "Condition", "Minimum Bid"));
+        JLabel columnHeaderView = new JLabel(String.format("%5s%20s%20s%20s%20s",
+                "ID", "Name", "Condition", "Minimum Bid", "My Bid"));
         columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, 12));
         sp.setColumnHeaderView(columnHeaderView);
         final JPanel p = new JPanel();
@@ -232,7 +233,7 @@ public class BidderPanel extends UserPanel  {
                 AuctionItem auctItem = (AuctionItem) value;
                 double bid = auctItem.getBid(myUser.getName());
                 if ( bid != 0.0) {
-                    s = s + " My Bid: " + bid;
+                    s = s + String.format("%20.2f", bid);
                 }
             }
             setText(s);
