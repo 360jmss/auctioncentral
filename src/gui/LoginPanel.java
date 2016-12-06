@@ -56,11 +56,6 @@ class LoginPanel extends JPanel {
         add(Box.createVerticalGlue());
     }
 
-    void reset() {
-        myIntroText.setText("Welcome to AuctionCentral. Please log in \n");
-        myUsernameField.setText("");
-    }
-
     private class LoginListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
