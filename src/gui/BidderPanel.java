@@ -117,6 +117,7 @@ public class BidderPanel extends UserPanel  {
         items = myCalendar.getAuctions(LocalDateTime.now()).get(myAuctionIndex).getItems().toArray(items);
         myItemList = new JList<>(items);
         myItemList.setFont(new Font("monospaced", Font.PLAIN, 12));
+        myItemList.setCellRenderer(new AuctionItemCellRenderer());
         myListSelectionModel = myItemList.getSelectionModel();
         myListSelectionModel.addListSelectionListener(
                 new AuctionItemListSelectionHandler()
@@ -194,7 +195,6 @@ public class BidderPanel extends UserPanel  {
 
 
 
-
     /**
      * Update the auction Item list panel
      */
@@ -202,6 +202,42 @@ public class BidderPanel extends UserPanel  {
         AuctionItem[] items = new AuctionItem[myCalendar.getAuctions(LocalDateTime.now()).get(myAuctionIndex).getItems().size()];
         items = myCalendar.getAuctions(LocalDateTime.now()).get(myAuctionIndex).getItems().toArray(items);
         myItemList.setListData(items);
+    }
+
+    /**
+     * Display the list of auction items with the users bid
+     */
+    class AuctionItemCellRenderer extends DefaultListCellRenderer {
+
+        /* This is the only method defined by ListCellRenderer.  We just
+         * reconfigure the Jlabel each time we're called.
+         */
+        public Component getListCellRendererComponent(
+                JList list,
+                Object value,   // value to display
+                int index,      // cell index
+                boolean iss,    // is the cell selected
+                boolean chf)    // the list and the cell have the focus
+        {
+        /* The DefaultListCellRenderer class will take care of
+         * the JLabels text property, it's foreground and background
+         * colors, and so on.
+         */
+            super.getListCellRendererComponent(list, value, index, iss, chf);
+
+        /* We additionally set the JLabels icon property here.
+         */
+            String s = value.toString();
+            if (value instanceof AuctionItem) {
+                AuctionItem auctItem = (AuctionItem) value;
+                double bid = auctItem.getBid(myUser.getName());
+                if ( bid != 0.0) {
+                    s = s + " My Bid: " + bid;
+                }
+            }
+            setText(s);
+            return this;
+        }
     }
 
     /**
