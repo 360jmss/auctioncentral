@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 
 public class BidderPanel extends UserPanel  {
 
+    /**font size for jtextarea, label, and jlist*/
+    private static final int FONT_SIZE = 12;
+
     /** The label for showing info */
     private JLabel myLabel;
 
@@ -61,7 +64,7 @@ public class BidderPanel extends UserPanel  {
         myCalendar = theCalendar;
         myUser = theUser;
         myActionButtons = new ActionButtons();
-        myLabel = new JLabel("Hi " + myUser.getName() + ", ");
+        myLabel = new JLabel("Hi " + myUser.getName() + ", these are the upcoming auctions.");
         mySouthOfBidderPanel = new JPanel();
         myCenterOfBidderPanel = new JPanel();
         myCenterOfBidderPanel.setLayout(new BorderLayout());
@@ -69,7 +72,6 @@ public class BidderPanel extends UserPanel  {
         myAuctionItemListPanel = makeAuctionItemListPanel();
         myBidOnItemPanel = null;
         myBid = 0.00;
-        //myLabel.setFont(new Font("monospaced", Font.PLAIN, 12));
 
 
         setLayout(new BorderLayout());
@@ -77,6 +79,7 @@ public class BidderPanel extends UserPanel  {
         mySouthOfBidderPanel.add(myActionButtons);
         add(mySouthOfBidderPanel, BorderLayout.SOUTH);
         add(myCenterOfBidderPanel, BorderLayout.CENTER);
+        myCenterOfBidderPanel.add(myAuctionListPanel);
     }
 
 
@@ -89,7 +92,7 @@ public class BidderPanel extends UserPanel  {
         Auction[] auctions =  new Auction[myCalendar.getAuctions(LocalDateTime.now()).size()];
         auctions = myCalendar.getAuctions(LocalDateTime.now()).toArray(auctions);
         myAuctionsList = new JList<>(auctions);
-        myAuctionsList.setFont(new Font("monospaced", Font.PLAIN, 12));
+        myAuctionsList.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
         myListSelectionModel = myAuctionsList.getSelectionModel();
         myListSelectionModel.addListSelectionListener(
                 new AuctionListSelectionHandler()
@@ -97,7 +100,7 @@ public class BidderPanel extends UserPanel  {
         myListSelectionModel.setSelectionMode(myListSelectionModel.SINGLE_SELECTION);
         final JScrollPane sp = new JScrollPane(myAuctionsList);
         JLabel columnHeaderView = new JLabel(String.format("%20s%30s", "Date", "Auction Name"));
-        columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, 12));
+        columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
         sp.setColumnHeaderView(columnHeaderView);
         final JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
@@ -116,7 +119,7 @@ public class BidderPanel extends UserPanel  {
                 new AuctionItem[myCalendar.getAuctions(LocalDateTime.now()).get(myAuctionIndex).getItems().size()];
         items = myCalendar.getAuctions(LocalDateTime.now()).get(myAuctionIndex).getItems().toArray(items);
         myItemList = new JList<>(items);
-        myItemList.setFont(new Font("monospaced", Font.PLAIN, 12));
+        myItemList.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
         myItemList.setCellRenderer(new AuctionItemCellRenderer());
         myListSelectionModel = myItemList.getSelectionModel();
         myListSelectionModel.addListSelectionListener(
@@ -126,7 +129,7 @@ public class BidderPanel extends UserPanel  {
         final JScrollPane sp = new JScrollPane(myItemList);
         JLabel columnHeaderView = new JLabel(String.format("%5s%20s%20s%20s%20s",
                 "ID", "Name", "Condition", "Minimum Bid", "My Bid"));
-        columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, 12));
+        columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
         sp.setColumnHeaderView(columnHeaderView);
         final JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
@@ -159,7 +162,7 @@ public class BidderPanel extends UserPanel  {
 
         JPanel p = new JPanel();
         JTextArea aboutItem = new JTextArea(sb.toString(), 50, 95);
-        aboutItem.setFont(new Font("monospaced", Font.PLAIN, 12));
+        aboutItem.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
         aboutItem.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(aboutItem);
 
@@ -275,7 +278,7 @@ public class BidderPanel extends UserPanel  {
          */
         ActionButtons() {
             super();
-            myViewAuctionsButton = new JButton("View Auctions");
+//            myViewAuctionsButton = new JButton("View Auctions");
             myViewItemsButton = new JButton("View Auction Items");
             myBidOnItemButton = new JButton("View/Cancel/Bid on Item");
             myCancelBidButton = new JButton("Cancel Bid");
@@ -290,7 +293,7 @@ public class BidderPanel extends UserPanel  {
          * Sets up the Action button with listeners, adds to panel, visibility.
          */
         private void setUp() {
-            myViewAuctionsButton.addActionListener(new ViewAuctionsListener());
+//            myViewAuctionsButton.addActionListener(new ViewAuctionsListener());
             myViewItemsButton.addActionListener(new ViewItemsListener());
             myGoBackButton.addActionListener(new GoBackListener());
             myBidOnItemButton.addActionListener(new BidOnItemListener());
@@ -301,14 +304,14 @@ public class BidderPanel extends UserPanel  {
 
             add(myNewBidLabel);
             add(myBidTextField);
-            add(myViewAuctionsButton);
+//            add(myViewAuctionsButton);
             add(myViewItemsButton);
             add(myBidOnItemButton);
             add(myPlaceBidButton);
             add(myCancelBidButton);
             add(myGoBackButton);
 
-            myViewItemsButton.setVisible(false);
+//            myViewItemsButton.setVisible(false);
             myBidOnItemButton.setVisible(false);
             myGoBackButton.setVisible(false);
             myNewBidLabel.setVisible(false);
@@ -389,6 +392,7 @@ public class BidderPanel extends UserPanel  {
                 myBidOnItemButton.setVisible(true);
                 myAuctionListPanel.setVisible(false);
                 myAuctionItemListPanel.setVisible(true);
+                myGoBackButton.setVisible(true);
                 updateAuctionItemListPanel();
                 myCenterOfBidderPanel.add(myAuctionItemListPanel);
                 myLabel.setText("Please select the item from the list that you would like to view or bid on.");
@@ -412,6 +416,7 @@ public class BidderPanel extends UserPanel  {
                     myViewItemsButton.setVisible(true);
                     myAuctionListPanel.setVisible(true);
                     myAuctionItemListPanel.setVisible(false);
+                    myGoBackButton.setVisible(false);
                     myLabel.setText("Please select an auction from the list that you would like to view.");
                 } else if(myPlaceBidButton.isVisible()) { //about item panel
                     myBidOnItemButton.setVisible(true);
