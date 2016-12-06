@@ -59,6 +59,14 @@ public class GenerateTestData {
                 "555 Alder St",
                 "HuckFinn Company");
         myUsers.registerUser(tom);
+        //One auction-less contact
+        Contact tom2 = new Contact("Tommy Boy",
+                "tom2",
+                "555-555-5555",
+                "tom@somewhere.com",
+                "555 Alder St",
+                "Big Company");
+        myUsers.registerUser(tom2);
 
         //2 Unique Auctions with items
         Contact bill = new Contact("Bill Gates",

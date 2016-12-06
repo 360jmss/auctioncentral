@@ -18,10 +18,10 @@ import java.util.Observer;
 public class MainGUI implements Observer {
 
     /** The minimum width of the GUI */
-    private static final int DEFAULT_WINDOW_WIDTH = 700;
+    private static final int DEFAULT_WINDOW_WIDTH = 900;
 
     /** The minimum height of the GUI */
-    private static final int DEFAULT_WINDOW_HEIGHT = 500;
+    private static final int DEFAULT_WINDOW_HEIGHT = 700;
 
     /** The master list of all users that can log in. */
     private UserRepo myRepo;
