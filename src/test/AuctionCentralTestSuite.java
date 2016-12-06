@@ -24,6 +24,7 @@ import org.junit.runners.Suite;
         AddInventoryItemForAuction.class,
         ViewUpcomingAuctionsAcceptanceTest.class,
         ChangeMaxNumberOfAuctionsAcceptanceTest.class,
+        CancelBidAcceptanceTest.class,
 })
 
  /**
