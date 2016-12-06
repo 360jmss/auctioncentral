@@ -590,7 +590,6 @@ public class ContactPanel extends UserPanel implements Observer {
 
             int firstIndex = lsm.getLeadSelectionIndex();
             myItemIndex = firstIndex;
-            System.out.println("The item index is: " + myItemIndex);
         }
     }
 
@@ -890,8 +889,7 @@ public class ContactPanel extends UserPanel implements Observer {
         public void actionPerformed(ActionEvent actionEvent) {
             myInitialButtons.setVisible(false);
             myInitialButtons.setEnabled(false);
-            //iselectionempty
-            if (auctionItemList != null && auctionItemList.isSelectionEmpty()) {
+            if (auctionItemList != null || auctionItemList.isSelectionEmpty()) {
                 confirmCancelItem();
             }
         }
