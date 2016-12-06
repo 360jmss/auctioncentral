@@ -598,7 +598,14 @@ public class ContactPanel extends UserPanel implements Observer {
             myInitialActions.auctionRequest.setEnabled(true);
         //Item added.
         } else if(arg.equals("Item Added")) {
-            updateAuctionItemPanel();
+            if(myAuction != null && myAuction.getItems().size() == 1) {
+                myItemListPanel = createAuctionItemPanel();
+                myItemListPanel.setVisible(true);
+                myItemListPanel.setEnabled(true);
+                add(myItemListPanel, BorderLayout.CENTER);
+            } else {
+                updateAuctionItemPanel();
+            }
         //Item removed.
         } else if(arg.equals("Item Removed")) {
             updateAuctionItemPanel();
