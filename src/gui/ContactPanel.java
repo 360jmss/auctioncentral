@@ -296,6 +296,20 @@ public class ContactPanel extends UserPanel implements Observer {
     }
 
     /**
+     * Updates the existing auctionItem Panel
+     */
+    private void updateAuctionItemPanel() {
+        if (myAuction == null || myAuction.getItems().isEmpty()) {
+            //TODO Show text that says its empty
+            AuctionItem[] auctionItems = myAuction.getItems().toArray(new AuctionItem[0]);
+            auctionItemList.setListData(auctionItems);
+        } else {
+            AuctionItem[] auctionItems = myAuction.getItems().toArray(new AuctionItem[0]);
+            auctionItemList.setListData(auctionItems);
+        }
+    }
+
+    /**
      * The Item List Selection Handler.
      */
     class ItemListSelectionHandler implements ListSelectionListener {
@@ -332,10 +346,10 @@ public class ContactPanel extends UserPanel implements Observer {
             myInitialActions.auctionRequest.setEnabled(true);
         //Item added.
         } else if(arg.equals("Item Added")) {
-            myItemListPanel = createAuctionItemPanel();
+            updateAuctionItemPanel();
         //Item removed.
         } else if(arg.equals("Item Removed")) {
-            myItemListPanel = createAuctionItemPanel();
+            updateAuctionItemPanel();
         }
     }
 
