@@ -54,7 +54,7 @@ public class AuctionCentral {
         }
 
         //start the UI
-        System.out.println("Welcome to AuctionCentral");
+        //System.out.println("Welcome to AuctionCentral");
         MainGUI ui = new MainGUI(myUsers, myCalendar);
         ui.start();
     }

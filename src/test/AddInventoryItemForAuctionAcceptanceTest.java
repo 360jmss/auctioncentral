@@ -7,7 +7,7 @@ import org.junit.*;
  * @author Samantha Ong
  * @version December 4 2016
  */
-public class AddInventoryItemForAuction {
+public class AddInventoryItemForAuctionAcceptanceTest {
 
     @Test
     public void testAddItemNotInAuctionCentralPossession() {
