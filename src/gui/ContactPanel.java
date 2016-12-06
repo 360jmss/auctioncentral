@@ -32,8 +32,10 @@ public class ContactPanel extends UserPanel implements Observer {
     /** The index at which the list selector is at. */
     private int myItemIndex;
 
+    /** The condition of an item. */
     private String myItemCondition;
 
+    /** The size of an item. */
     private int myItemSize;
 
     /** The list of items in an auction. */
@@ -57,6 +59,7 @@ public class ContactPanel extends UserPanel implements Observer {
     /** Panel to hold the edit options for the contact; currently just 'go back'. */
     private JPanel myEditButtons;
 
+    /** Panel to hold the add item options for the contact. */
     private JPanel myAddItemButtons;
 
     /** Panel to hold a contact's information. */
@@ -65,28 +68,40 @@ public class ContactPanel extends UserPanel implements Observer {
     /** Panel to hold all of the items in an auction. */
     private JPanel myItemListPanel;
 
+    /** Panel to hold the auction request form. */
     private JPanel myAuctionFormPanel;
 
+    /** Panel to hold the add item form. */
     private JPanel myAddItemFormPanel;
 
+    /** A text field for contact to enter an auction date. */
     private JTextField myAuctionDate;
 
+    /** A text field for contact to enter the approximate number of items. */
     private JTextField myApproximateItems;
 
+    /** A text field for contact to enter a comment for their auction. */
     private JTextField myComment;
 
+    /** A text field for contact to enter an item name. */
     private JTextField myItemName;
 
+    /** A text field for contact to enter a minimum bid for an item. */
     private JTextField myMinimumBid;
 
+    /** A text field for contact to enter a donor name for an item. */
     private JTextField myDonorName;
 
+    /** A text field for contact to enter an item description. */
     private JTextField myItemDescription;
 
+    /** A text field for contact to enter an item comment. */
     private JTextField myItemComment;
 
+    /** A drop down menu for the condition of an item. */
     private JComboBox<String[]> myItemConditionDropDown;
 
+    /** A drop down menu for the size of an item. */
     private JComboBox<String[]> myItemSizeDropDown;
 
     /** Initial actions for the user; View auction, Submit auction request, Cancel auction request, Edit info */
@@ -101,6 +116,7 @@ public class ContactPanel extends UserPanel implements Observer {
     /** Edit info actions for the user. */
     private EditInfoPanel myEditActions;
 
+    /** Add item actions for the user. */
     private AddItemPanel myAddItemActions;
 
     /** The list selection model */
@@ -237,6 +253,9 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * viewAddItem changes the view of the GUI to the the add item form page.
+     */
     private void viewAddItem() {
         //If these buttons have already been added to the panel and this method was called, then they are not
         //enabled and simply need to be re-enabled and set to visible.
@@ -254,6 +273,10 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    /**
+     * Creates a JPanel with a form for the contact to fill out to submit an auction.
+     * @return A JPanel with the auction form on it.
+     */
     private JPanel createSubmitAuctionForm() {
         //Required fields.
         JLabel auctionDateIndicator = new JLabel("Please enter the auction date and time (YYYY-MM-DD HH:mm): ");
@@ -278,6 +301,10 @@ public class ContactPanel extends UserPanel implements Observer {
         return auctionFormPanel;
     }
 
+    /**
+     * Creates a JPanel with a form for the contact to fill out to submit an item
+     * @return A JPanel with an add item form on it.
+     */
     private JPanel createAddItemForm() {
         String[] conditions = {"Acceptable", "Good", "Very Good", "Like New", "New"};
         String[] sizes = {"Small", "Medium", "Large"};
@@ -649,7 +676,7 @@ public class ContactPanel extends UserPanel implements Observer {
          * Creates the first three buttons a user will see and then adds them to the panel.
          */
         private void setUp() {
-            upcomingAuction = new JButton("View Upcoming Auction");
+            upcomingAuction = new JButton("View My Auction");
             UpcomingAuctionListener upcoming = new UpcomingAuctionListener();
             upcomingAuction.addActionListener(upcoming);
             add(upcomingAuction);
