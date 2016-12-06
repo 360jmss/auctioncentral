@@ -29,6 +29,10 @@ public class ContactPanel extends UserPanel implements Observer {
     /** The index at which the list selector is at. */
     private int myItemIndex;
 
+    private String myItemCondition;
+
+    private int myItemSize;
+
     /** The list of items in an auction. */
     private JList<AuctionItem> auctionItemList;
 
@@ -50,6 +54,8 @@ public class ContactPanel extends UserPanel implements Observer {
     /** Panel to hold the edit options for the contact; currently just 'go back'. */
     private JPanel myEditButtons;
 
+    private JPanel myAddItemButtons;
+
     /** Panel to hold a contact's information. */
     private JPanel myInfoHolder;
 
@@ -66,6 +72,20 @@ public class ContactPanel extends UserPanel implements Observer {
 
     private JTextField myComment;
 
+    private JTextField myItemName;
+
+    private JTextField myMinimumBid;
+
+    private JTextField myDonorName;
+
+    private JTextField myItemDescription;
+
+    private JTextField myItemComment;
+
+    private JComboBox<String[]> myItemConditionDropDown;
+
+    private JComboBox<String[]> myItemSizeDropDown;
+
     /** Initial actions for the user; View auction, Submit auction request, Cancel auction request, Edit info */
     private InitialActionsPanel myInitialActions;
 
@@ -77,6 +97,8 @@ public class ContactPanel extends UserPanel implements Observer {
 
     /** Edit info actions for the user. */
     private EditInfoPanel myEditActions;
+
+    private AddItemPanel myAddItemActions;
 
     /** The list selection model */
     private ListSelectionModel listSelectionModel;
@@ -102,7 +124,8 @@ public class ContactPanel extends UserPanel implements Observer {
 
         //Check to see if the user already has an auction in the system.
         if (myAuction != null) {
-            myLabel = new JLabel("Hi " + myUser.getName() + ", what would you like to do?");
+            myLabel = new JLabel("Hi " + myUser.getName() + ", you already have an upcoming auction and cannot submit" +
+                    " an auction request. What would you like to do?");
             myUpcomingAuctionLabel = new JLabel("Your upcoming auction: " + myAuction.toString());
             myInitialActions.upcomingAuction.setEnabled(true);
             myInitialActions.auctionRequest.setEnabled(false);
@@ -126,6 +149,10 @@ public class ContactPanel extends UserPanel implements Observer {
         myEditButtons = new JPanel();
         myEditActions = new EditInfoPanel();
 
+        //Initialize add item options but do not add them here.
+        myAddItemButtons = new JPanel();
+        myAddItemActions = new AddItemPanel();
+
         //Initialize item list panel.
         myItemListPanel = createAuctionItemPanel();
 
@@ -133,7 +160,7 @@ public class ContactPanel extends UserPanel implements Observer {
         myAuctionFormPanel = createSubmitAuctionForm();
 
         //Initialize add item form panel.
-//        myAddItemFormPanel = createAddItemForm();
+        myAddItemFormPanel = createAddItemForm();
 
         //Initialize information holder for displaying user's information.
         myInfoHolder = createUserInfoPanel();
@@ -207,22 +234,22 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
-//    private void viewAddItemForm() {
-//        //If these buttons have already been added to the panel and this method was called, then they are not
-//        //enabled and simply need to be re-enabled and set to visible.
-//        if (!myAddItemButtons.isEnabled()) {
-//            myAddItemButtons.setEnabled(true);
-//            myAddItemButtons.setVisible(true);
-//            myAddItemFormPanel.setVisible(true);
-//        //Otherwise, this is the first time this method was called and the buttons need to be added to the panel.
-//        } else {
-//            myAddItemButtons.add(myAddItemActions);
-//            myAddItemButtons.setVisible(true);
-//            add(myAddItemButtons, BorderLayout.SOUTH);
-//            myAddItemFormPanel.setVisible(true);
-//            add(myAddItemFormPanel, BorderLayout.CENTER);
-//        }
-//    }
+    private void viewAddItem() {
+        //If these buttons have already been added to the panel and this method was called, then they are not
+        //enabled and simply need to be re-enabled and set to visible.
+        if (!myAddItemButtons.isEnabled()) {
+            myAddItemButtons.setEnabled(true);
+            myAddItemButtons.setVisible(true);
+            myAddItemFormPanel.setVisible(true);
+        //Otherwise, this is the first time this method was called and the buttons need to be added to the panel.
+        } else {
+            myAddItemButtons.add(myAddItemActions);
+            myAddItemButtons.setVisible(true);
+            add(myAddItemButtons, BorderLayout.SOUTH);
+            myAddItemFormPanel.setVisible(true);
+            add(myAddItemFormPanel, BorderLayout.CENTER);
+        }
+    }
 
     private JPanel createSubmitAuctionForm() {
         //Required fields.
@@ -248,29 +275,54 @@ public class ContactPanel extends UserPanel implements Observer {
         return auctionFormPanel;
     }
 
-//    private JPanel createAddItemForm() {
-//        //Required fields.
-//        JLabel itemNameIndicator = new JLabel("Please enter the auction date and time (YYYY-MM-DD HH:mm): ");
-//        myAuctionDate = new JTextField(20);
-//
-//        //Optional fields.
-//        JLabel approxItemsIndicator = new JLabel("If applicable, please enter the approximate number of items: ");
-//        myApproximateItems = new JTextField(20);
-//        JLabel commentIndicator = new JLabel("If applicable, please enter a comment for this auction: ");
-//        myComment = new JTextField(20);
-//
-//        JPanel auctionFormPanel = new JPanel();
-//        auctionFormPanel.setLayout(new GridLayout(0,2));
-//
-//        auctionFormPanel.add(auctionDateIndicator);
-//        auctionFormPanel.add(myAuctionDate);
-//        auctionFormPanel.add(approxItemsIndicator);
-//        auctionFormPanel.add(myApproximateItems);
-//        auctionFormPanel.add(commentIndicator);
-//        auctionFormPanel.add(myComment);
-//
-//        return auctionFormPanel;
-//    }
+    private JPanel createAddItemForm() {
+        String[] conditions = {"Acceptable", "Good", "Very Good", "Like New", "New"};
+        String[] sizes = {"Small", "Medium", "Large"};
+
+        //Required fields.
+        JLabel name = new JLabel("Please enter the item name: ");
+        myItemName = new JTextField(20);
+        JLabel condition = new JLabel("Please choose the item's condition: ");
+        myItemConditionDropDown = new JComboBox(conditions);
+        myItemConditionDropDown.setSelectedIndex(0);
+        myItemCondition = (String)myItemConditionDropDown.getSelectedItem();
+        myItemConditionDropDown.addActionListener(new ItemConditionSelectionHandler());
+        JLabel size = new JLabel("Please choose the item's size: ");
+        myItemSizeDropDown = new JComboBox(sizes);
+        myItemSizeDropDown.setSelectedIndex(0);
+        myItemSize = myItemSizeDropDown.getSelectedIndex() + 1;
+        myItemSizeDropDown.addActionListener(new ItemSizeSelectionHandler());
+        JLabel minBid = new JLabel("Please enter the minimum bid: ");
+        myMinimumBid = new JTextField(20);
+
+        //Optional fields.
+        JLabel donorName = new JLabel("If applicable, please enter the name of the donor: ");
+        myDonorName = new JTextField(20);
+        JLabel itemDescription = new JLabel("If applicable, please enter an item description: ");
+        myItemDescription = new JTextField(20);
+        JLabel itemComment = new JLabel("If applicable, please enter a comment for the item: ");
+        myItemComment = new JTextField(20);
+
+        JPanel addItemFormPanel = new JPanel();
+        addItemFormPanel.setLayout(new GridLayout(0,2));
+
+        addItemFormPanel.add(name);
+        addItemFormPanel.add(myItemName);
+        addItemFormPanel.add(condition);
+        addItemFormPanel.add(myItemConditionDropDown);
+        addItemFormPanel.add(size);
+        addItemFormPanel.add(myItemSizeDropDown);
+        addItemFormPanel.add(minBid);
+        addItemFormPanel.add(myMinimumBid);
+        addItemFormPanel.add(donorName);
+        addItemFormPanel.add(myDonorName);
+        addItemFormPanel.add(itemDescription);
+        addItemFormPanel.add(myItemDescription);
+        addItemFormPanel.add(itemComment);
+        addItemFormPanel.add(myItemComment);
+
+        return addItemFormPanel;
+    }
 
     /**
      * createUserInfoPanel creates a list of the information that is saved about the user.
@@ -400,6 +452,49 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    private void confirmAddItem() {
+        String name = myItemName.getText();
+        String minBid = myMinimumBid.getText();
+        String donor = myDonorName.getText();
+        String descrip = myItemDescription.getText();
+        String comment = myItemComment.getText();
+
+        if (name.equals("")) {
+            JOptionPane.showMessageDialog(null, "The name of the item is a required field. Please enter an item name.",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (minBid.equals("")) {
+                JOptionPane.showMessageDialog(null, "The minimum bid of the item is a required field. Please enter a" +
+                                " minimum bid.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } else {
+                Double min = Double.parseDouble(minBid);
+                AuctionItem newItem = new AuctionItem(name, myItemCondition, myItemSize, min);
+                newItem.setComment(comment);
+                newItem.setDescription(descrip);
+                newItem.setDonorName(donor);
+                if (myAuction.validateItem(newItem) == true) {
+                    myAuction.addItem(newItem);
+                    JOptionPane.showMessageDialog(null, "Your item " + newItem.toString() + " has been successfully " +
+                            "added! You are being returned to your auction item list.");
+                    mySubmitAuctionButtons.setVisible(false);
+                    myEditButtons.setVisible(false);
+                    myInfoHolder.setVisible(false);
+                    myAuctionFormPanel.setVisible(false);
+                    myAddItemFormPanel.setVisible(false);
+                    myInitialButtons.setVisible(false);
+                    myAddItemButtons.setVisible(false);
+                    myItemListPanel.setVisible(true);
+                    myViewAuctionButtons.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Your item was not added because it already exists in your " +
+                            "auction item list.", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }
+
+    }
+
+
     /**
      * createAuctionItemPanel creates a scrollable, selectable list of items in an auction.
      *
@@ -457,6 +552,20 @@ public class ContactPanel extends UserPanel implements Observer {
         }
     }
 
+    class ItemConditionSelectionHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JComboBox cb = (JComboBox)e.getSource();
+            myItemCondition = (String)cb.getSelectedItem();
+        }
+    }
+
+    class ItemSizeSelectionHandler implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            JComboBox cb = (JComboBox)e.getSource();
+            myItemSize = cb.getSelectedIndex();
+        }
+    }
+
     /**
      * Handle the observables.
      *
@@ -467,7 +576,8 @@ public class ContactPanel extends UserPanel implements Observer {
     public void update(Observable o, Object arg) {
         //Auction added.
         if(arg.equals("Auction Added")){
-            myLabel.setText("Hi " + myUser.getName() + ", what would you like to do?");
+            myLabel.setText("Hi " + myUser.getName() + ", you already have an upcoming auction and cannot submit" +
+                    " an auction request. What would you like to do?");
             myUpcomingAuctionLabel.setText("Your upcoming auction: " + myAuction.toString());
             myInitialActions.upcomingAuction.setEnabled(true);
             myInitialActions.auctionRequest.setEnabled(false);
@@ -533,6 +643,8 @@ public class ContactPanel extends UserPanel implements Observer {
      */
     class ViewAuctionPanel extends JPanel {
 
+        private JButton addItem;
+
         /**
          * Calls the super constructor and then calls setup.
          */
@@ -545,8 +657,8 @@ public class ContactPanel extends UserPanel implements Observer {
          * Creates the buttons associated with a auction and auction items and then adds them to the panel.
          */
         private void setUp() {
-            JButton addItem = new JButton("Add an Item");
-            AddItemListener add = new AddItemListener();
+            addItem = new JButton("Add an Item");
+            AddAnItemListener add = new AddAnItemListener();
             addItem.addActionListener(add);
             add(addItem);
 
@@ -621,6 +733,37 @@ public class ContactPanel extends UserPanel implements Observer {
     }
 
     /**
+     * Creates a panel that contains the button options that are associated with adding an item.
+     */
+    class AddItemPanel extends JPanel {
+
+        private JButton addItem;
+
+        /**
+         * Calls the super constructor and then calls setup.
+         */
+        AddItemPanel() {
+            super();
+            setUp();
+        }
+
+        /**
+         * Creates the buttons associated with editing a user's info and then adds them to the panel.
+         */
+        private void setUp() {
+            addItem = new JButton("Add This Item");
+            AddThisItemListener add = new AddThisItemListener();
+            addItem.addActionListener(add);
+            add(addItem);
+
+            JButton goBack = new JButton("Go Back");
+            GoBackFromAddItemListener homeFromAddItem = new GoBackFromAddItemListener();
+            goBack.addActionListener(homeFromAddItem);
+            add(goBack);
+        }
+    }
+
+    /**
      * Creates a listener for the upcoming auction button.
      */
     private class UpcomingAuctionListener implements ActionListener {
@@ -659,12 +802,26 @@ public class ContactPanel extends UserPanel implements Observer {
     /**
      * Creates a listener for the add an item button.
      */
-    private class AddItemListener implements ActionListener {
+    private class AddAnItemListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             myInitialButtons.setVisible(false);
             myInitialButtons.setEnabled(false);
+            myViewAuctionButtons.setVisible(false);
+            myItemListPanel.setVisible(false);
+            viewAddItem();
+        }
+    }
 
+    /**
+     * Creates a listener for the add this item button.
+     */
+    private class AddThisItemListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            myInitialButtons.setVisible(false);
+            myInitialButtons.setEnabled(false);
+            confirmAddItem();
         }
     }
 
@@ -705,6 +862,24 @@ public class ContactPanel extends UserPanel implements Observer {
     }
 
     /**
+     * Creates a listener for the go back button on the Add Item page.
+     */
+    private class GoBackFromAddItemListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            mySubmitAuctionButtons.setVisible(false);
+            myEditButtons.setVisible(false);
+            myInfoHolder.setVisible(false);
+            myAuctionFormPanel.setVisible(false);
+            myAddItemFormPanel.setVisible(false);
+            myInitialButtons.setVisible(false);
+            myAddItemButtons.setVisible(false);
+            myItemListPanel.setVisible(true);
+            myViewAuctionButtons.setVisible(true);
+        }
+    }
+
+    /**
      * Creates a listener for the go back button.
      */
     private class GoBackHomeListener implements ActionListener {
@@ -716,7 +891,7 @@ public class ContactPanel extends UserPanel implements Observer {
             myInfoHolder.setVisible(false);
             myItemListPanel.setVisible(false);
             myAuctionFormPanel.setVisible(false);
-//            myAddItemFormPanel.setVisible(false);
+            myAddItemFormPanel.setVisible(false);
             myInitialButtons.setVisible(true);
         }
     }
