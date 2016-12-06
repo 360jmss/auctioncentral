@@ -142,6 +142,9 @@ public class MainGUI implements Observer {
 
         private JButton myLogoutButton, mySaveButton;
 
+        /**
+         * The display for who is logged in and the date
+         */
         StatusPanel() {
             myDate = new JLabel(LocalDate.now().toString());
             myUser = new JLabel("Not logged in");
@@ -180,6 +183,10 @@ public class MainGUI implements Observer {
             add(myLogoutButton);
         }
 
+        /**
+         * Update the user in the status bar
+         * @param theUser
+         */
         private void updateUser(User theUser) {
             //Set user type
             String type;
