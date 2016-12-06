@@ -56,11 +56,6 @@ public class AuctionTest {
         assertEquals(2, aJan5.getItems().size());
     }
 
-    @org.junit.Test
-    public void testToString() throws Exception {
-        assertEquals("2017-01-05 Veridian Dynamics", aJan5.toString());
-    }
-
     /*
      * By Samantha Ong
      */
