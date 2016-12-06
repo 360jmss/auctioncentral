@@ -85,9 +85,9 @@ public class GenerateTestData {
         Auction stevesAuction = new Auction(LocalDateTime.now().plusDays(14), steve);
         stevesAuction.addItem(new AuctionItem("Rock", "New", 1, 10.00));
         stevesAuction.addItem(new AuctionItem("Twig", "Like New", 1, 50.73));
-        stevesAuction.addItem(new AuctionItem("Boulder", "Very Good", 1, 1100.00));
-        stevesAuction.addItem(new AuctionItem("A big river", "Good", 1, 1200.00));
-        stevesAuction.addItem(new AuctionItem("Everything", "Acceptable", 1, 1832.03));
+        stevesAuction.addItem(new AuctionItem("Boulder", "Very Good", 2, 1100.00));
+        stevesAuction.addItem(new AuctionItem("A big river", "Good", 3, 1200.00));
+        stevesAuction.addItem(new AuctionItem("Everything", "Acceptable", 2, 1832.03));
 
         myCalendar.addAuction(stevesAuction);
 

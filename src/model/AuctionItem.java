@@ -91,6 +91,21 @@ public class AuctionItem implements Serializable{
     }
 
     /**
+     * Returns the string indicating the size of this auction item.
+     * @return the size description.
+     */
+    public String getSizeString() {
+        if(mySize == 1)
+            return "Small";
+        else if(mySize == 2)
+            return "Medium";
+        else if(mySize == 3)
+            return "Large";
+        else
+            return "";
+    }
+
+    /**
      * Returns the minimum bid of this auction item.
      * @return the minimum bid.
      */
