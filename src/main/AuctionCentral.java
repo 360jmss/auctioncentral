@@ -22,7 +22,7 @@ public class AuctionCentral {
     private static final File CALENDAR_FILE= new File("./cal.ser");
 
     /** A flag to decide whether to read files or generate test data */
-    private static final boolean READ_FILE_MODE = false;
+    private static final boolean READ_FILE_MODE = true;
 
     /** A flag to decide whether to save files or not */
     private static final boolean SAVE_FILE_MODE = true;
