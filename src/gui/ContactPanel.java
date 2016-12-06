@@ -543,7 +543,7 @@ public class ContactPanel extends UserPanel implements Observer {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
 
-        if (myAuction == null || myAuction.getItems().isEmpty()) {
+        if (myAuction == null) {
             JLabel empty = new JLabel("You have no items yet.");
             p.add(empty, BorderLayout.NORTH);
         } else {
@@ -571,6 +571,7 @@ public class ContactPanel extends UserPanel implements Observer {
      * Updates the existing auctionItem Panel
      */
     private void updateAuctionItemPanel() {
+        if( auctionItemList == null) createAuctionItemPanel();
         if (myAuction == null || myAuction.getItems().isEmpty()) {
             //TODO Show text that says its empty
             AuctionItem[] auctionItems = myAuction.getItems().toArray(new AuctionItem[0]);
