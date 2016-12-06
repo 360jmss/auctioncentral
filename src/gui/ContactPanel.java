@@ -629,6 +629,7 @@ public class ContactPanel extends UserPanel implements Observer {
             myInitialActions.upcomingAuction.setEnabled(true);
             myInitialActions.auctionRequest.setEnabled(false);
             myAuction.addObserver(this);
+            updateAuctionItemPanel();
         //Auction cancelled.
         } else if(arg.equals("Auction Cancelled")) {
             myLabel.setText("Hi " + myUser.getName() + "! You have no upcoming auction." +
@@ -636,6 +637,7 @@ public class ContactPanel extends UserPanel implements Observer {
             myUpcomingAuctionLabel.setText("You have no upcoming auction yet!");
             myInitialActions.upcomingAuction.setEnabled(false);
             myInitialActions.auctionRequest.setEnabled(true);
+            updateAuctionItemPanel();
         //Item added.
         } else if(arg.equals("Item Added")) {
             if(myAuction != null && myAuction.getItems().size() == 1) {
