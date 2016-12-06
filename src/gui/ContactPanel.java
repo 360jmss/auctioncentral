@@ -889,7 +889,7 @@ public class ContactPanel extends UserPanel implements Observer {
         public void actionPerformed(ActionEvent actionEvent) {
             myInitialButtons.setVisible(false);
             myInitialButtons.setEnabled(false);
-            if (auctionItemList != null || auctionItemList.isSelectionEmpty()) {
+            if (auctionItemList != null &&  !auctionItemList.isSelectionEmpty()) {
                 confirmCancelItem();
             }
         }
