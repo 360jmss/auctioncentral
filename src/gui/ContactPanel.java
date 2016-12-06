@@ -444,12 +444,12 @@ public class ContactPanel extends UserPanel implements Observer {
                         "the max number of total auctions scheduled. Please try again later.");
             }
 
-            if (!approxItems.equals("")) {
+            if (!approxItems.equals("") && myAuction != null) {
                 int ai = Integer.parseInt(approxItems);
                 myAuction.setEstItems(ai);
             }
 
-            if (!comment.equals("")) {
+            if (!comment.equals("") && myAuction != null) {
                 myAuction.setComment(comment);
             }
         }
