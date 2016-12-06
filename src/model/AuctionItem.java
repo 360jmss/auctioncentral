@@ -304,7 +304,8 @@ public class AuctionItem implements Serializable{
 
     @Override
     public String toString() {
-        return String.format("%5d%20s%20s%20.2f\n", getUniqueID(), getName(), getCondition(), getMinBid());
+        return String.format("%5d%15s%15s%15s%15.2f\n",
+                getUniqueID(), getName(), getCondition(), getSizeString(), getMinBid());
     }
 
 }

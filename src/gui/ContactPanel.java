@@ -522,8 +522,8 @@ public class ContactPanel extends UserPanel implements Observer {
             listSelectionModel.setSelectionMode(listSelectionModel.SINGLE_SELECTION);
 
             JScrollPane sp = new JScrollPane(auctionItemList);
-            JLabel columnHeaderView = new JLabel(String.format("%5s%20s%20s%20s",
-                    "ID", "Name", "Condition", "Minimum Bid"));
+            JLabel columnHeaderView = new JLabel(String.format("%5s%15s%15s%15s%15s",
+                    "ID", "Name", "Condition", "Size", "Minimum Bid"));
             columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
             sp.setColumnHeaderView(columnHeaderView);
             p.add(sp, BorderLayout.CENTER);

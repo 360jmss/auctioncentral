@@ -127,8 +127,8 @@ public class BidderPanel extends UserPanel  {
         );
         myListSelectionModel.setSelectionMode(myListSelectionModel.SINGLE_SELECTION);
         final JScrollPane sp = new JScrollPane(myItemList);
-        JLabel columnHeaderView = new JLabel(String.format("%5s%20s%20s%20s%20s",
-                "ID", "Name", "Condition", "Minimum Bid", "My Bid"));
+        JLabel columnHeaderView = new JLabel(String.format("%5s%15s%15s%15s%15s%15s",
+                "ID", "Name", "Condition", "Size", "Minimum Bid", "My Bid"));
         columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
         sp.setColumnHeaderView(columnHeaderView);
         final JPanel p = new JPanel();
@@ -176,7 +176,6 @@ public class BidderPanel extends UserPanel  {
     class AuctionListSelectionHandler implements ListSelectionListener {
         public void valueChanged(ListSelectionEvent e) {
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-
             int firstIndex = lsm.getLeadSelectionIndex();
             myAuctionIndex = firstIndex;
         }
@@ -233,7 +232,7 @@ public class BidderPanel extends UserPanel  {
                 AuctionItem auctItem = (AuctionItem) value;
                 double bid = auctItem.getBid(myUser.getName());
                 if ( bid != 0.0) {
-                    s = s + String.format("%20.2f", bid);
+                    s = s + String.format("%15.2f", bid);
                 }
             }
             setText(s);
@@ -245,9 +244,6 @@ public class BidderPanel extends UserPanel  {
      * JPanel for the buttons.
      */
     class ActionButtons extends JPanel {
-
-        /**view auctions button*/
-        private JButton myViewAuctionsButton;
 
         /**view items in the auction button*/
         private JButton myViewItemsButton;
@@ -275,7 +271,6 @@ public class BidderPanel extends UserPanel  {
          */
         ActionButtons() {
             super();
-//            myViewAuctionsButton = new JButton("View Auctions");
             myViewItemsButton = new JButton("View Auction Items");
             myBidOnItemButton = new JButton("View/Cancel/Bid on Item");
             myCancelBidButton = new JButton("Cancel Bid");
@@ -290,7 +285,6 @@ public class BidderPanel extends UserPanel  {
          * Sets up the Action button with listeners, adds to panel, visibility.
          */
         private void setUp() {
-//            myViewAuctionsButton.addActionListener(new ViewAuctionsListener());
             myViewItemsButton.addActionListener(new ViewItemsListener());
             myGoBackButton.addActionListener(new GoBackListener());
             myBidOnItemButton.addActionListener(new BidOnItemListener());
@@ -301,14 +295,12 @@ public class BidderPanel extends UserPanel  {
 
             add(myNewBidLabel);
             add(myBidTextField);
-//            add(myViewAuctionsButton);
             add(myViewItemsButton);
             add(myBidOnItemButton);
             add(myPlaceBidButton);
             add(myCancelBidButton);
             add(myGoBackButton);
 
-//            myViewItemsButton.setVisible(false);
             myBidOnItemButton.setVisible(false);
             myGoBackButton.setVisible(false);
             myNewBidLabel.setVisible(false);
@@ -368,7 +360,6 @@ public class BidderPanel extends UserPanel  {
         class ViewAuctionsListener implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                myViewAuctionsButton.setVisible(false);
                 myViewItemsButton.setVisible(true);
                 myGoBackButton.setVisible(true);
                 myCenterOfBidderPanel.add(myAuctionListPanel);
@@ -402,7 +393,6 @@ public class BidderPanel extends UserPanel  {
             public void actionPerformed(ActionEvent actionEvent) {
                 if(myViewItemsButton.isVisible()) { //auction list panel
                     myViewItemsButton.setVisible(false);
-                    myViewAuctionsButton.setVisible(true);
                     myGoBackButton.setVisible(false);
                     myAuctionListPanel.setVisible(false);
                     myLabel.setText("Hi " + myUser.getName() + ",");
