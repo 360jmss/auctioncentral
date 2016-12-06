@@ -179,8 +179,6 @@ public class BidderPanel extends UserPanel  {
 
             int firstIndex = lsm.getLeadSelectionIndex();
             myAuctionIndex = firstIndex;
-            //myAuctionItemListPanel = makeAuctionItemListPanel();
-            System.out.println("The auction index is: " + myAuctionIndex);
         }
     }
 
@@ -193,7 +191,6 @@ public class BidderPanel extends UserPanel  {
 
             int firstIndex = lsm.getLeadSelectionIndex();
             myAuctionItemIndex = firstIndex;
-            System.out.println("The auction item index is: " + myAuctionItemIndex);
         }
     }
 
@@ -332,8 +329,6 @@ public class BidderPanel extends UserPanel  {
                 boolean addedSuccessfully = i.addBid(myUser.getName(), text);
                 if(addedSuccessfully) {
                     myBid = text;
-                    System.out.println("Current bid updated: $" + myBid);
-                    System.out.println("Added bid: " + i.getBid(myUser.getName()));
                     myCenterOfBidderPanel.remove(myBidOnItemPanel);
                     myBidOnItemPanel = makeAboutItemPanel();
                     myCenterOfBidderPanel.add(myBidOnItemPanel);
