@@ -20,6 +20,9 @@ import java.util.Observer;
  */
 public class ContactPanel extends UserPanel implements Observer {
 
+    /**font size for jtextarea, label, and jlist*/
+    private static final int FONT_SIZE = 12;
+
     /** The current user; a contact person. */
     private Contact myUser;
 
@@ -416,7 +419,7 @@ public class ContactPanel extends UserPanel implements Observer {
         } else {
             AuctionItem[] auctionItems = myAuction.getItems().toArray(new AuctionItem[0]);
             auctionItemList = new JList<>(auctionItems);
-
+            auctionItemList.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
             listSelectionModel = auctionItemList.getSelectionModel();
             listSelectionModel.addListSelectionListener(
                     new ItemListSelectionHandler()
@@ -424,6 +427,10 @@ public class ContactPanel extends UserPanel implements Observer {
             listSelectionModel.setSelectionMode(listSelectionModel.SINGLE_SELECTION);
 
             JScrollPane sp = new JScrollPane(auctionItemList);
+            JLabel columnHeaderView = new JLabel(String.format("%5s%20s%20s%20s",
+                    "ID", "Name", "Condition", "Minimum Bid"));
+            columnHeaderView.setFont(new Font("monospaced", Font.PLAIN, FONT_SIZE));
+            sp.setColumnHeaderView(columnHeaderView);
             p.add(sp, BorderLayout.CENTER);
         }
 
