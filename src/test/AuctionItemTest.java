@@ -89,7 +89,7 @@ public class AuctionItemTest {
     @org.junit.Test
     public void testCancelBidExactly2Days() throws Exception {
         //add a second to compensate for the time difference between creating this auction and cancelling it
-        Auction auction2 = new Auction(LocalDateTime.now().plusDays(2), jd);
+        Auction auction2 = new Auction(LocalDateTime.now().plusDays(2).plusSeconds(1), jd);
         calendar.addAuction(auction2);
         auction2.addItem(apple);
         assertTrue(auction2.isCancelable());
